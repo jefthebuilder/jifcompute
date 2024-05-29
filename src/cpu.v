@@ -34,7 +34,8 @@ module cpu(
         state = 0;
         {addrchange} = 0;
     end
-
+    ADDER32 f(addr,~addrchange,temp_address);
+    ALU f(clock,rega,regb,h,value,highlow,flag1,flag2,flag3,instr[6:0],regc,flag3,addrchange,naddr);
     always@(posedge clock)
         begin
 
@@ -92,7 +93,7 @@ module cpu(
                         endcase
                         assign value = instr[30:15];
                         assign highlow = instr[15:14];
-                        ALU f(clock,rega,regb,h,value,highlow,flag1,flag2,flag3,instr[6:0],regc,flag3,addrchange,naddr);
+
                         assign temp_address = addr;
                         assign temp2 = ~addrchange;
                         addr = (temp2 & temp_address) | naddr;
@@ -124,7 +125,7 @@ module cpu(
                     end
                     2:
                         begin
-                            ADDER32(addr,~addrchange,temp_address);
+
                             addrchange = 0;
                             addr = temp_address;
                             state = 0;
@@ -139,4 +140,4 @@ module cpu(
 
 
 
-endmodule : cpu
+endmodule

@@ -23,11 +23,12 @@ module tt_um_jefloverockets_cpuhandler (
   reg [4:0] count;
   reg [31:0] data;
   reg [31:0] addr;
+  assign ui_in = 0;
   always @(posedge rst)
+  begin
   assign count = 0;
   assign data = 0;
   assign addr = 0;
-  begin
   end
 
   always@(posedge clk)
@@ -73,7 +74,6 @@ module tt_um_jefloverockets_cpuhandler (
                   end
                   8: begin
                   data = uio_in[31:23];
-
                   count = 0;
                   end
 
@@ -87,4 +87,4 @@ module tt_um_jefloverockets_cpuhandler (
   // List all unused inputs to prevent warnings
   wire _unused = &{ena, 1'b0};
 
-endmodule : tt_um_jefloverockets_cpuhandler
+endmodule

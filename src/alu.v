@@ -7,7 +7,7 @@ module SHIFTERRIGHT(
     not(A1,A);
     assign A2 = A1 >> B;
     not(C,A2);
-endmodule : SHIFTERRIGHT
+endmodule
 module SHIFTERLEFT(
     input [31:0] A,
     input [31:0] B,
@@ -17,7 +17,7 @@ module SHIFTERLEFT(
     not(A1,A);
     assign A2 = A1 << B;
     not(C,A2);
-endmodule : SHIFTERLEFT
+endmodule
 module SUBTRACT32(
     input [31:0] A,
     input [31:0] B,
@@ -33,7 +33,7 @@ module SUBTRACT32(
         end
     endgenerate
     ADDER32 f(A,B,C);
-endmodule : SUBTRACT32
+endmodule
 module half_adder(x,y,s,c);
     input x,y;
     output s,c;
@@ -66,7 +66,7 @@ module ADDER32(input1,input2,answer);
             end
         assign carry_out = carry[N-1];
     endgenerate
-endmodule : ADDER32
+endmodule
 
 module LOAD(
     input [31:0] A,
@@ -93,7 +93,7 @@ module LOAD(
 
 
 
-endmodule : LOAD
+endmodule
 module ALU (
     input clock,
     input [31:0] A,
@@ -110,30 +110,43 @@ module ALU (
     output addrch,
     output [31:0] naddr
 );
+    wire [31:0] C1;
+    ADDER32 f(A,B,C1);
+    wire [31:0] C2;
+    SUBTRACT32 f(A,B,C2);
+    wire [31:0] C3;
+    SHIFTERLEFT f(A,B,C);
+    wire [31:0] C4;
+    SHIFTERRIGHT f(A,B,C4);
+    wire [31:0] C5;
+    LOAD f(A,value,highlow,C5);
+
     always@(posedge clock)
             begin
               case(instr)
-                    0: ADDER32 f(A,B,C);
-                    1: SUBTRACT32 f(A,B,C);
-                    2: SHIFTERLEFT f(A,B,C);
-                    3: SHIFTERRIGHT f(A,B,C);
+
+                    0: assign C = C1;
+                    1: assign C = C2;
+                    2: assign C = C3;
+                    3: assign C = C4;
                     4: assign C = A;
-                    5: LOAD(A,value,highlow,C);
-                    6: LOAD(A,value,highlow,C);
+                    5: assign C = C5;
+                    6: assign C = C5;
                     7: assign C = A;
                     8: assign F3 = A == B;
                     9: assign F3 = A < B;
                     10: assign F3 = A > B;
-                    11: not(F3,F1);
-                    12: and(F3,F1,F2);
+                    11: assign F3 = ~F1;
+                    12: assign F3 = F1 & F2;
                     13: assign F3 = F1;
                     14: begin
                         assign naddr = reg8;
                         assign addrch = 1;
                     end
                     15: begin
-                        and(naddr,flag1,reg8);
-                        assign addrch = flag1;
+
+                        naddr = F1 & reg8;
+                        assign addrch = F1;
 
                     end
                     endcase
@@ -143,7 +156,7 @@ module ALU (
 
 
 
-endmodule : ALU
+endmodule
 
 
 
