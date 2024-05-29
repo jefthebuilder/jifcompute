@@ -17,9 +17,72 @@ module tt_um_jefloverockets_cpuhandler (
 );
 
   // All output pins must be assigned. If not used, assign to 0.
-  assign uo_out  = ui_in + uio_in;  // Example: ou_out is the sum of ui_in and uio_in
-  assign uio_out = 0;
-  assign uio_oe  = 0;
+
+  wire rst;
+  not(rst,rst_n);
+  reg [4:0] count;
+  reg [31:0] data;
+  reg [31:0] addr;
+  always @(posedge rst)
+  assign count = 0;
+  assign data = 0;
+  assign addr = 0;
+  begin
+  end
+
+  always@(posedge clk)
+          begin
+               case( count)
+                  0: begin
+                  cpu f(data,addr,uio_oe,clk,rst);
+                  count = 1;
+                  end
+                  1: begin
+                     assign uo_out = addr[7:0];
+                     assign uio_out = data[7:0];
+                     count = 2;
+                  end
+                  2: begin
+                     assign uo_out = addr[15:7];
+                     assign uio_out = data[15:7];
+                     count = 3;
+                  end
+                  3: begin
+                  assign uo_out = addr[23:15];
+                  assign uio_out = data[23:15];
+                  count = 4;
+                  end
+                  4: begin
+                  assign uo_out = addr[31:23];
+                  assign uio_out = data[31:23];
+                  count = 5;
+                  end
+                  5: begin
+                  data = uio_in[7:0];
+                  count = 6;
+                  end
+                  6: begin
+                  data = uio_in[15:7];
+
+                  count = 7;
+                  end
+                  7: begin
+                  data = uio_in[23:15];
+
+                  count = 8;
+                  end
+                  8: begin
+                  data = uio_in[31:23];
+
+                  count = 0;
+                  end
+
+               endcase
+
+
+          end
+
+
 
   // List all unused inputs to prevent warnings
   wire _unused = &{ena, 1'b0};

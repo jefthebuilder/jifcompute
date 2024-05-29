@@ -9,13 +9,9 @@ module transceiver(
 );
     reg [3:0] index;
     reg [7:0] data2;
-    reg temp;
-    reg temp_d;
-    always@(posedge clk)
-        temp_d <= temp;
-    always@(posedge clk)
+    always@(posedge clock)
         begin
-            if (temp && ~temp_d)
+
                 case (index)
                     0: begin
                         assign outbit = data[0];

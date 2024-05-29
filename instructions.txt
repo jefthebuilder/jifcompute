@@ -16,5 +16,5 @@ jmp (jumps at address stored in reg 8)
 jmc <flag> (jumps at address stored in reg 8)
 structure:
 <instruction><rega/flag1><regb/flag2><regc/flag3><h/l><value>
-      6byte   3byte        3byte        3byte    1byte  16byte
-total =
+      6 bit   3bit          3bit          3bit    1bit  16bit
+the final instruction needs to be reversed

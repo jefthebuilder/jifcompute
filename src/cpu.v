@@ -23,7 +23,7 @@ module cpu(
     wire [31:0] naddr;
     wire temp2;
     wire writinginstr;
-    always @(negedge reset)
+    always @(posedge reset)
     begin
         {a,b,c,d,e,f,g,h} = 0;
         {fa,fb,fc,fd,fe,ff,fg,fh} = 0;
@@ -33,13 +33,11 @@ module cpu(
         {addrchange} = 0;
     end
 
-    reg temp;
-    reg temp_d;
-    always@(posedge clock)
-        temp_d <= temp;
     always@(posedge clock)
         begin
-            if (temp && ~temp_d)
+
+
+
                 case (state)
                     0: begin
                         assign address = addr;
@@ -92,7 +90,7 @@ module cpu(
                         endcase
                         assign value = instr[30:15];
                         assign highlow = instr[15:14];
-                        alu f(rega,regb,h,value,highlow,flag1,flag2,flag3,instr[6:0],regc,flag3,addrchange,naddr);
+                        ALU f(clock,rega,regb,h,value,highlow,flag1,flag2,flag3,instr[6:0],regc,flag3,addrchange,naddr);
                         assign temp_address = addr;
                         assign temp2 = ~addrchange;
                         addr = (temp2 & temp_address) | naddr;
@@ -130,7 +128,6 @@ module cpu(
                             state = 0;
                         end
                 endcase
-
         end
 
 

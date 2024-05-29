@@ -76,7 +76,7 @@ module LOAD(
 );
     wire [15:0] HIGH;
     wire invhigh;
-    not(ivnhigh,highlow);
+    not(invhigh,highlow);
     xor(HIGH,invhigh,value);
     wire [31:0] temp;
     SHIFTERLEFT f(value,HIGH,temp);
@@ -95,7 +95,7 @@ module LOAD(
 
 endmodule : LOAD
 module ALU (
-
+    input clock,
     input [31:0] A,
     input [31:0] B,
     input [31:0] reg8,
@@ -110,33 +110,39 @@ module ALU (
     output addrch,
     output [31:0] naddr
 );
-  case(instr)
-      0: ADDER32 f(A,B,C);
-      1: SUBTRACT32 f(A,B,C);
-      2: SHIFTERLEFT f(A,B,C);
-      3: SHIFTERRIGHT f(A,B,C);
-      4: assign C = A;
-      5: load(A,value,highlow,C);
-      6: load(A,value,highlow,C);
-      7: assign C = A;
-      8: assign F3 = A == B;
-      9: assign F3 = A < B;
-      10: assign F3 = A > B;
-      11: not(F3,F1);
-      12: and(F3,F1,F2);
-      13: assign F3 = F1;
-      14: begin
-          assign naddr = reg8;
-          assign addrch = 1;
-      end
-      15: begin
-          and(naddr,flag1,reg8);
-          assign addrch = flag1;
+    always@(posedge clock)
+            begin
+              case(instr)
+                    0: ADDER32 f(A,B,C);
+                    1: SUBTRACT32 f(A,B,C);
+                    2: SHIFTERLEFT f(A,B,C);
+                    3: SHIFTERRIGHT f(A,B,C);
+                    4: assign C = A;
+                    5: LOAD(A,value,highlow,C);
+                    6: LOAD(A,value,highlow,C);
+                    7: assign C = A;
+                    8: assign F3 = A == B;
+                    9: assign F3 = A < B;
+                    10: assign F3 = A > B;
+                    11: not(F3,F1);
+                    12: and(F3,F1,F2);
+                    13: assign F3 = F1;
+                    14: begin
+                        assign naddr = reg8;
+                        assign addrch = 1;
+                    end
+                    15: begin
+                        and(naddr,flag1,reg8);
+                        assign addrch = flag1;
 
-      end
+                    end
+                    endcase
+          end
 
 
-  endcase
+
+
+
 endmodule : ALU
 
 
