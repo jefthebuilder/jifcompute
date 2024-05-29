@@ -2,7 +2,7 @@
  * Copyright (c) 2024 Your Name
  * SPDX-License-Identifier: Apache-2.0
  */
-`include "../src/cpu.v"
+
 `default_nettype none
 
 module tt_um_jefloverockets_cpuhandler (
