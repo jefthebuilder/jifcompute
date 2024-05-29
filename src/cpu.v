@@ -1,5 +1,5 @@
 
-
+`include "../src/alu.v"
 module cpu(
     inout data,
     output address,
