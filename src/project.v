@@ -30,7 +30,7 @@ module tt_um_jefloverockets_cpuhandler (
   data = 0;
   addr = 0;
   end
-  cpu cpf(data,addr,uio_oe,clk,rst);
+  cpu cpf(data,addr,data,uio_oe,clk,rst);
   always@(posedge clk)
           begin
                assign uo_out = (count == 3'b000) ? addr[7:0] :
