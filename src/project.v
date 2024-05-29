@@ -30,12 +30,12 @@ module tt_um_jefloverockets_cpuhandler (
   assign data = 0;
   assign addr = 0;
   end
-
+  CPU f(data,addr,uio_oe,clk,rst);
   always@(posedge clk)
           begin
                case( count)
                   0: begin
-                  cpu f(data,addr,uio_oe,clk,rst);
+
                   count = 1;
                   end
                   1: begin
