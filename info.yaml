@@ -33,24 +33,24 @@ pinout:
   ui[7]: ""
 
   # Outputs
-  uo[0]: ""
-  uo[1]: ""
-  uo[2]: ""
-  uo[3]: ""
-  uo[4]: ""
-  uo[5]: ""
-  uo[6]: ""
-  uo[7]: ""
+  uo[0]: "address0"
+  uo[1]: "address1"
+  uo[2]: "address2"
+  uo[3]: "address3"
+  uo[4]: "address4"
+  uo[5]: "address5"
+  uo[6]: "address6"
+  uo[7]: "address7"
 
   # Bidirectional pins
-  uio[0]: ""
-  uio[1]: ""
-  uio[2]: ""
-  uio[3]: ""
-  uio[4]: ""
-  uio[5]: ""
-  uio[6]: ""
-  uio[7]: ""
+  uio[0]: "data0"
+  uio[1]: "data1"
+  uio[2]: "data2"
+  uio[3]: "data3"
+  uio[4]: "data4"
+  uio[5]: "data5"
+  uio[6]: "data6"
+  uio[7]: "data7"
 
 # Do not change!
 yaml_version: 6

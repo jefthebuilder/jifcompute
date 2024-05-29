@@ -1,6 +1,6 @@
 
 
-module CPU(
+module JifCPU(
     inout data,
     output address,
     output rw,
