@@ -41,9 +41,7 @@ module half_adder(x,y,s,c);
     assign c=x&y;
 endmodule // half adder
 
-// fpga4student.com: FPGA projects, Verilog projects, VHDL projects
-// Verilog project: Verilog code for N-bit Adder
-// Verilog code for full adder
+
 module full_adder(x,y,c_in,s,c_out);
     input x,y,c_in;
     output s,c_out;
@@ -70,12 +68,42 @@ module ADDER32(input1,input2,answer);
     endgenerate
 endmodule : ADDER32
 
+module LOAD(
+    input [31:0] A,
+    input [15:0] value,
+    input highlow,
+    output [31:0] C,
+);
+    wire [15:0] HIGH;
+    wire invhigh;
+    not(ivnhigh,highlow);
+    xor(HIGH,invhigh,value);
+    wire [31:0] temp;
+    SHIFTERLEFT f(value,HIGH,temp);
+    wire [31:0] temp2;
+    wire [31:0] temp3;
 
+    and(temp2[31:15],temp[31:15],highlow);
+    and(temp2[15:0],A[15:0],highlow);
+    and(temp3[31:15],A[31:15],invhigh);
+    and(temp3[15:0],temp[15:0],invhigh);
+    or(C,temp2,temp3);
+
+
+
+
+
+endmodule : LOAD
 module ALU (
     input clk,
     input [31:0] A,
     input [31:0] B,
-    input [4:0] instr,
+    input [15:0] value,
+    input highlow,
+    input F1,
+    input F2,
+    output F3,
+    input [6:0] instr,
     output [31:0] C,
     output flag,
 );
@@ -84,8 +112,20 @@ module ALU (
       1: SUBTRACT32 f(A,B,C);
       2: SHIFTERLEFT f(A,B,C);
       3: SHIFTERRIGHT f(A,B,C);
+      4: assign C = A;
+      5: load(A,value,highlow,C);
+      6: load(A,value,highlow,C);
+      7: assign C = A;
+      8: assign F3 = A == B;
+      9: assign F3 = A < B;
+      10: assign F3 = A > B;
+      11: not(F3,F1);
+      12: and(F3,F1,F2);
+      13: assign F3 = F1;
+
   endcase
 endmodule : ALU
+
 
 
  // full_adder
