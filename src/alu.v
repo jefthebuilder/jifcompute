@@ -79,7 +79,7 @@ module LOAD(
     not(invhigh,highlow);
     xor(HIGH,invhigh,value);
     wire [31:0] temp;
-    SHIFTERLEFT f(value,HIGH,temp);
+    SHIFTERLEFT shifty(value,HIGH,temp);
     wire [31:0] temp2;
     wire [31:0] temp3;
 
@@ -111,15 +111,15 @@ module ALU (
     output [31:0] naddr
 );
     wire [31:0] C1;
-    ADDER32 f(A,B,C1);
+    ADDER32 addermaster(A,B,C1);
     wire [31:0] C2;
-    SUBTRACT32 f(A,B,C2);
+    SUBTRACT32 aftrekker4(A,B,C2);
     wire [31:0] C3;
-    SHIFTERLEFT f(A,B,C);
+    SHIFTERLEFT shifterlinks(A,B,C);
     wire [31:0] C4;
-    SHIFTERRIGHT f(A,B,C4);
+    SHIFTERRIGHT shifterrecht(A,B,C4);
     wire [31:0] C5;
-    LOAD f(A,value,highlow,C5);
+    LOAD truck(A,value,highlow,C5);
 
     always@(posedge clock)
             begin

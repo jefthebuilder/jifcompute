@@ -1,6 +1,6 @@
 `include "../src/alu.v"
 
-module cpu(
+module CPU(
     inout data,
     output address,
     output rw,
@@ -34,8 +34,8 @@ module cpu(
         state = 0;
         {addrchange} = 0;
     end
-    ADDER32 f(addr,~addrchange,temp_address);
-    ALU f(clock,rega,regb,h,value,highlow,flag1,flag2,flag3,instr[6:0],regc,flag3,addrchange,naddr);
+    ADDER32 adder1(addr,~addrchange,temp_address);
+    ALU alu1(clock,rega,regb,h,value,highlow,flag1,flag2,flag3,instr[6:0],regc,flag3,addrchange,naddr);
     always@(posedge clock)
         begin
 
