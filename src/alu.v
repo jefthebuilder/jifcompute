@@ -1,7 +1,7 @@
 module SHIFTERRIGHT(
     input [31:0] A,
     input [31:0] B,
-    output [31:0] C,
+    output [31:0] C
 );
     wire [31:0] A1,A2;
     not(A1,A);
@@ -11,7 +11,7 @@ endmodule : SHIFTERRIGHT
 module SHIFTERLEFT(
     input [31:0] A,
     input [31:0] B,
-    output [31:0] C,
+    output [31:0] C
 );
     wire [31:0] A1,A2;
     not(A1,A);
@@ -21,7 +21,7 @@ endmodule : SHIFTERLEFT
 module SUBTRACT32(
     input [31:0] A,
     input [31:0] B,
-    output [31:0] C,
+    output [31:0] C
 );
     parameter N=32;
     wire [31:0] b2;
@@ -72,7 +72,7 @@ module LOAD(
     input [31:0] A,
     input [15:0] value,
     input highlow,
-    output [31:0] C,
+    output [31:0] C
 );
     wire [15:0] HIGH;
     wire invhigh;

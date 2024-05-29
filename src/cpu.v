@@ -5,7 +5,7 @@ module cpu(
     output address,
     output rw,
     input clock,
-    input reset,
+    input reset
 );
     reg [31:0] a,b,c,d,e,f,g,h;
     reg fa,fb,fc,fd,fe,ff,fg,fh;
