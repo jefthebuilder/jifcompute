@@ -1,4 +1,4 @@
-`include "src/alu.sv"
+`include "alu.sv"
 
 module cpu(
     inout data,
