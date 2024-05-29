@@ -4,9 +4,9 @@ module SHIFTERRIGHT(
     output [31:0] C
 );
     wire [31:0] A1,A2;
-    not(A1,A);
+    assign A1 = ~A;
     assign A2 = A1 >> B;
-    not(C,A2);
+    assign C = ~A2;
 endmodule
 module SHIFTERLEFT(
     input [31:0] A,
@@ -14,9 +14,11 @@ module SHIFTERLEFT(
     output [31:0] C
 );
     wire [31:0] A1,A2;
-    not(A1,A);
+
+    assign A1 = ~A;
     assign A2 = A1 << B;
-    not(C,A2);
+
+    assign C = ~A2;
 endmodule
 module SUBTRACT32(
     input [31:0] A,
@@ -77,18 +79,19 @@ module LOAD(
     wire [15:0] HIGH;
     wire invhigh;
     not(invhigh,highlow);
-    xor(HIGH,invhigh,value);
+
+    assign HIGH = {32{invhigh}} ^ value;
     wire [31:0] temp;
-    SHIFTERLEFT shifty(value,HIGH,temp);
+    SHIFTERLEFT shifty(value,{HIGH,{32-16{1'b0}}},temp);
     wire [31:0] temp2;
     wire [31:0] temp3;
 
-    and(temp2[31:15],temp[31:15],highlow);
-    and(temp2[15:0],A[15:0],highlow);
-    and(temp3[31:15],A[31:15],invhigh);
-    and(temp3[15:0],temp[15:0],invhigh);
-    or(C,temp2,temp3);
+    assign temp2[31:15] = temp[31:15]&{32{highlow}};
+    assign temp2[15:0]=A[15:0]&{32{highlow}};
+    assign temp3[31:15]=A[31:15]&{32{invhigh}};
+    assign temp3[15:0]=temp[15:0]&{32{invhigh}};
 
+    assign C = temp2 | temp3;
 
 
 
@@ -125,28 +128,28 @@ module ALU (
             begin
               case(instr)
 
-                    0: assign C = C1;
-                    1: assign C = C2;
-                    2: assign C = C3;
-                    3: assign C = C4;
-                    4: assign C = A;
-                    5: assign C = C5;
-                    6: assign C = C5;
-                    7: assign C = A;
-                    8: assign F3 = A == B;
-                    9: assign F3 = A < B;
-                    10: assign F3 = A > B;
-                    11: assign F3 = ~F1;
-                    12: assign F3 = F1 & F2;
-                    13: assign F3 = F1;
+                    0:  C = C1;
+                    1:  C = C2;
+                    2:  C = C3;
+                    3:  C = C4;
+                    4: C = A;
+                    5: C = C5;
+                    6: C = C5;
+                    7: C = A;
+                    8: F3 = A == B;
+                    9: F3 = A < B;
+                    10:  F3 = A > B;
+                    11:  F3 = ~F1;
+                    12:  F3 = F1 & F2;
+                    13:  F3 = F1;
                     14: begin
-                        assign naddr = reg8;
-                        assign addrch = 1;
+                         naddr = reg8;
+                         addrch = 1;
                     end
                     15: begin
 
                         naddr = F1 & reg8;
-                        assign addrch = F1;
+                         addrch = F1;
 
                     end
                     endcase
