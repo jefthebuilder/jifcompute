@@ -51,46 +51,46 @@ module cpu(
                     1: begin
                         // regA
 
-                        case (instr[8:5])
-                            0: rega = a;
-                            1:  rega = b;
-                            2:  rega = c;
-                            3:  rega = d;
-                            4:  rega = e;
-                            5:  rega = f;
-                            6:  rega = g;
-                            7:  rega = h;
-                        endcase
-                        case (instr[11:8])
-                            0:  regb = a;
-                            1:  regb = b;
-                            2:  regb = c;
-                            3:  regb = d;
-                            4:  regb = e;
-                            5:  regb = f;
-                            6:  regb = g;
-                            7:  regb = h;
-                        endcase
-                        case (instr[8:5])
-                            0:  flag1 = fa;
-                            1:  flag1 = fb;
-                            2:  flag1 = fc;
-                            3:  flag1 = fd;
-                            4:  flag1 = fe;
-                            5:  flag1 = ff;
-                            6:  flag1 = fg;
-                            7:  flag1 = fh;
-                        endcase
-                        case (instr[11:8])
-                            0:  flag2 = fa;
-                            1:  flag2 = fb;
-                            2:  flag2 = fc;
-                            3:  flag2 = fd;
-                            4:  flag2 = fe;
-                            5:  flag2 = ff;
-                            6:  flag2 = fg;
-                            7:  flag2 = fh;
-                        endcase
+                        assign rega = (instr[8:5] == 4'b0000) ? a :
+                                      (instr[8:5] == 4'b0001) ? b :
+                                      (instr[8:5] == 4'b0010) ? c :
+                                      (instr[8:5] == 4'b0011) ? d :
+                                      (instr[8:5] == 4'b0100) ? e :
+                                      (instr[8:5] == 4'b0101) ? f :
+                                      (instr[8:5] == 4'b0110) ? g :
+                                      (instr[8:5] == 4'b0111) ? h : 8'b0;
+
+                        // Assign regb based on instr[11:8]
+                        assign regb = (instr[11:8] == 4'b0000) ? a :
+                                      (instr[11:8] == 4'b0001) ? b :
+                                      (instr[11:8] == 4'b0010) ? c :
+                                      (instr[11:8] == 4'b0011) ? d :
+                                      (instr[11:8] == 4'b0100) ? e :
+                                      (instr[11:8] == 4'b0101) ? f :
+                                      (instr[11:8] == 4'b0110) ? g :
+                                      (instr[11:8] == 4'b0111) ? h : 8'b0;
+
+                        // Assign flag1 based on instr[8:5]
+                        assign flag1 = (instr[8:5] == 4'b0000) ? fa :
+                                       (instr[8:5] == 4'b0001) ? fb :
+                                       (instr[8:5] == 4'b0010) ? fc :
+                                       (instr[8:5] == 4'b0011) ? fd :
+                                       (instr[8:5] == 4'b0100) ? fe :
+                                       (instr[8:5] == 4'b0101) ? ff :
+                                       (instr[8:5] == 4'b0110) ? fg :
+                                       (instr[8:5] == 4'b0111) ? fh : 1'b0;
+
+                        // Assign flag2 based on instr[11:8]
+                        assign flag2 = (instr[11:8] == 4'b0000) ? fa :
+                                       (instr[11:8] == 4'b0001) ? fb :
+                                       (instr[11:8] == 4'b0010) ? fc :
+                                       (instr[11:8] == 4'b0011) ? fd :
+                                       (instr[11:8] == 4'b0100) ? fe :
+                                       (instr[11:8] == 4'b0101) ? ff :
+                                       (instr[11:8] == 4'b0110) ? fg :
+                                       (instr[11:8] == 4'b0111) ? fh : 1'b0;
+
+
                         assign value = instr[30:15];
                         assign highlow = instr[15:14];
 
@@ -102,14 +102,14 @@ module cpu(
                         rw = writinginstr;
                         data = rega;
                         case (instr[14:11])
-                            0:  fa = flag3;
-                            1:  fb = flag3;
-                            2:  fc = flag3;
-                            3:  fd = flag3;
-                            4:  fe = flag3;
-                            5:  ff = flag3;
-                            6:  fg = flag3;
-                            7:  fh = flag3;
+                            0:  a = regc;
+                            1:  b = regc;
+                            2:  c = regc;
+                            3:  d = regc;
+                            4:  e = regc;
+                            5:  f = regc;
+                            6:  g = regc;
+                            7:  h = regc;
                         endcase
                         case (instr[14:11])
                             0:  fa = flag3;
