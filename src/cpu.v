@@ -1,9 +1,10 @@
 
 `include "../src/alu.v"
 module cpu(
-    inout data,
-    output address,
-    output rw,
+    input [31:0] data,
+    output reg [31:0] datao,
+    output reg [31:0] address,
+    output reg rw,
     input clock,
     input reset
 );
@@ -20,7 +21,7 @@ module cpu(
     reg flag1;
     reg flag2;
     reg flag3;
-    wire highlow;
+    reg highlow;
     reg [31:0]temp_address;
     reg [31:0] naddr;
     wire temp2;
@@ -100,7 +101,7 @@ module cpu(
                         assign writinginstr = instr[6:0] == 7;
                         address = (h & writinginstr);
                         rw = writinginstr;
-                        data = rega;
+                        datao = rega;
                         case (instr[14:11])
                             0: assign fa = flag3;
                             1: assign fb = flag3;

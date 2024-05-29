@@ -26,9 +26,9 @@ module tt_um_jefloverockets_cpuhandler (
   assign ui_in = 0;
   always @(posedge rst)
   begin
-  count = 0;
-  data = 0;
-  addr = 0;
+  assign count = 0;
+  assign data = 0;
+  assign addr = 0;
   end
   cpu cpf(data,addr,uio_oe,clk,rst);
   always@(posedge clk)
@@ -39,23 +39,23 @@ module tt_um_jefloverockets_cpuhandler (
                   count = 1;
                   end
                   1: begin
-                     assign uo_out = addr[7:0];
-                     assign uio_out = data[7:0];
+                      uo_out = addr[7:0];
+                      uio_out = data[7:0];
                      count = 2;
                   end
                   2: begin
-                     assign uo_out = addr[15:7];
-                     assign uio_out = data[15:7];
+                      uo_out = addr[15:7];
+                      uio_out = data[15:7];
                      count = 3;
                   end
                   3: begin
-                  assign uo_out = addr[23:15];
-                  assign uio_out = data[23:15];
+                   uo_out = addr[23:15];
+                   uio_out = data[23:15];
                   count = 4;
                   end
                   4: begin
-                  assign uo_out = addr[31:23];
-                  assign uio_out = data[31:23];
+                   uo_out = addr[31:23];
+                   uio_out = data[31:23];
                   count = 5;
                   end
                   5: begin

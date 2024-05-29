@@ -128,28 +128,28 @@ module ALU (
             begin
               case(instr)
 
-                    0: assign C = C1;
-                    1: assign C = C2;
-                    2: assign C = C3;
-                    3: assign C = C4;
-                    4: assign C = A;
-                    5: assign C = C5;
-                    6: assign C = C5;
-                    7: assign C = A;
-                    8: assign F3 = A == B;
-                    9: assign F3 = A < B;
-                    10: assign F3 = A > B;
-                    11: assign F3 = ~F1;
-                    12: assign F3 = F1 & F2;
-                    13: assign F3 = F1;
+                    0:  C = C1;
+                    1:  C = C2;
+                    2:  C = C3;
+                    3:  C = C4;
+                    4:  C = A;
+                    5:  C = C5;
+                    6:  C = C5;
+                    7:  C = A;
+                    8:  F3 = A == B;
+                    9:  F3 = A < B;
+                    10:  F3 = A > B;
+                    11:  F3 = ~F1;
+                    12:  F3 = F1 & F2;
+                    13:  F3 = F1;
                     14: begin
-                        assign naddr = reg8;
-                        assign addrch = 1;
+                         naddr = reg8;
+                         addrch = 1;
                     end
                     15: begin
 
                         naddr = F1 & reg8;
-                        assign addrch = F1;
+                         addrch = F1;
 
                     end
                     endcase
