@@ -1,3 +1,5 @@
+`include "src/alu.sv"
+
 module cpu(
     inout data,
     output address,
