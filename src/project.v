@@ -30,7 +30,7 @@ module tt_um_jefloverockets_cpuhandler (
   assign data = 0;
   assign addr = 0;
   end
-  JifCPU f(data,addr,uio_oe,clk,rst);
+  cpu cpf(data,addr,uio_oe,clk,rst);
   always@(posedge clk)
           begin
                case( count)

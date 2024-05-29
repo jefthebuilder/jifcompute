@@ -1,6 +1,6 @@
 
 
-module JifCPU(
+module cpu(
     inout data,
     output address,
     output rw,
@@ -132,12 +132,6 @@ module JifCPU(
                         end
                 endcase
         end
-
-
-
-
-
-
 
 
 endmodule
