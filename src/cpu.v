@@ -34,7 +34,7 @@ module cpu(
         state = 0;
         addrchange = 0;
     end
-    ADDER32 adder1(addr,{32{~addrchange}},temp_address);
+    ADDER32 adder1(addr,1,temp_address);
     ALU alu1(clock,rega,regb,h,value,highlow,flag1,flag2,flag3,instr[6:0],regc,flag3,addrchange,naddr);
     always@(posedge clock)
         begin
