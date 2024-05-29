@@ -106,12 +106,12 @@ module ALU (
     input highlow,
     input F1,
     input F2,
-    output F3,
+    output reg F3,
     input [6:0] instr,
-    output [31:0] C,
-    output flag,
-    output addrch,
-    output [31:0] naddr
+    output reg [31:0] C,
+    output reg flag,
+    output reg addrch,
+    output reg [31:0] naddr
 );
     wire [31:0] C1;
     ADDER32 addermaster(A,B,C1);

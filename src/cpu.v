@@ -1,8 +1,9 @@
 
 `include "../src/alu.v"
 module cpu(
-    inout data,
-    output address,
+    input  [31:0] data,
+    output reg [31:0] address,
+    output reg [31:0] dataout,
     output rw,
     input clock,
     input reset
@@ -13,17 +14,17 @@ module cpu(
     reg [2:0] state;
     reg [31:0] addr;
     reg [31:0] instr;
-    wire [31:0] rega;
-    wire [31:0] regb;
-    wire [31:0] regc;
-    wire [15:0] value;
+    reg [31:0] rega;
+    reg [31:0] regb;
+    reg [31:0] regc;
+    reg [15:0] value;
     wire flag1;
     wire flag2;
     wire flag3;
     wire highlow;
-    wire [31:0]temp_address;
+
     wire [31:0] naddr;
-    wire temp2;
+    reg temp2;
     wire writinginstr;
     always @(posedge reset)
     begin
@@ -34,7 +35,7 @@ module cpu(
         state = 0;
         addrchange = 0;
     end
-    ADDER32 adder1(addr,{32{~addrchange}},temp_address);
+    ADDER32 adder1(addr,{32{~addrchange}},addr);
     ALU alu1(clock,rega,regb,h,value,highlow,flag1,flag2,flag3,instr[6:0],regc,flag3,addrchange,naddr);
     always@(posedge clock)
         begin
@@ -94,9 +95,9 @@ module cpu(
                         assign value = instr[30:15];
                         assign highlow = instr[15:14];
 
-                        assign temp_address = addr;
-                        assign temp2 = ~addrchange;
-                        addr = (temp2 & temp_address) | naddr;
+
+                        assign temp2 = {32{~addrchange}};
+                        addr = (temp2 & addr) | naddr;
                         assign writinginstr = instr[6:0] == 7;
                         address = (h & writinginstr);
                         rw = writinginstr;
