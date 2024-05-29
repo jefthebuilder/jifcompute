@@ -95,9 +95,10 @@ module LOAD(
 
 endmodule : LOAD
 module ALU (
-    input clk,
+
     input [31:0] A,
     input [31:0] B,
+    input [31:0] reg8,
     input [15:0] value,
     input highlow,
     input F1,
@@ -106,6 +107,8 @@ module ALU (
     input [6:0] instr,
     output [31:0] C,
     output flag,
+    output addrch,
+    output [31:0] naddr
 );
   case(instr)
       0: ADDER32 f(A,B,C);
@@ -122,6 +125,16 @@ module ALU (
       11: not(F3,F1);
       12: and(F3,F1,F2);
       13: assign F3 = F1;
+      14: begin
+          assign naddr = reg8;
+          assign addrch = 1;
+      end
+      15: begin
+          and(naddr,flag1,reg8);
+          assign addrch = flag1;
+
+      end
+
 
   endcase
 endmodule : ALU
