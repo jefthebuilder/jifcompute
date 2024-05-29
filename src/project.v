@@ -22,15 +22,17 @@ module tt_um_jefloverockets_cpuhandler (
   not(rst,rst_n);
   reg [4:0] count;
   reg [31:0] data;
+  reg [31:0] dataout;
   reg [31:0] addr;
   assign ui_in = 0;
   always @(posedge rst)
   begin
   assign count = 0;
   assign data = 0;
+  assign dataout = 0;
   assign addr = 0;
   end
-  cpu cpf(data,addr,data,uio_oe,clk,rst);
+  cpu cpf(data,addr,dataout,uio_oe,clk,rst);
   always@(posedge clk)
           begin
                case( count)
@@ -40,40 +42,40 @@ module tt_um_jefloverockets_cpuhandler (
                   end
                   1: begin
                       uo_out = addr[7:0];
-                      uio_out = data[7:0];
+                      uio_out = dataout[7:0];
                      count = 2;
                   end
                   2: begin
                       uo_out = addr[15:7];
-                      uio_out = data[15:7];
+                      uio_out = dataout[15:7];
                      count = 3;
                   end
                   3: begin
                    uo_out = addr[23:15];
-                   uio_out = data[23:15];
+                   uio_out = dataout[23:15];
                   count = 4;
                   end
                   4: begin
                    uo_out = addr[31:23];
-                   uio_out = data[31:23];
+                   uio_out = dataout[31:23];
                   count = 5;
                   end
                   5: begin
-                  data = uio_in[7:0];
+                  assign data = uio_in[7:0];
                   count = 6;
                   end
                   6: begin
-                  data = uio_in[15:7];
+                  assign data = uio_in[15:7];
 
                   count = 7;
                   end
                   7: begin
-                  data = uio_in[23:15];
+                  assign data = uio_in[23:15];
 
                   count = 8;
                   end
                   8: begin
-                  data = uio_in[31:23];
+                  assign data = uio_in[31:23];
                   count = 0;
                   end
 

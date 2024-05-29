@@ -32,11 +32,11 @@ module cpu(
         {fa,fb,fc,fd,fe,ff,fg,fh} = 0;
         {addr,instr} = 0;
 
-        state = 0;
-        addrchange = 0;
+        assign state = 0;
+        assign addrchange = 0;
     end
     ADDER32 adder1(addr,1,temp_address);
-    ALU alu1(clock,rega,regb,h,value,highlow,flag1,flag2,flag3,instr[6:0],regc,flag3,addrchange,naddr);
+    ALU alu1(clock,rega,regb,h,value,highlow,flag1,flag2,flag3,instr[6:0],regc,addrchange,naddr);
     always@(posedge clock)
         begin
 
@@ -127,9 +127,9 @@ module cpu(
                     2:
                         begin
 
-                            addrchange = 0;
+                            assign addrchange = 0;
                             addr = temp_address;
-                            state = 0;
+                            assign state = 0;
                         end
                 endcase
         end

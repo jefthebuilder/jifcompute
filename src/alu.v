@@ -109,7 +109,6 @@ module ALU (
     output reg F3,
     input [6:0] instr,
     output reg [31:0] C,
-    output reg flag,
     output reg addrch,
     output reg [31:0] naddr
 );
@@ -128,14 +127,14 @@ module ALU (
             begin
               case(instr)
 
-                    0:  C = C1;
-                    1:  C = C2;
-                    2:  C = C3;
-                    3:  C = C4;
-                    4:  C = A;
-                    5:  C = C5;
-                    6:  C = C5;
-                    7:  C = A;
+                    0:  assign C = C1;
+                    1: assign C = C2;
+                    2: assign C = C3;
+                    3: assign C = C4;
+                    4: assign C = A;
+                    5: assign C = C5;
+                    6: assign C = C5;
+                    7: assign C = A;
                     8:  F3 = A == B;
                     9:  F3 = A < B;
                     10:  F3 = A > B;
