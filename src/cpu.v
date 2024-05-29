@@ -1,9 +1,8 @@
 
 `include "../src/alu.v"
 module cpu(
-    input  [31:0] data,
-    output reg [31:0] address,
-    output reg [31:0] dataout,
+    inout data,
+    output address,
     output rw,
     input clock,
     input reset
@@ -18,13 +17,13 @@ module cpu(
     reg [31:0] regb;
     reg [31:0] regc;
     reg [15:0] value;
-    wire flag1;
-    wire flag2;
-    wire flag3;
+    reg flag1;
+    reg flag2;
+    reg flag3;
     wire highlow;
-
-    wire [31:0] naddr;
-    reg temp2;
+    reg [31:0]temp_address;
+    reg [31:0] naddr;
+    wire temp2;
     wire writinginstr;
     always @(posedge reset)
     begin
@@ -35,7 +34,7 @@ module cpu(
         state = 0;
         addrchange = 0;
     end
-    ADDER32 adder1(addr,{32{~addrchange}},addr);
+    ADDER32 adder1(addr,{32{~addrchange}},temp_address);
     ALU alu1(clock,rega,regb,h,value,highlow,flag1,flag2,flag3,instr[6:0],regc,flag3,addrchange,naddr);
     always@(posedge clock)
         begin
@@ -52,75 +51,75 @@ module cpu(
                     1: begin
                         // regA
 
-                        assign rega = (instr[8:5] == 4'b0000) ? a :
-                                      (instr[8:5] == 4'b0001) ? b :
-                                      (instr[8:5] == 4'b0010) ? c :
-                                      (instr[8:5] == 4'b0011) ? d :
-                                      (instr[8:5] == 4'b0100) ? e :
-                                      (instr[8:5] == 4'b0101) ? f :
-                                      (instr[8:5] == 4'b0110) ? g :
-                                      (instr[8:5] == 4'b0111) ? h : 8'b0;
-
-                        // Assign regb based on instr[11:8]
-                        assign regb = (instr[11:8] == 4'b0000) ? a :
-                                      (instr[11:8] == 4'b0001) ? b :
-                                      (instr[11:8] == 4'b0010) ? c :
-                                      (instr[11:8] == 4'b0011) ? d :
-                                      (instr[11:8] == 4'b0100) ? e :
-                                      (instr[11:8] == 4'b0101) ? f :
-                                      (instr[11:8] == 4'b0110) ? g :
-                                      (instr[11:8] == 4'b0111) ? h : 8'b0;
-
-                        // Assign flag1 based on instr[8:5]
-                        assign flag1 = (instr[8:5] == 4'b0000) ? fa :
-                                       (instr[8:5] == 4'b0001) ? fb :
-                                       (instr[8:5] == 4'b0010) ? fc :
-                                       (instr[8:5] == 4'b0011) ? fd :
-                                       (instr[8:5] == 4'b0100) ? fe :
-                                       (instr[8:5] == 4'b0101) ? ff :
-                                       (instr[8:5] == 4'b0110) ? fg :
-                                       (instr[8:5] == 4'b0111) ? fh : 1'b0;
-
-                        // Assign flag2 based on instr[11:8]
-                        assign flag2 = (instr[11:8] == 4'b0000) ? fa :
-                                       (instr[11:8] == 4'b0001) ? fb :
-                                       (instr[11:8] == 4'b0010) ? fc :
-                                       (instr[11:8] == 4'b0011) ? fd :
-                                       (instr[11:8] == 4'b0100) ? fe :
-                                       (instr[11:8] == 4'b0101) ? ff :
-                                       (instr[11:8] == 4'b0110) ? fg :
-                                       (instr[11:8] == 4'b0111) ? fh : 1'b0;
-
-
+                        case (instr[8:5])
+                            0: assign rega = a;
+                            1: assign rega = b;
+                            2: assign  rega = c;
+                            3:  assign rega = d;
+                            4: assign rega = e;
+                            5: assign rega = f;
+                            6: assign rega = g;
+                            7: assign rega = h;
+                        endcase
+                        case (instr[11:8])
+                            0: assign regb = a;
+                            1: assign regb = b;
+                            2: assign regb = c;
+                            3: assign regb = d;
+                            4: assign regb = e;
+                            5: assign regb = f;
+                            6: assign regb = g;
+                            7: assign regb = h;
+                        endcase
+                        case (instr[8:5])
+                            0: assign flag1 = fa;
+                            1: assign flag1 = fb;
+                            2: assign flag1 = fc;
+                            3: assign flag1 = fd;
+                            4: assign flag1 = fe;
+                            5: assign flag1 = ff;
+                            6: assign flag1 = fg;
+                            7: assign flag1 = fh;
+                        endcase
+                        case (instr[11:8])
+                            0: assign flag2 = fa;
+                            1: assign flag2 = fb;
+                            2: assign flag2 = fc;
+                            3: assign flag2 = fd;
+                            4: assign flag2 = fe;
+                            5: assign flag2 = ff;
+                            6: assign flag2 = fg;
+                            7: assign flag2 = fh;
+                        endcase
                         assign value = instr[30:15];
                         assign highlow = instr[15:14];
 
-
-                        assign temp2 = {32{~addrchange}};
-                        addr = (temp2 & addr) | naddr;
+                        assign temp_address = addr;
+                        assign temp2 = ~addrchange;
+                        addr = (temp2 & temp_address) | naddr;
                         assign writinginstr = instr[6:0] == 7;
                         address = (h & writinginstr);
                         rw = writinginstr;
                         data = rega;
                         case (instr[14:11])
-                            0:  a = regc;
-                            1:  b = regc;
-                            2:  c = regc;
-                            3:  d = regc;
-                            4:  e = regc;
-                            5:  f = regc;
-                            6:  g = regc;
-                            7:  h = regc;
+                            0: assign fa = flag3;
+                            1: assign fb = flag3;
+                            2: assign fc = flag3;
+                            3: assign fd = flag3;
+                            4: assign fe = flag3;
+                            5: assign ff = flag3;
+                            6: assign fg = flag3;
+                            7: assign fh = flag3;
                         endcase
                         case (instr[14:11])
-                            0:  fa = flag3;
-                            1:  fb = flag3;
-                            2:  fc = flag3;
-                            3:  fd = flag3;
-                            4:  fe = flag3;
-                            5:  ff = flag3;
-                            6:  fg = flag3;
-                            7:  fh = flag3;
+                            0: assign fa = flag3;
+                            1: assign fb = flag3;
+                            2: assign fc = flag3;
+                            3: assign fd = flag3;
+                            4: assign fe = flag3;
+                            5: assign ff = flag3;
+                            6: assign fg = flag3;
+                            7: assign fh = flag3;
                         endcase
 
                     end

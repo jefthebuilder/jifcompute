@@ -126,27 +126,33 @@ module ALU (
 
     always@(posedge clock)
             begin
-                C = (instr == 0) ? C1 :
-                           (instr == 1) ? C2 :
-                           (instr == 2) ? C3 :
-                           (instr == 3) ? C4 :
-                           (instr == 4) ? A :
-                           (instr == 5) ? C5 :
-                           (instr == 6) ? C5 :
-                           (instr == 7) ? A : 8'b0;
-                F3 = (instr == 8) ? (A == B) :
-                            (instr == 9) ? (A < B) :
-                            (instr == 10) ? (A > B) :
-                            (instr == 11) ? ~F1 :
-                            (instr == 12) ? (F1 & F2) :
-                            (instr == 13) ? F1 : 1'b0;
+              case(instr)
 
-                naddr = (instr == 14) ? reg8 :
-                               (instr == 15) ? (F1 & reg8) : 8'b0;
+                    0: assign C = C1;
+                    1: assign C = C2;
+                    2: assign C = C3;
+                    3: assign C = C4;
+                    4: assign C = A;
+                    5: assign C = C5;
+                    6: assign C = C5;
+                    7: assign C = A;
+                    8: assign F3 = A == B;
+                    9: assign F3 = A < B;
+                    10: assign F3 = A > B;
+                    11: assign F3 = ~F1;
+                    12: assign F3 = F1 & F2;
+                    13: assign F3 = F1;
+                    14: begin
+                        assign naddr = reg8;
+                        assign addrch = 1;
+                    end
+                    15: begin
 
-                addrch = (instr == 14) ? 1'b1 :
-                                (instr == 15) ? F1 : 1'b0;
+                        naddr = F1 & reg8;
+                        assign addrch = F1;
 
+                    end
+                    endcase
           end
 
 
