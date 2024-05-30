@@ -36,6 +36,7 @@ async def testprogram(dut,program,result=158+158):
             done = True
 
         if (result == data and dut.uio_oe.value == 1):
+            print("right",data)
             assert True
             done = True
             return
