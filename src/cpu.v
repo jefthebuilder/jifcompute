@@ -24,8 +24,8 @@ module cpu(
     reg highlow;
     reg [31:0]temp_address;
     reg [31:0] naddr;
-    wire temp2;
-    wire writinginstr;
+    reg temp2;
+    reg [6:0] writinginstr;
     wire tempinstr = instr[8:5];
     wire tempinstr1 = instr[11:8];
     wire tempinstr2 = instr[8:5];
@@ -143,9 +143,9 @@ module cpu(
                     2:
                         begin
 
-                            addrchange = 0;
+                            addrchange = 1'sb0;
                             addr = temp_address;
-                            state = 0;
+                            state = 1'sb0;
                         end
                 endcase
         end
