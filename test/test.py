@@ -30,7 +30,7 @@ async def testprogram(dut,program,result=158+158):
     done = False
     while not done:
         await ClockCycles(dut.clk, 1)
-        data,addr = read(dut)
+        data,addr = await read(dut)
 
         dut._log.info(str(data) + "addr" +str(addr))
         if addr >= len(program):
@@ -42,7 +42,7 @@ async def testprogram(dut,program,result=158+158):
             assert True
             done = True
             return
-        writenumber(dut,program[addr])
+        await writenumber(dut,program[addr])
 @cocotb.test()
 async def test_project(dut):
     dut._log.info("Start")
