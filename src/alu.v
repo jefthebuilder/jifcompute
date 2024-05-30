@@ -1,3 +1,14 @@
+module gate(
+    input [31:0] A,
+    input [31:0] B,
+    input gateA
+    output [31:0] out);
+    wire [31:0] A1;
+    wire [31:0] B1;
+    assign A1 = A & {32{gateA}};
+    assign B1 = B & {32{~gateA}};
+    assign out = A1 | B1;
+endmodule
 module SHIFTERRIGHT(
     input [31:0] A,
     input [31:0] B,
@@ -106,11 +117,11 @@ module ALU (
     input highlow,
     input F1,
     input F2,
-    output reg F3,
+    inout F3,
     input [6:0] instr,
-    output reg [31:0] C,
-    output reg addrch,
-    output reg [31:0] naddr
+    inout [31:0] C,
+    output addrch,
+    output [31:0] naddr
 );
     wire [31:0] C1;
     ADDER32 addermaster(A,B,C1);
@@ -122,19 +133,31 @@ module ALU (
     SHIFTERRIGHT shifterrecht(A,B,C4);
     wire [31:0] C5;
     LOAD truck(A,value,highlow,C5);
-
+    wire g;
+    gate gate1(C1,C,g);
+    wire g1;
+    gate gate2(C2,C,g1);
+    wire g2;
+    gate gate3(C3,C,g2);
+    wire g3;
+    gate gate4(C4,C,g3);
+    wire g4;
+    gate gate5(A,C,g4);
+    wire g5;
+    gate gate6(C5,C,g5);
     always@(posedge clock)
             begin
+              
               case(instr)
 
-                    0:  assign C = C1;
-                    1: assign C = C2;
-                    2: assign C = C3;
-                    3: assign C = C4;
-                    4: assign C = A;
-                    5: assign C = C5;
-                    6: assign C = C5;
-                    7: assign C = A;
+                    0: assign g = 1;
+                    1: assign g1 = 1;
+                    2: assign g2 = 1;
+                    3: assign g3 = 1;
+                    4: assign g4 = 1;
+                    5: assign g4 = 1;
+                    6: assign g5 = 1;
+                    7: assign g4 = 1;
                     8:  F3 = A == B;
                     9:  F3 = A < B;
                     10:  F3 = A > B;
