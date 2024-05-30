@@ -34,79 +34,50 @@ module cpu(
     wire tempinstr4 = instr[14:11];
     always @* begin
         
-    case (tempinstr)
-                            0: assign rega = a;
-                            1: assign rega = b;
-                            2: assign  rega = c;
-                            3: assign rega = d;
-                            4: assign rega = e;
-                            5: assign rega = f;
-                            6: assign rega = g;
-                            7: assign rega = h;
-                        endcase
     
-    case (tempinstr1)
-                            0: assign regb = a;
-                            1: assign regb = b;
-                            2: assign regb = c;
-                            3: assign regb = d;
-                            4: assign regb = e;
-                            5: assign regb = f;
-                            6: assign regb = g;
-                            7: assign regb = h;
-                        endcase
-    
-    case (tempinstr2)
-                            0: assign flag1 = fa;
-                            1: assign flag1 = fb;
-                            2: assign flag1 = fc;
-                            3: assign flag1 = fd;
-                            4: assign flag1 = fe;
-                            5: assign flag1 = ff;
-                            6: assign flag1 = fg;
-                            7: assign flag1 = fh;
-                        endcase
-                        
-    case (tempinstr3)
-                            0: assign flag2 = fa;
-                            1: assign flag2 = fb;
-                            2: assign flag2 = fc;
-                            3: assign flag2 = fd;
-                            4: assign flag2 = fe;
-                            5: assign flag2 = ff;
-                            6: assign flag2 = fg;
-                            7: assign flag2 = fh;
-                        endcase
-                        assign value = instr[30:15];
-                        assign highlow = instr[15:14];
-    
-    case (tempinstr4)
-    
-                            0: assign fa = flag3;
-                            1: assign fb = flag3;
-                            2: assign fc = flag3;
-                            3: assign fd = flag3;
-                            4: assign fe = flag3;
-                            5: assign ff = flag3;
-                            6: assign fg = flag3;
-                            7: assign fh = flag3;
-                        endcase
-                        case (tempinstr4)
-                            0: assign fa = flag3;
-                            1: assign fb = flag3;
-                            2: assign fc = flag3;
-                            3: assign fd = flag3;
-                            4: assign fe = flag3;
-                            5: assign ff = flag3;
-                            6: assign fg = flag3;
-                            7: assign fh = flag3;
-                        endcase
-
-    end
     
     ADDER32 adder1(addr,1,temp_address);
     ALU alu1(clock,rega,regb,h,value,highlow,flag1,flag2,flag3,instr[6:0],regc,addrchange,naddr);
     always @* begin
+        // Assign rega based on tempinstr
+    assign rega = (tempinstr == 0) ? a :
+                  (tempinstr == 1) ? b :
+                  (tempinstr == 2) ? c :
+                  (tempinstr == 3) ? d :
+                  (tempinstr == 4) ? e :
+                  (tempinstr == 5) ? f :
+                  (tempinstr == 6) ? g :
+                  h;
+
+    // Assign regb based on tempinstr1
+    assign regb = (tempinstr1 == 0) ? a :
+                  (tempinstr1 == 1) ? b :
+                  (tempinstr1 == 2) ? c :
+                  (tempinstr1 == 3) ? d :
+                  (tempinstr1 == 4) ? e :
+                  (tempinstr1 == 5) ? f :
+                  (tempinstr1 == 6) ? g :
+                  h;
+
+    // Assign flag1 based on tempinstr2
+    assign flag1 = (tempinstr2 == 0) ? fa :
+                   (tempinstr2 == 1) ? fb :
+                   (tempinstr2 == 2) ? fc :
+                   (tempinstr2 == 3) ? fd :
+                   (tempinstr2 == 4) ? fe :
+                   (tempinstr2 == 5) ? ff :
+                   (tempinstr2 == 6) ? fg :
+                   fh;
+
+    // Assign flag2 based on tempinstr3
+    assign flag2 = (tempinstr3 == 0) ? fa :
+                   (tempinstr3 == 1) ? fb :
+                   (tempinstr3 == 2) ? fc :
+                   (tempinstr3 == 3) ? fd :
+                   (tempinstr3 == 4) ? fe :
+                   (tempinstr3 == 5) ? ff :
+                   (tempinstr3 == 6) ? fg :
+                   fh;
         assign {fa,fb,fc,fd,fe,ff,fg,fh} = ({8{~reset}} & {fa,fb,fc,fd,fe,ff,fg,fh});
     assign {a,b,c,d,e,f,g,h} = ({256{~reset}} & {a,b,c,d,e,f,g,h});
     // state 0
