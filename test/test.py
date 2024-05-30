@@ -31,7 +31,8 @@ async def testprogram(dut,program,result=158+158):
     while not done:
         await ClockCycles(dut.clk, 1)
         data,addr = read(dut)
-        print(data,addr)
+
+        dut._log.info(str(data) + "addr" +str(addr))
         if addr >= len(program):
             assert False
             done = True
@@ -56,7 +57,7 @@ async def test_project(dut):
     dut.ui_in.value = 0
     dut.uio_in.value = 0
     dut.rst_n.value = 0
-    await ClockCycles(dut.clk, 9)
+    await ClockCycles(dut.clk, 8)
     dut.rst_n.value = 1
 
     dut._log.info("Test project behavior")
