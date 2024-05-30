@@ -23,6 +23,7 @@ async def read(dut):
     addr = b""
     for i in range(4):
         await ClockCycles(dut.clk, 1)
+        dut._log.info("reading...")
         addr += bytes([dut.uo_out.value])
         data += bytes([dut.uio_out.value])
     return reversed(data),reversed(addr)
