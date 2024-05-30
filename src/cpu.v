@@ -120,7 +120,7 @@ module cpu(
     assign winstr = {32{state == 0}};
     assign writinginstr = (instr[6:0] == 7);
     
-    ADDER32 adder1(addro,1,temp_address);
+    ADDER32 adder1(addr,1,temp_address);
     ALU alu1(clock,rega,regb,h,value,highlow,flag1,flag2,flag3,instr[6:0],regc,addrchange,naddr);
 
         // Assign rega based on tempinstr
@@ -205,7 +205,7 @@ module cpu(
     // state 1 removed temp change
      
      assign temp2 = ~addrchange & (clock);
-     assign addr = (((temp2 & temp_address) | naddr) | temp_address);
+     assign addr = (((temp2 & temp_address) | ~temp2 & naddr));
      assign waddr = {32{stato == 2}} & {32{ clock}};
 
     
