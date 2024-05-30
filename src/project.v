@@ -25,13 +25,7 @@ module tt_um_jefloverockets_cpuhandler (
   reg [31:0] dataout;
   reg [31:0] addr;
   assign ui_in = 0;
-  always @(posedge rst)
-  begin
-  assign count = 0;
-  assign data = 0;
-  assign dataout = 0;
-  assign addr = 0;
-  end
+  
   cpu cpf(data,addr,dataout,uio_oe,clk,rst);
   always@(posedge clk)
           begin
