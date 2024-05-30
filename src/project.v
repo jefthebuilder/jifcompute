@@ -55,21 +55,21 @@ module tt_um_jefloverockets_cpuhandler (
                   count = 5;
                   end
                   5: begin
-                  assign data[7:0] = uio_in[7:0];
+                  data[7:0] = uio_in[7:0];
                   count = 6;
                   end
                   6: begin
-                  assign data[15:7] = uio_in[15:7];
+                  data[15:7] = uio_in[15:7];
 
                   count = 7;
                   end
                   7: begin
-                  assign data[23:15] = uio_in[23:15];
+                  data[23:15] = uio_in[23:15];
 
                   count = 8;
                   end
                   8: begin
-                  assign data[31:23] = uio_in[31:23];
+                  data[31:23] = uio_in[31:23];
                   count = 0;
                   end
 
