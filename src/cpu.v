@@ -98,7 +98,7 @@ module cpu(
                         assign temp_address = addr;
                         assign temp2 = ~addrchange;
                         addr = (temp2 & temp_address) | naddr;
-                        assign writinginstr = instr[6:0] == 7;
+                        writinginstr = instr[6:0] == 7;
                         address = (h & writinginstr);
                         rw = writinginstr;
                         datao = rega;
@@ -127,9 +127,9 @@ module cpu(
                     2:
                         begin
 
-                            assign addrchange = 0;
+                            addrchange = 0;
                             addr = temp_address;
-                            assign state = 0;
+                            state = 0;
                         end
                 endcase
         end
