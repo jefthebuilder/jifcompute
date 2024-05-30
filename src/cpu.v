@@ -32,7 +32,7 @@ module cpu(
     wire tempinstr2 = instr[8:5];
     wire tempinstr3 = instr[11:8];
     wire tempinstr4 = instr[14:11];
-    always @* begin
+    
         
     
     
