@@ -78,24 +78,23 @@ module cpu(
                    (tempinstr3 == 5) ? ff :
                    (tempinstr3 == 6) ? fg :
                    fh;
-        assign {fa,fb,fc,fd,fe,ff,fg,fh} = ({8{~reset}} & {fa,fb,fc,fd,fe,ff,fg,fh});
-    assign {a,b,c,d,e,f,g,h} = ({256{~reset}} & {a,b,c,d,e,f,g,h});
+       
     assign a = ( regc & {32{tempinstr4 == 0}}) | ( a & ( ~{32{tempinstr4 == 0 & a == 0}}));
-assign b = ( regc & {32{tempinstr4 == 1}}) | ( b & ( ~{32{tempinstr4 == 1}}));
-assign c = ( regc & {32{tempinstr4 == 2}}) | ( c & ( ~{32{tempinstr4 == 2}}));
-assign d = ( regc & {32{tempinstr4 == 3}}) | ( d & ( ~{32{tempinstr4 == 3}}));
-assign e = ( regc & {32{tempinstr4 == 4}}) | ( e & ( ~{32{tempinstr4 == 4}}));
-assign f = ( regc & {32{tempinstr4 == 5}}) | ( f & ( ~{32{tempinstr4 == 5}}));
-assign g = ( regc & {32{tempinstr4 == 6}}) | ( g & ( ~{32{tempinstr4 == 6}}));
-assign h = ( regc & {32{tempinstr4 == 7}}) | ( h & ( ~{32{tempinstr4 == 7}}));
-assign fa = ( regc & {32{tempinstr4 == 0}}) | ( fa & ( ~{1{tempinstr4 == 1}}));
-assign fb = ( regc & {32{tempinstr4 == 1}}) | ( fb & ( ~{1{tempinstr4 == 1}}));
-assign fc = ( regc & {32{tempinstr4 == 2}}) | ( fc & ( ~{1{tempinstr4 == 2}}));
-assign fd = ( regc & {32{tempinstr4 == 3}}) | ( fd & ( ~{1{tempinstr4 == 3}}));
-assign fe = ( regc & {32{tempinstr4 == 4}}) | ( fe & ( ~{1{tempinstr4 == 4}}));
-assign ff = ( regc & {32{tempinstr4 == 5}}) | ( ff & ( ~{1{tempinstr4 == 5}}));
-assign fg = ( regc & {32{tempinstr4 == 6}}) | ( fg & ( ~{1{tempinstr4 == 6}}));
-assign fh = ( regc & {1{tempinstr4 == 7}}) | ( fh & ( ~{1{tempinstr4 == 7}}));
+assign b = ( regc & {32{tempinstr4 == 1}}) | ( b & ( ~{32{tempinstr4 == 1}})) & {32{~reset}};
+assign c = ( regc & {32{tempinstr4 == 2}}) | ( c & ( ~{32{tempinstr4 == 2}}))& {32{~reset}};
+assign d = ( regc & {32{tempinstr4 == 3}}) | ( d & ( ~{32{tempinstr4 == 3}}))& {32{~reset}};
+assign e = ( regc & {32{tempinstr4 == 4}}) | ( e & ( ~{32{tempinstr4 == 4}}))& {32{~reset}};
+assign f = ( regc & {32{tempinstr4 == 5}}) | ( f & ( ~{32{tempinstr4 == 5}}))& {32{~reset}};
+assign g = ( regc & {32{tempinstr4 == 6}}) | ( g & ( ~{32{tempinstr4 == 6}}))& {32{~reset}};
+assign h = ( regc & {32{tempinstr4 == 7}}) | ( h & ( ~{32{tempinstr4 == 7}}))& {32{~reset}};
+assign fa = ( regc & {32{tempinstr4 == 0}}) | ( fa & ( ~{1{tempinstr4 == 1}})) & ~reset;
+assign fb = ( regc & {32{tempinstr4 == 1}}) | ( fb & ( ~{1{tempinstr4 == 1}}))& ~reset;
+assign fc = ( regc & {32{tempinstr4 == 2}}) | ( fc & ( ~{1{tempinstr4 == 2}}))& ~reset;
+assign fd = ( regc & {32{tempinstr4 == 3}}) | ( fd & ( ~{1{tempinstr4 == 3}}))& ~reset;
+assign fe = ( regc & {32{tempinstr4 == 4}}) | ( fe & ( ~{1{tempinstr4 == 4}}))& ~reset;
+assign ff = ( regc & {32{tempinstr4 == 5}}) | ( ff & ( ~{1{tempinstr4 == 5}}))& ~reset;
+assign fg = ( regc & {32{tempinstr4 == 6}}) | ( fg & ( ~{1{tempinstr4 == 6}}))& ~reset;
+assign fh = ( regc & {1{tempinstr4 == 7}}) | ( fh & ( ~{1{tempinstr4 == 7}}))& ~reset;
     // state 0
     assign addr = ({32{~reset}} & addr);
     assign data = ({32{~reset}} & addr);
@@ -107,9 +106,9 @@ assign fh = ( regc & {1{tempinstr4 == 7}}) | ( fh & ( ~{1{tempinstr4 == 7}}));
      assign rw = (~(~(state == 0 ) | ~writinginstr)) & ( clock);
      assign state = ((({2{state == 0}} & 1) | ({2{state == 1}} & 2) ) | ({2{state == 2}} & 0)) & {3{clock}};
     // state 1
-     assign temp_address = addr & {32{(clock)}};
-     assign temp2 = ~addrchange & (clock);
-     assign addr = (((temp2 & temp_address) | naddr) | temp_address & {32{state == 2}}) & {32{ clock}};
+     assign temp_address = {32{~reset}} &(addr & {32{(clock)}});
+     assign temp2 = {32{~reset}} & ~addrchange & (clock);
+     assign addr = {32{~reset}} & (((temp2 & temp_address) | naddr) | temp_address & {32{state == 2}}) & {32{ clock}};
      assign writinginstr = (instr[6:0] == 7) & clock;
     
     
