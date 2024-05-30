@@ -133,49 +133,33 @@ module ALU (
     SHIFTERRIGHT shifterrecht(A,B,C4);
     wire [31:0] C5;
     LOAD truck(A,value,highlow,C5);
-    wire g;
+    wire g = instr == 0 & clock;
     gate gate1(C1,C,g);
-    wire g1;
+    wire g1 = instr == 1 & clock;
     gate gate2(C2,C,g1);
-    wire g2;
+    wire g2 = instr == 2 & clock;
     gate gate3(C3,C,g2);
-    wire g3;
+    wire g3 = instr == 3 & clock;
     gate gate4(C4,C,g3);
-    wire g4;
+    wire g4 = (instr == 7 | instr == 4) & clock;
     gate gate5(A,C,g4);
-    wire g5;
+    wire g5 = (instr == 6 | instr == 5) & clock;
     gate gate6(C5,C,g5);
-    always@(posedge clock)
-            begin
-              
-              case(instr)
-
-                    0: assign g = 1;
-                    1: assign g1 = 1;
-                    2: assign g2 = 1;
-                    3: assign g3 = 1;
-                    4: assign g4 = 1;
-                    5: assign g4 = 1;
-                    6: assign g5 = 1;
-                    7: assign g4 = 1;
-                    8:  F3 = A == B;
-                    9:  F3 = A < B;
-                    10:  F3 = A > B;
-                    11:  F3 = ~F1;
-                    12:  F3 = F1 & F2;
-                    13:  F3 = F1;
-                    14: begin
-                         naddr = reg8;
-                         addrch = 1;
-                    end
-                    15: begin
-
-                        naddr = F1 & reg8;
-                         addrch = F1;
-
-                    end
-                    endcase
-          end
+    wire F8 = (A == B) & (instr == 8) & clock;
+    wire F9 = (A < B) & (instr == 9) & clock;
+    wire F10 = (A > B) & (instr == 10) & clock;
+    wire F11 = (~F1) & (instr == 11) & clock;
+    wire F12 = (F1 & F2) & (instr == 12) & clock;
+    wire F13 = (~F1) & (instr == 13) & clock;
+    assign naddr = (reg8 & {32{instr == 14} & clock} | reg8 & {32{(instr == 145 & F1 & clock)}});
+    assign addrch = instr == 14 & clock | instr == 145 & F1 & clock
+    assign F3 = F8 | F9 | F10 | F11 | F12 | F13;
+                    
+                                                      
+                                                      
+                                                      
+    
+    
 
 
 
