@@ -122,7 +122,7 @@ module cpu(
     assign rw = (~(~(state == 0 ) | ~writinginstr)) & ( clock);
     assign state = ((({2{state == 0}} & 1) | ({2{state == 1}} & 2) ) | ({2{state == 2}} & 0)) & {3{clock}};
     // state 1
-    assign temp_address = addr & {32{(clock}};
+    assign temp_address = addr & {32{(clock)}};
     assign temp2 = ~addrchange & (clock);
     assign addr = (((temp2 & temp_address) | naddr) | temp_address & {32{state == 2}}) & {32{ clock}};
     assign writinginstr = (instr[6:0] == 7) & clock;
