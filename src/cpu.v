@@ -104,7 +104,8 @@ module cpu(
 
     end
     
-    
+    ADDER32 adder1(addr,1,temp_address);
+    ALU alu1(clock,rega,regb,h,value,highlow,flag1,flag2,flag3,instr[6:0],regc,addrchange,naddr);
     always @* begin
         assign {fa,fb,fc,fd,fe,ff,fg,fh} = ({8{~reset}} & {fa,fb,fc,fd,fe,ff,fg,fh});
     assign {a,b,c,d,e,f,g,h} = ({256{~reset}} & {a,b,c,d,e,f,g,h});
@@ -114,8 +115,7 @@ module cpu(
     assign instr = ({32{~reset}} & instr);
     assign state = ({2{~reset}} & state);
     assign addrchange = (~reset & addrchange);
-    ADDER32 adder1(addr,1,temp_address);
-     ALU alu1(clock,rega,regb,h,value,highlow,flag1,flag2,flag3,instr[6:0],regc,addrchange,naddr);
+   
      assign address = ((addr & {32{state == 0 & clock}}) | (h & writinginstr)) & {32{clock}};
      assign rw = (~(~(state == 0 ) | ~writinginstr)) & ( clock);
      assign state = ((({2{state == 0}} & 1) | ({2{state == 1}} & 2) ) | ({2{state == 2}} & 0)) & {3{clock}};
