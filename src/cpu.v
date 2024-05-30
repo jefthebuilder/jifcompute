@@ -110,8 +110,8 @@ module cpu(
         {fa,fb,fc,fd,fe,ff,fg,fh} = 0;
         {addr,instr} = 0;
 
-        state = 1'sb1;
-        addrchange = 1'sb1;
+        state <= 1'sb1;
+        addrchange <= 1'sb1;
     end
     ADDER32 adder1(addr,1,temp_address);
     ALU alu1(clock,rega,regb,h,value,highlow,flag1,flag2,flag3,instr[6:0],regc,addrchange,naddr);
@@ -131,7 +131,7 @@ module cpu(
                         // regA
 
                         
-                        temp_address = addr;
+                        temp_address <= addr;
                         temp2 = ~addrchange;
                         addr = (temp2 & temp_address) | naddr;
                         writinginstr = instr[6:0] == 7;
@@ -143,7 +143,7 @@ module cpu(
                     2:
                         begin
 
-                            addrchange = 1'sb0;
+                            addrchange <= 1'sb0;
                             addr = temp_address;
                             state = 1'sb0;
                         end
