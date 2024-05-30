@@ -118,15 +118,15 @@ module cpu(
     addrchange = (reset & addrchange);
     ADDER32 adder1(addr,1,temp_address);
     ALU alu1(clock,rega,regb,h,value,highlow,flag1,flag2,flag3,instr[6:0],regc,addrchange,naddr);
-    address = (addr & {32{state == 0 & clock}});
-    rw = ~(~(state == 0 ) | ~writinginstr) & clock
-    state = ((({2{state == 0}} & 1) | ({2{state == 1}} & 2) )| ({2{state == 2}} & 0)) & {2{posedge clock}}
+    assign address = (addr & {32{state == 0 & clock}}) | (h & writinginstr) & {32{clock}};
+    assign rw = ~(~(state == 0 ) | ~writinginstr) & clock
+    assign state = ((({2{state == 0}} & 1) | ({2{state == 1}} & 2) )| ({2{state == 2}} & 0)) & {2{posedge clock}}
     // state 1
-    temp_address = addr & {32{clock}};
-    temp2 = ~addrchange & clock;
-    addr = ((temp2 & temp_address) | naddr) & {32{clock}};
-    writinginstr = (instr[6:0] == 7) & clock;
-    address = (h & writinginstr) & {32{clock}};
+    assign temp_address = addr & {32{clock}};
+    assign temp2 = ~addrchange & clock;
+    assign addr = ((temp2 & temp_address) | naddr) & {32{clock}};
+    assign writinginstr = (instr[6:0] == 7) & clock;
+    
     
     datao = rega;
     always@(posedge clock)
@@ -151,7 +151,7 @@ module cpu(
                     2:
                         begin
 
-                            assign addrchange = 1'sb0;
+                            
                             addr = temp_address;
                             state = 1'sb0;
                         end
