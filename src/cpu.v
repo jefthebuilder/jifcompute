@@ -26,7 +26,8 @@ module cpu(
     reg [31:0] naddr;
     wire temp2;
     wire writinginstr;
-    wire tempinstr = instr[8:5];
+    always @* begin
+        wire tempinstr = instr[8:5];
     case (tempinstr)
                             0: assign rega = a;
                             1: assign rega = b;
@@ -95,6 +96,9 @@ module cpu(
                             7: assign fh = flag3;
                         endcase
 
+    end
+    
+    
     always @(posedge reset)
     begin
         {a,b,c,d,e,f,g,h} = 0;
