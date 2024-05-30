@@ -110,8 +110,8 @@ module cpu(
         {fa,fb,fc,fd,fe,ff,fg,fh} = 0;
         {addr,instr} = 0;
 
-        state = 0;
-        addrchange = 0;
+        state = 1'sb1;
+        addrchange = 1'sb1;
     end
     ADDER32 adder1(addr,1,temp_address);
     ALU alu1(clock,rega,regb,h,value,highlow,flag1,flag2,flag3,instr[6:0],regc,addrchange,naddr);
