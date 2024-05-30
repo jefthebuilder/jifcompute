@@ -61,7 +61,7 @@ module cpu(
     input reset
 );
     wire [31:0] a,b,c,d,e,f,g,h;
-    wire [31:0] ao,bo,co,do,eo,fo,go,ho;
+    wire [31:0] ao,bo,co,do1,eo,fo,go,ho;
     wire wa,wb,wc,wd,we,wf,wg,wh;
     wire fa,fb,fc,fd,fe,ff,fg,fh;
     wire fao,fbo,fco,fdo,feo,ffo,fgo,fho;
@@ -69,7 +69,7 @@ module cpu(
     register reg_a(clock,wa,reset,a,ao);
     register reg_b(clock,wb,reset,b,bo);
     register reg_c(clock,wc,reset,c,co);
-    register reg_d(clock,wd,reset,d,do);
+    register reg_d(clock,wd,reset,d,do1);
     register reg_e(clock,we,reset,e,eo);
     register reg_f(clock,wf,reset,f,fo);
     register reg_g(clock,wh,reset,g,go);
@@ -127,7 +127,7 @@ module cpu(
     assign rega = (tempinstr == 0) ? ao :
                   (tempinstr == 1) ? bo :
                   (tempinstr == 2) ? co :
-                  (tempinstr == 3) ? do :
+                  (tempinstr == 3) ? do1 :
                   (tempinstr == 4) ? eo :
                   (tempinstr == 5) ? fo :
                   (tempinstr == 6) ? go :
@@ -137,7 +137,7 @@ module cpu(
     assign regb = (tempinstr1 == 0) ? ao :
                   (tempinstr1 == 1) ? bo :
                   (tempinstr1 == 2) ? co :
-                  (tempinstr1 == 3) ? do :
+                  (tempinstr1 == 3) ? do1 :
                   (tempinstr1 == 4) ? eo :
                   (tempinstr1 == 5) ? fo :
                   (tempinstr1 == 6) ? go :
