@@ -60,10 +60,12 @@ async def test_project(dut):
     dut.ui_in.value = 0
     dut.uio_in.value = 0
     dut.rst_n.value = 0
-    await ClockCycles(dut.clk, 8)
+    for i in range(9):
+        dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_in))
+        await ClockCycles(dut.clk, 1)
     dut.rst_n.value = 1
     print()
-    dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_in))
+
 
     # Set the input values you want to test
 
