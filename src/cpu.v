@@ -101,8 +101,8 @@ assign fh = ( regc & {1{tempinstr4 == 7}}) | ( fh & ( ~{1{tempinstr4 == 7}}))& ~
      assign address = ((addr & {32{state == 0 & clock}}) | (h & writinginstr)) & {32{clock}};
      assign rw = (~(~(state == 0 ) | ~writinginstr)) & ( clock);
      assign state = {2{~reset}} & ((({2{state == 0}} & 1) | ({2{state == 1}} & 2) ) | ({2{state == 2}} & 0)) & {3{clock}};
-    // state 1
-     assign temp_address = {32{~reset}} &(addr & {32{(clock)}});
+    // state 1 removed temp change
+     
      assign temp2 = {32{~reset}} & ~addrchange & (clock);
      assign addr = {32{~reset}} & (((temp2 & temp_address) | naddr) | temp_address & {32{state == 2}}) & {32{ clock}};
      assign writinginstr = (instr[6:0] == 7) & clock;
