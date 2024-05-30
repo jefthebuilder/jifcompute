@@ -96,15 +96,11 @@ assign ff = ( regc & {32{tempinstr4 == 5}}) | ( ff & ( ~{1{tempinstr4 == 5}}))& 
 assign fg = ( regc & {32{tempinstr4 == 6}}) | ( fg & ( ~{1{tempinstr4 == 6}}))& ~reset;
 assign fh = ( regc & {1{tempinstr4 == 7}}) | ( fh & ( ~{1{tempinstr4 == 7}}))& ~reset;
     // state 0
-    assign addr = ({32{~reset}} & addr);
-    assign data = ({32{~reset}} & addr);
-    assign instr = ({32{~reset}} & instr);
-    assign state = ({2{~reset}} & state);
-    assign addrchange = (~reset & addrchange);
+  
    
      assign address = ((addr & {32{state == 0 & clock}}) | (h & writinginstr)) & {32{clock}};
      assign rw = (~(~(state == 0 ) | ~writinginstr)) & ( clock);
-     assign state = ((({2{state == 0}} & 1) | ({2{state == 1}} & 2) ) | ({2{state == 2}} & 0)) & {3{clock}};
+     assign state = {2{~reset}} & ((({2{state == 0}} & 1) | ({2{state == 1}} & 2) ) | ({2{state == 2}} & 0)) & {3{clock}};
     // state 1
      assign temp_address = {32{~reset}} &(addr & {32{(clock)}});
      assign temp2 = {32{~reset}} & ~addrchange & (clock);
