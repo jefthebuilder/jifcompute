@@ -29,6 +29,7 @@ async def read(dut):
 async def testprogram(dut,program,result=158+158):
     done = False
     dut._log.info("Test project behavior")
+    dut._log.info("Test project behavior")
     while not done:
         await ClockCycles(dut.clk, 1)
         data,addr = await read(dut)
@@ -58,7 +59,7 @@ async def test_project(dut):
     dut.ui_in.value = 0
     dut.uio_in.value = 0
     dut.rst_n.value = 0
-    await ClockCycles(dut.clk, 8)
+    await ClockCycles(dut.clk, 9)
     dut.rst_n.value = 1
 
 

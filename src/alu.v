@@ -94,15 +94,16 @@ module LOAD(
     assign HIGH = {16{invhigh}} ^ value;
     wire [31:0] temp;
     SHIFTERLEFT shifty({value,{32-16{1'b0}}},{HIGH,{32-16{1'b0}}},temp);
-    wire [31:0] temp2;
-    wire [31:0] temp3;
+    wire [15:0] temp2;
+    wire [15:0] temp3;
+    wire [15:0] temp4;
+    wire [15:0] temp5;
+    assign temp2[15:0] = temp[31:15]&{32{highlow}};
+    assign temp3[15:0]  = A[15:0]&{32{highlow}};
+    assign temp4[15:0]=A[31:15]&{32{invhigh}};
+    assign temp5[15:0]=temp[15:0]&{32{invhigh}};
 
-    assign temp2[31:15] = temp[31:15]&{32{highlow}};
-    assign temp2[15:0]=A[15:0]&{32{highlow}};
-    assign temp3[31:15]=A[31:15]&{32{invhigh}};
-    assign temp3[15:0]=temp[15:0]&{32{invhigh}};
-
-    assign C = temp2 | temp3;
+    assign C = {temp2,temp3} | {temp4,temp5};
 
 
 

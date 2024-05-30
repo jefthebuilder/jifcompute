@@ -32,13 +32,16 @@ module cpu(
     wire tempinstr2 = instr[8:5];
     wire tempinstr3 = instr[11:8];
     wire tempinstr4 = instr[14:11];
-    
-        
+    assign highlow = instr[15:14];
+    assign value = instr[31:15];
+    wire state1 = {32{state == 0}};
+    assign instr = (state1 & data) | (instr & state1);
+
     
     
     ADDER32 adder1(addr,1,temp_address);
     ALU alu1(clock,rega,regb,h,value,highlow,flag1,flag2,flag3,instr[6:0],regc,addrchange,naddr);
-    
+
         // Assign rega based on tempinstr
     assign rega = (tempinstr == 0) ? a :
                   (tempinstr == 1) ? b :
