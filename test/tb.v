@@ -1,9 +1,14 @@
 `default_nettype none
 `timescale 1ns / 1ps
+`include "../src/alu.v"
+`include "../src/cpu.v"
+`include "../src/project.v"
+
 
 /* This testbench just instantiates the module and makes some convenient wires
    that can be driven / tested by the cocotb test.py.
 */
+
 module tb ();
 
   // Dump the signals to a VCD file. You can view it with gtkwave.

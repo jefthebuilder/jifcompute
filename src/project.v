@@ -25,6 +25,7 @@ module tt_um_jefloverockets_cpuhandler (
   reg [31:0] dataout;
   reg [31:0] addr;
   assign uio_oe = {8{rw}};
+
   cpu cpf(data,addr,dataout,rw,clk,rst);
   always@(posedge clk)
           begin
@@ -54,21 +55,21 @@ module tt_um_jefloverockets_cpuhandler (
                   count = 5;
                   end
                   5: begin
-                  data[7:0] = uio_in[7:0];
+                  data[7:0] = uio_in;
                   count = 6;
                   end
                   6: begin
-                  data[15:7] = uio_in[15:7];
+                  data[15:7] = uio_in;
 
                   count = 7;
                   end
                   7: begin
-                  data[23:15] = uio_in[23:15];
+                  data[23:15] = uio_in;
 
                   count = 8;
                   end
                   8: begin
-                  data[31:23] = uio_in[31:23];
+                  data[31:23] = uio_in;
                   count = 0;
                   end
 
