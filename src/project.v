@@ -17,6 +17,7 @@ module tt_um_jefloverockets_cpuhandler (
 );
 
   // All output pins must be assigned. If not used, assign to 0.
+  wire cpuclock;
   wire rw;
   wire rst;
   not(rst,rst_n);
@@ -25,8 +26,8 @@ module tt_um_jefloverockets_cpuhandler (
   reg [31:0] dataout;
   reg [31:0] addr;
   assign uio_oe = {8{rw}};
-
-  cpu cpf(data,addr,dataout,rw,clk,rst);
+  assign cpuclock = count == 0;
+  cpu cpf(data,addr,dataout,rw,cpuclock,rst);
   always@(posedge clk)
           begin
                case( count)
