@@ -26,8 +26,13 @@ module cpu(
     reg [31:0] naddr;
     wire temp2;
     wire writinginstr;
+    wire tempinstr = instr[8:5];
+    wire tempinstr1 = instr[11:8];
+    wire tempinstr2 = instr[8:5];
+    wire tempinstr3 = instr[11:8];
+    wire tempinstr4 = instr[14:11];
     always @* begin
-        wire tempinstr = instr[8:5];
+        
     case (tempinstr)
                             0: assign rega = a;
                             1: assign rega = b;
@@ -38,7 +43,7 @@ module cpu(
                             6: assign rega = g;
                             7: assign rega = h;
                         endcase
-    wire tempinstr1 = instr[11:8];
+    
     case (tempinstr1)
                             0: assign regb = a;
                             1: assign regb = b;
@@ -49,7 +54,7 @@ module cpu(
                             6: assign regb = g;
                             7: assign regb = h;
                         endcase
-    wire tempinstr2 = instr[8:5];
+    
     case (tempinstr2)
                             0: assign flag1 = fa;
                             1: assign flag1 = fb;
@@ -60,7 +65,7 @@ module cpu(
                             6: assign flag1 = fg;
                             7: assign flag1 = fh;
                         endcase
-                        wire tempinstr3 = instr[11:8];
+                        
     case (tempinstr3)
                             0: assign flag2 = fa;
                             1: assign flag2 = fb;
@@ -73,7 +78,7 @@ module cpu(
                         endcase
                         assign value = instr[30:15];
                         assign highlow = instr[15:14];
-    wire tempinstr4 = instr[14:11];
+    
     case (tempinstr4)
     
                             0: assign fa = flag3;
