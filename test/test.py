@@ -6,10 +6,10 @@ from cocotb.clock import Clock
 from cocotb.triggers import ClockCycles
 
 program_add = [
-    int(reversed("000101_000_000_000_0_0000000010011110"),2),
-    int(reversed("000101_001_000_000_0_0000000010011110"),2),
-    int(reversed("000000_001_000_000_0_0000000000000000"),2),
-    int(reversed("001000_001_000_000_0_0000000000000000"),2),
+    int(reversed("00010100000000000000000010011110"),2),
+    int(reversed("00010100100000000000000010011110"),2),
+    int(reversed("00000000100000000000000000000000"),2),
+    int(reversed("00100000100000000000000000000000"),2),
 
 ]
 async def writenumber(dut,value):
