@@ -160,8 +160,8 @@ module ALU (
     wire F11 = (~F1) & (instr == 11) & clock;
     wire F12 = (F1 & F2) & (instr == 12) & clock;
     wire F13 = (~F1) & (instr == 13) & clock;
-    assign naddr = (reg8 & {32{instr == 14 & clock}} | reg8) & {32{(instr == 145 & F1 & clock)}};
-    assign addrch = (((instr == 14 & clock) | instr == 145) & F1) & clock;
+    assign naddr = (reg8 & (({32{instr == 14 & clock}} | reg8) |{32{(instr == 15 & F1 & clock)}}) | {32{(instr == 7 & F1 & clock)}} | {32{(instr == 8 & F1 & clock)}} | {32{(instr == 9 & F1 & clock)}});
+    assign addrch = (((instr == 14 & clock) | instr == 15) & F1) & clock;
         
     assign F3 = ((F8 | F9) | (F10 | F11)) | (F12 | F13);
                     
