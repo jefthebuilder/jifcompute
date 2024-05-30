@@ -1,7 +1,7 @@
 module gate(
     input [31:0] A,
     input [31:0] B,
-    input gateA
+    input gateA,
     output [31:0] out);
     wire [31:0] A1;
     wire [31:0] B1;
