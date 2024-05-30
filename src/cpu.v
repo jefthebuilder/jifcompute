@@ -26,7 +26,8 @@ module cpu(
     reg [31:0] naddr;
     wire temp2;
     wire writinginstr;
-    case (instr[8:5])
+    wire tempinstr = instr[8:5];
+    case (tempinstr)
                             0: assign rega = a;
                             1: assign rega = b;
                             2: assign  rega = c;
@@ -36,7 +37,8 @@ module cpu(
                             6: assign rega = g;
                             7: assign rega = h;
                         endcase
-                        case (instr[11:8])
+    wire tempinstr1 = instr[11:8];
+    case (tempinstr1)
                             0: assign regb = a;
                             1: assign regb = b;
                             2: assign regb = c;
@@ -46,7 +48,8 @@ module cpu(
                             6: assign regb = g;
                             7: assign regb = h;
                         endcase
-                        case (instr[8:5])
+    wire tempinstr2 = instr[8:5];
+    case (tempinstr2)
                             0: assign flag1 = fa;
                             1: assign flag1 = fb;
                             2: assign flag1 = fc;
@@ -56,7 +59,8 @@ module cpu(
                             6: assign flag1 = fg;
                             7: assign flag1 = fh;
                         endcase
-                        case (instr[11:8])
+                        wire tempinstr3 = instr[11:8];
+    case (tempinstr3)
                             0: assign flag2 = fa;
                             1: assign flag2 = fb;
                             2: assign flag2 = fc;
@@ -68,7 +72,9 @@ module cpu(
                         endcase
                         assign value = instr[30:15];
                         assign highlow = instr[15:14];
-    case (instr[14:11])
+    wire tempinstr4 = instr[14:11];
+    case (tempinstr4)
+    
                             0: assign fa = flag3;
                             1: assign fb = flag3;
                             2: assign fc = flag3;
@@ -78,7 +84,7 @@ module cpu(
                             6: assign fg = flag3;
                             7: assign fh = flag3;
                         endcase
-                        case (instr[14:11])
+                        case (tempinstr4)
                             0: assign fa = flag3;
                             1: assign fb = flag3;
                             2: assign fc = flag3;
