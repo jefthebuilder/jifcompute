@@ -22,8 +22,8 @@ module cpu(
     wire flag2;
     wire flag3;
     wire highlow;
-    wire [31:0]temp_address;
-    wire [31:0]temp_address2;
+    reg [31:0]temp_address;
+    
     reg [31:0] naddr;
     wire temp2;
     wire [6:0] writinginstr;
