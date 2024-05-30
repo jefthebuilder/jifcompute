@@ -38,7 +38,7 @@ module cpu(
     
     ADDER32 adder1(addr,1,temp_address);
     ALU alu1(clock,rega,regb,h,value,highlow,flag1,flag2,flag3,instr[6:0],regc,addrchange,naddr);
-    always @* begin
+    
         // Assign rega based on tempinstr
     assign rega = (tempinstr == 0) ? a :
                   (tempinstr == 1) ? b :
@@ -114,7 +114,7 @@ assign fh = ( regc & {1{tempinstr4 == 7}}) | ( fh & ( ~{1{tempinstr4 == 7}}));
     
     
      assign datao = rega & & {32{clock}} & {32{state == 1}};
-    end
+    
     
     
     
