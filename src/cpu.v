@@ -14,18 +14,19 @@ module cpu(
     reg [2:0] state;
     reg [31:0] addr;
     reg [31:0] instr;
-    reg [31:0] rega;
-    reg [31:0] regb;
-    reg [31:0] regc;
-    reg [15:0] value;
-    reg flag1;
-    reg flag2;
-    reg flag3;
-    reg highlow;
-    reg [31:0]temp_address;
+    wire [31:0] rega;
+    wire [31:0] regb;
+    wire [31:0] regc;
+    wire [15:0] value;
+    wire flag1;
+    wire flag2;
+    wire flag3;
+    wire highlow;
+    wire [31:0]temp_address;
+    wire [31:0]temp_address2;
     reg [31:0] naddr;
-    reg temp2;
-    reg [6:0] writinginstr;
+    wire temp2;
+    wire [6:0] writinginstr;
     wire tempinstr = instr[8:5];
     wire tempinstr1 = instr[11:8];
     wire tempinstr2 = instr[8:5];
@@ -110,11 +111,24 @@ module cpu(
         {fa,fb,fc,fd,fe,ff,fg,fh} = 0;
         {addr,instr} = 0;
 
-        assign state = 0;
-        assign addrchange = 0;
+        
     end
+    // state 0
+    state = ({2{reset}} & state);
+    addrchange = (reset & addrchange);
     ADDER32 adder1(addr,1,temp_address);
     ALU alu1(clock,rega,regb,h,value,highlow,flag1,flag2,flag3,instr[6:0],regc,addrchange,naddr);
+    address = (addr & {32{state == 0 & clock}});
+    rw = ~(~(state == 0 ) | ~writinginstr) & clock
+    state = ((({2{state == 0}} & 1) | ({2{state == 1}} & 2) )| ({2{state == 2}} & 0)) & {2{posedge clock}}
+    // state 1
+    temp_address = addr & {32{clock}};
+    temp2 = ~addrchange & clock;
+    addr = ((temp2 & temp_address) | naddr) & {32{clock}};
+    writinginstr = (instr[6:0] == 7) & clock;
+    address = (h & writinginstr) & {32{clock}};
+    
+    datao = rega;
     always@(posedge clock)
         begin
 
@@ -131,13 +145,7 @@ module cpu(
                         // regA
 
                         
-                        assign temp_address = addr;
-                        temp2 = ~addrchange;
-                        addr = (temp2 & temp_address) | naddr;
-                        writinginstr = instr[6:0] == 7;
-                        address = (h & writinginstr);
-                        rw = writinginstr;
-                        datao = rega;
+                        assign 
                         
                     end
                     2:
