@@ -4,7 +4,7 @@
  */
 
 `default_nettype none
-`include "../src/cpu.v"
+
 module tt_um_jefloverockets_cpuhandler (
     input  wire [7:0] ui_in,    // Dedicated inputs
     output reg [7:0] uo_out,   // Dedicated outputs

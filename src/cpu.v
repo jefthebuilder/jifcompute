@@ -1,5 +1,5 @@
 
-`include "../src/alu.v"
+
 module cpu(
     input [31:0] data,
     output [31:0] datao,
