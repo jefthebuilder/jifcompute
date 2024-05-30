@@ -19,14 +19,14 @@ async def writenumber(dut,value):
         dut.uio_in.value = int(byte)
         await ClockCycles(dut.clk, 1)
 async def read(dut):
-    data = b""
-    addr = b""
+    data = 0
+    addr = 0
     for i in range(4):
         await ClockCycles(dut.clk, 1)
         dut._log.info("reading...")
-        addr += bytes([dut.uo_out.value])
-        data += bytes([dut.uio_out.value])
-    return reversed(data),reversed(addr)
+        addr += dut.uo_out.value << (i*8)
+        data += dut.uio_out.value << (i*8)
+    return data,addr
 async def testprogram(dut,program,result=158+158):
     done = False
     dut._log.info("Test project behavior")
