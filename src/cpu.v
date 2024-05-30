@@ -118,14 +118,14 @@ module cpu(
     assign addrchange = (reset & addrchange);
     ADDER32 adder1(addr,1,temp_address);
     ALU alu1(clock,rega,regb,h,value,highlow,flag1,flag2,flag3,instr[6:0],regc,addrchange,naddr);
-    assign address = (addr & {32{state == 0 & clock}}) | (h & writinginstr) & {32{clock}};
-    assign rw = ~(~(state == 0 ) | ~writinginstr) & clock;
+    assign address = (addr & {32{state == 0 & clock}}) | (h & writinginstr) & {32{posedge clock}};
+    assign rw = ~(~(state == 0 ) | ~writinginstr) & (posedge clock);
     assign state = ((({2{state == 0}} & 1) | ({2{state == 1}} & 2) )| ({2{state == 2}} & 0)) & {2{posedge clock}};
     // state 1
-    assign temp_address = addr & {32{clock}};
-    assign temp2 = ~addrchange & clock;
-    assign addr = ((temp2 & temp_address) | naddr) & {32{clock}};
-    assign writinginstr = (instr[6:0] == 7) & clock;
+    assign temp_address = addr & {32{posedge clock}};
+    assign temp2 = ~addrchange & (posedge clock);
+    assign addr = (((temp2 & temp_address) | naddr) | temp_address & {32{state == 2}}) & {32{posedge clock}};
+    assign writinginstr = (instr[6:0] == 7) & posedge clock;
     
     
     assign datao = rega & & {32{clock}} & {32{state == 1}};
@@ -152,8 +152,8 @@ module cpu(
                         begin
 
                             
-                            addr = temp_address;
-                            state = 1'sb0;
+                            
+                            
                         end
                 endcase
         end
