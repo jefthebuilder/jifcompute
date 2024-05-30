@@ -28,11 +28,12 @@ async def read(dut):
     return reversed(data),reversed(addr)
 async def testprogram(dut,program,result=158+158):
     done = False
+    dut._log.info("Test project behavior")
     while not done:
         await ClockCycles(dut.clk, 1)
         data,addr = await read(dut)
 
-        dut._log.info(str(data) + "addr" +str(addr))
+        dut._log.info(str(data) + " addr: " +str(addr))
         if addr >= len(program):
             assert False
             done = True
@@ -60,7 +61,7 @@ async def test_project(dut):
     await ClockCycles(dut.clk, 8)
     dut.rst_n.value = 1
 
-    dut._log.info("Test project behavior")
+
 
     # Set the input values you want to test
 
