@@ -24,7 +24,7 @@ module tt_um_jefloverockets_cpuhandler (
   reg [31:0] data;
   reg [31:0] dataout;
   reg [31:0] addr;
-  assign ui_in = 0;
+  
   
   cpu cpf(data,addr,dataout,uio_oe,clk,rst);
   always@(posedge clk)
@@ -55,21 +55,21 @@ module tt_um_jefloverockets_cpuhandler (
                   count = 5;
                   end
                   5: begin
-                  assign data = uio_in[7:0];
+                  assign data[7:0] = uio_in[7:0];
                   count = 6;
                   end
                   6: begin
-                  assign data = uio_in[15:7];
+                  assign data[15:7] = uio_in[15:7];
 
                   count = 7;
                   end
                   7: begin
-                  assign data = uio_in[23:15];
+                  assign data[23:15] = uio_in[23:15];
 
                   count = 8;
                   end
                   8: begin
-                  assign data = uio_in[31:23];
+                  assign data[31:23] = uio_in[31:23];
                   count = 0;
                   end
 
@@ -81,6 +81,6 @@ module tt_um_jefloverockets_cpuhandler (
 
 
   // List all unused inputs to prevent warnings
-  wire _unused = &{ena, 1'b0};
+  wire _unused = &{ena, 1'b0,ui_in};
 
 endmodule
