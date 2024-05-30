@@ -2,7 +2,7 @@
 `timescale 1ns / 1ps
 `include "../src/alu.v"
 `include "../src/cpu.v"
-`include "../src/project.v"
+
 
 
 /* This testbench just instantiates the module and makes some convenient wires
