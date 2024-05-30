@@ -91,8 +91,8 @@ assign f = ( regc & {32{tempinstr4 == 5}}) | ( f & ( ~{32{tempinstr4 == 5}}))& {
 assign g = ( regc & {32{tempinstr4 == 6}}) | ( g & ( ~{32{tempinstr4 == 6}}))& {32{~reset}};
 assign h = ( regc & {32{tempinstr4 == 7}}) | ( h & ( ~{32{tempinstr4 == 7}}))& {32{~reset}};
 assign fa = ( flag3 & {1{tempinstr4 == 0}}) | ( fa & ( ~{1{tempinstr4 == 1}})) & ~reset;
-assign fb = ( flag3 & {1{tempinstr4 == 1}}) | ( fb & ( ~{1{tempinstr4 == 1}}))& ~reset;
-assign fc = ( flag3 & {1{tempinstr4 == 2}}) | ( fc & ( ~{1{tempinstr4 == 2}}))& ~reset;
+assign fb = ( flag3 & {1{tempinstr4 == 1}}) | ( fb & ( ~{1{tempinstr4 == 1}})) & ~reset;
+assign fc = ( flag3 & {1{tempinstr4 == 2}}) | ( fc & ( ~{1{tempinstr4 == 2}})) & ~reset;
 assign fd = ( flag3 & {1{tempinstr4 == 3}}) | ( fd & ( ~{1{tempinstr4 == 3}}))& ~reset;
 assign fe = ( flag3 & {1{tempinstr4 == 4}}) | ( fe & ( ~{1{tempinstr4 == 4}}))& ~reset;
 assign ff = ( flag3 & {1{tempinstr4 == 5}}) | ( ff & ( ~{1{tempinstr4 == 5}}))& ~reset;
