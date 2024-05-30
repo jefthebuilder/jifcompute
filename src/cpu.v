@@ -2,9 +2,9 @@
 `include "../src/alu.v"
 module cpu(
     input [31:0] data,
-    output reg [31:0] datao,
-    output reg [31:0] address,
-    output reg rw,
+    output [31:0] datao,
+    output [31:0] address,
+    output rw,
     input clock,
     input reset
 );
@@ -114,13 +114,13 @@ module cpu(
         
     end
     // state 0
-    state = ({2{reset}} & state);
-    addrchange = (reset & addrchange);
+    assign state = ({2{reset}} & state);
+    assign addrchange = (reset & addrchange);
     ADDER32 adder1(addr,1,temp_address);
     ALU alu1(clock,rega,regb,h,value,highlow,flag1,flag2,flag3,instr[6:0],regc,addrchange,naddr);
     assign address = (addr & {32{state == 0 & clock}}) | (h & writinginstr) & {32{clock}};
-    assign rw = ~(~(state == 0 ) | ~writinginstr) & clock
-    assign state = ((({2{state == 0}} & 1) | ({2{state == 1}} & 2) )| ({2{state == 2}} & 0)) & {2{posedge clock}}
+    assign rw = ~(~(state == 0 ) | ~writinginstr) & clock;
+    assign state = ((({2{state == 0}} & 1) | ({2{state == 1}} & 2) )| ({2{state == 2}} & 0)) & {2{posedge clock}};
     // state 1
     assign temp_address = addr & {32{clock}};
     assign temp2 = ~addrchange & clock;
@@ -128,7 +128,7 @@ module cpu(
     assign writinginstr = (instr[6:0] == 7) & clock;
     
     
-    datao = rega;
+    assign datao = rega & & {32{clock}} & {32{state == 1}};
     always@(posedge clock)
         begin
 
