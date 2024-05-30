@@ -80,7 +80,7 @@ module cpu(
                    fh;
         assign {fa,fb,fc,fd,fe,ff,fg,fh} = ({8{~reset}} & {fa,fb,fc,fd,fe,ff,fg,fh});
     assign {a,b,c,d,e,f,g,h} = ({256{~reset}} & {a,b,c,d,e,f,g,h});
-    assign a = ( regc & {32{tempinstr4 == 0}}) | ( a & ( ~{32{tempinstr4 == 0 & a == 0}}))
+    assign a = ( regc & {32{tempinstr4 == 0}}) | ( a & ( ~{32{tempinstr4 == 0 & a == 0}}));
 assign b = ( regc & {32{tempinstr4 == 1}}) | ( b & ( ~{32{tempinstr4 == 1}}));
 assign c = ( regc & {32{tempinstr4 == 2}}) | ( c & ( ~{32{tempinstr4 == 2}}));
 assign d = ( regc & {32{tempinstr4 == 3}}) | ( d & ( ~{32{tempinstr4 == 3}}));
