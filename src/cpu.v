@@ -217,8 +217,8 @@ module cpu(
   
    wire [31:0] tempaddr = ((addro & {32{stato == 0}}) | ({32{stato == 1}} & naddr));
   // assign address = ((tempaddr == 0) & addro) | ((tempaddr != 0) & tempaddr);
-wire taddr = naddr == 0 & state == 1;
- assign address = ({32{taddr}} & addr) & {32{~taddr}} & naddr;
+wire taddr = naddr != 0 & state == 1;
+ assign address = ({32{taddr}} & naddr) | ({32{~taddr}} & addro);
 // assign address= 0;
    assign rw = (state == 0) | ((state != 0) & writinginstr);
     assign state = ((({3{stato == 0}} & 1) | ({3{stato == 1}} & 2) ) | ({3{stato == 2}} & 0));
