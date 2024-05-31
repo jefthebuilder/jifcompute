@@ -72,8 +72,9 @@ async def testprogram(dut,program,result=158+158,maxi=100):
             return
         # await ClockCycles(dut.clk, 3)
         i+=1
-        cycles = 0
+
         dut._log.info("cycl"+str(cycles))
+        cycles = 0
     assert False
 
 @cocotb.test()
