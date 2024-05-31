@@ -42,7 +42,7 @@ module tt_um_jefloverockets_cpuhandler (
                   
                   end
                   1: begin
-                      uo_out <= addr[7:0];
+                      uo_out <= 8'sb11111111;
                       uio_out <= dataout[7:0];
                      
                   end
