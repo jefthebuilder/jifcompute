@@ -108,11 +108,11 @@ module cpu(
     reg [31:0] naddr;
     wire temp2;
     wire writinginstr;
-    wire [3:0] tempinstr = instro[10:7];
-    wire [3:0] tempinstr1 = instro[13:12];
-    wire [3:0] tempinstr2 = instro[10:7];
-    wire [3:0] tempinstr3 = instro[13:11];
-    wire [3:0] tempinstr4 = instro[16:14];
+    wire [2:0] tempinstr = instro[10:7];
+    wire [2:0] tempinstr1 = instro[13:12];
+    wire [2:0] tempinstr2 = instro[10:7];
+    wire [2:0] tempinstr3 = instro[13:11];
+    wire [2:0] tempinstr4 = instro[16:14];
     assign highlow = instro[15:15];
     assign value = instro[31:16];
 
