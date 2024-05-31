@@ -33,7 +33,7 @@ async def testprogram(dut,program,result=158+158):
     dut._log.info("Test project behavior")
     dut._log.info("Test project behavior")
     while not done:
-
+        await ClockCycles(dut.clk, 2)
         dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_out))
         data,addr = await read(dut)
         await ClockCycles(dut.clk, 1)
@@ -49,7 +49,7 @@ async def testprogram(dut,program,result=158+158):
             done = True
             return
         await writenumber(dut,program[addr])
-        await ClockCycles(dut.clk, 1)
+
 @cocotb.test()
 async def test_project(dut):
     dut._log.info("Start")
