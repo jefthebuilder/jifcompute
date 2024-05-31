@@ -13,10 +13,10 @@ program_add = [
 
 ]
 async def writenumber(dut,value):
-
-    for i in reversed(range(0,4)):
+    data = value.to_bytes(4, 'big',signed=False)
+    for byte in reversed(data):
         dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_out))
-        dut.uio_in.value = value >> (i*8)
+        dut.uio_in.value = int(byte)
         await ClockCycles(dut.clk, 1)
 
 async def read(dut):
