@@ -28,7 +28,7 @@ async def read(dut):
     global cycles
     data = 0
     addr = 0
-    await ClockCycles(dut.clk, 1)
+    # await ClockCycles(dut.clk, 1)
     cycles+=1
     for i in reversed(range(0,4)):
 
