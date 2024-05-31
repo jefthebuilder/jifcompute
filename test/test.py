@@ -24,8 +24,8 @@ async def read(dut):
     for i in reversed( range(0,4)):
         await ClockCycles(dut.clk, 1)
         dut._log.info("reading...")
-        addr += int(dut.uo_out.value) >> (i*8)
-        data += int(dut.uo_out.value) >> (i*8)
+        addr += int(dut.uo_out.value) << (i*8)
+        data += int(dut.uo_out.value) << (i*8)
     return data,addr
 async def testprogram(dut,program,result=158+158):
     done = False
