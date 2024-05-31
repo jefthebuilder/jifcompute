@@ -68,7 +68,7 @@ module ADDER32(input1,input2,answer);
     output [N-1:0] answer;
     wire  carry_out;
     wire [N:0] carry;
-    assign carr[0] = 0;
+    assign carry[0] = 0;
     genvar i;
     generate
         for(i=0;i<N;i=i+1)
