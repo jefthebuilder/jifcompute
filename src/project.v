@@ -31,7 +31,7 @@ module tt_um_jefloverockets_cpuhandler (
   assign cpuclock = count == 0;
   cpu cpf(data,dataout,addr,rw,cpuclock,rst);
   wire [4:0] tcount = (({5{count == 0 }}& 1) | ({5{count== 1 }}& 2))| (({5{count == 3 }}& 4 )| ({5{count == 4}} & 5)) | (({5{count== 6 }}& 7) | ({5{count== 7}} & 8) |({5{count == 8 }}& 0));
-  assign wcount = 1;
+  assign wcount = clk;
   counter regcount(clk,wcount,rst,tcount,count);
   always@(posedge clk)
           begin
