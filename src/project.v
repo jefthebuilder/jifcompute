@@ -73,7 +73,7 @@ module tt_um_jefloverockets_cpuhandler (
                   data[31:23] = uio_in;
                   count = 0;
                   end
-                  default: state = 0;
+                  default: count = 0;
                endcase
 
 
