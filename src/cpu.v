@@ -24,7 +24,7 @@ input             clear;
 input      [4:0] data_in;
 output reg [4:0] data_out;
 
-always @(posedge clock)
+always @(negedge clock)
 begin
     if(r_enable && data_in != 0)
         data_out <= data_in;
