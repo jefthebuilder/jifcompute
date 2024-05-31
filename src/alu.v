@@ -66,9 +66,9 @@ module ADDER32 (
     input  [31:0] a,     // First 32-bit input
     input  [31:0] b,     // Second 32-bit input
     output [31:0] sum,   // 32-bit sum output
-    output        carry  // Carry-out bit
+      // Carry-out bit
 );
-
+    wire carry;
     assign {carry, sum} = a + b; // Perform the addition and assign the result to sum and carry
 
 endmodule
