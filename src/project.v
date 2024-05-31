@@ -41,41 +41,41 @@ module tt_um_jefloverockets_cpuhandler (
                   
                   end
                   1: begin
-                      uo_out = addr[7:0];
-                      uio_out = dataout[7:0];
+                      uo_out <= addr[7:0];
+                      uio_out <= dataout[7:0];
                      
                   end
                   2: begin
-                      uo_out = addr[15:8];
-                      uio_out = dataout[15:8];
+                      uo_out <= addr[15:8];
+                      uio_out <= dataout[15:8];
                      
                   end
                   3: begin
-                   uo_out = addr[23:16];
-                   uio_out = dataout[23:16];
+                   uo_out <= addr[23:16];
+                   uio_out <= dataout[23:16];
                   
                   end
                   4: begin
-                   uo_out = addr[31:24];
-                   uio_out = dataout[31:24];
+                   uo_out <= addr[31:24];
+                   uio_out<= dataout[31:24];
                   
                   end
                   5: begin
-                  data[7:0] = uio_in;
+                  data[7:0] <= uio_in;
                   
                   end
                   6: begin
-                  data[15:8] = uio_in;
+                  data[15:8] <= uio_in;
 
                   
                   end
                   7: begin
-                  data[23:16] = uio_in;
+                  data[23:16] <= uio_in;
 
                   
                   end
                   8: begin
-                  data[31:24] = uio_in;
+                  data[31:24] <= uio_in;
                   
                   end
                   
