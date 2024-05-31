@@ -76,7 +76,7 @@ module ADDER32(input1,input2,answer);
                 
                     
                     
-                full_adder gen_full(input1[i],input2[i],carry[i],answer[i],carry[i+1]);
+                full_adder full_adder gen_full(input1[i],input2[i],carry[i],answer[i],carry[i+1]);
             end
         assign carry_out = carry[N-1];
     endgenerate
