@@ -16,6 +16,24 @@ end
 
 endmodule
 
+module counter(clock, r_enable, clear, data_in, data_out);
+
+input             clock;
+input             r_enable;
+input             clear;
+input      [4:0] data_in;
+output reg [4:0] data_out;
+
+always @(posedge clock)
+begin
+    if(r_enable && data_in != 0)
+        data_out <= data_in;
+    if (clear)
+        data_out <= 0;
+end
+
+endmodule
+
 module State(clock, r_enable, clear, data_in, data_out);
 
 input             clock;
