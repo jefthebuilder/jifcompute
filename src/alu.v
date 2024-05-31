@@ -71,7 +71,7 @@ module ADDER32(input1,input2,answer);
     genvar i;
     generate
         for(i=0;i<N;i=i+1)
-            begin: 
+            begin
                 
                     
                     
