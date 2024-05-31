@@ -12,8 +12,8 @@ program_add = [
     "001000_001_000_000_0_0000000000000000"[::-1],
 
 ]
-async def writenumber(dut,value):
-
+async def writenumber(dut,value : str):
+    value = value.replace("_","")
     for byte in range(0,32,-8):
         print("writing")
 
@@ -38,7 +38,7 @@ def prepareprogram(program):
         pr2.append(programline.replace("_",""))
     return pr2
 async def testprogram(dut,program,result=158+158,maxi=100):
-    program = prepareprogram(program)
+
     done = False
     dut._log.info("Test project behavior")
 
@@ -53,14 +53,15 @@ async def testprogram(dut,program,result=158+158,maxi=100):
         if addr >= len(program):
             assert False
             done = True
-
+        await writenumber(dut,program[addr])
         if (result == data and readwrite == 1):
             print("right",data)
             assert True
             done = True
             return
-        await writenumber(dut,program[addr])
+
         i+=1
+    assert False
 
 @cocotb.test()
 async def test_project(dut):
