@@ -6,10 +6,10 @@ from cocotb.clock import Clock
 from cocotb.triggers import ClockCycles
 
 program_add = [
-    "000101_000_000_000_0_0000000010011110"[::-1],
-    "000101_001_000_000_0_0000000010011110"[::-1],
-    "000000_001_000_000_0_0000000000000000"[::-1],
-    "001000_001_000_000_0_0000000000000000"[::-1],
+    "000101_000_000_000_0_0000000010011110",
+    "000101_001_000_000_0_0000000010011110",
+    "000000_001_000_000_0_0000000000000000",
+    "001000_001_000_000_0_0000000000000000",
 
 ]
 async def writenumber(dut,value):
@@ -59,7 +59,7 @@ async def testprogram(dut,program,result=158+158,maxi=100):
             assert True
             done = True
             return
-
+        await ClockCycles(dut.clk, 1)
         i+=1
     assert False
 
