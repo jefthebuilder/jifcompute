@@ -31,10 +31,11 @@ module tt_um_jefloverockets_cpuhandler (
   assign cpuclock = count == 0;
   cpu cpf(data,dataout,addr,rw,cpuclock,rst);
   wire [4:0] tcount = (({5{count == 0 }}& 1) | ({5{count== 1 }}& 2))| (({5{count == 3 }}& 4 )| ({5{count == 4}} & 5)) | (({5{count== 6 }}& 7) | ({5{count== 7}} & 8) |({5{count == 8 }}& 0));
-  assign wcount = clk;
+
   counter regcount(clk,wcount,rst,tcount,count);
   always@(posedge clk)
           begin
+               wcount =1;
                case( count)
                   0: begin
 
@@ -83,7 +84,10 @@ module tt_um_jefloverockets_cpuhandler (
 
 
           end
-
+always@(negedge clk)
+          begin
+            wcount = 0;
+          end
 
 
   // List all unused inputs to prevent warnings
