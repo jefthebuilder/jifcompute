@@ -200,8 +200,8 @@ module cpu(
    wire [31:0] tempaddr = ((addro & {32{stato == 0}}) | ({32{stato == 1}} & naddr));
   // assign address = ((tempaddr == 0) & addro) | ((tempaddr != 0) & tempaddr);
 wire taddr = naddr == 0 & state == 1;
-// assign address = ({32{taddr}} & addr) & {32{~taddr}} & naddr;
-assign address= 0;
+ assign address = ({32{taddr}} & addr) & {32{~taddr}} & naddr;
+// assign address= 0;
    assign rw = (state == 0) | ((state != 0) & writinginstr != 7);
      assign state = ((({2{stato == 0}} & 1) | ({2{stato == 1}} & 2) ) | ({2{stato == 2}} & 0));
      assign wstate = clock;
