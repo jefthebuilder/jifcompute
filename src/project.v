@@ -22,7 +22,7 @@ module tt_um_jefloverockets_cpuhandler (
   wire rst;
   not(rst,rst_n);
   wire [4:0] count;
-  wire wcount;
+  reg wcount;
   
   reg [31:0] data;
   wire [31:0] dataout;
