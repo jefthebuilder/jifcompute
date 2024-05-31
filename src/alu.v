@@ -72,11 +72,11 @@ module ADDER32(input1,input2,answer);
     genvar i;
     generate
         for(i=0;i<N;i=i+1)
-            begin
+            begin : generateadder
                 
                     
                     
-                full_adder full_adder gen_full(input1[i],input2[i],carry[i],answer[i],carry[i+1]);
+                full_adder gen_full(input1[i],input2[i],carry[i],answer[i],carry[i+1]);
             end
         assign carry_out = carry[N-1];
     endgenerate
