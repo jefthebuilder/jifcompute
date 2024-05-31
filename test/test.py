@@ -12,9 +12,9 @@ program_add = [
     "001000_001_000_000_0_0000000000000000"[::-1],
 
 ]
-async def writenumber(dut,value : str):
+async def writenumber(dut,value):
     value = value.replace("_","")
-    for byte in range(0,32,-8):
+    for byte in reversed(range(0,32,8)):
         dut._log.info("writing")
 
         dut.uio_in.value = int(value[byte:byte+8],2)
