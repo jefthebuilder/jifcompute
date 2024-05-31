@@ -126,11 +126,11 @@ module cpu(
     reg [31:0] naddr;
     wire temp2;
     wire writinginstr;
-    wire [3:0] tempinstr = instro[10:7];
-    wire [3:0] tempinstr1 = instro[13:12];
-    wire [3:0] tempinstr2 = instro[10:7];
-    wire [3:0] tempinstr3 = instro[13:11];
-    wire [3:0] tempinstr4 = instro[16:14];
+    wire [2:0] tempinstr = instro[8:6];
+    wire [2:0] tempinstr1 = instro[11:9];
+    wire [2:0] tempinstr2 = instro[8:6];
+    wire [2:0] tempinstr3 = instro[11:9];
+    wire [2:0] tempinstr4 = instro[14:12];
     assign highlow = instro[15:15];
     assign value = instro[31:16];
 
@@ -139,7 +139,7 @@ module cpu(
     assign writinginstr = (instro[6:0] == 7);
     
     ADDER32 adder1(addr,1,temp_address);
-    ALU alu1(clock,rega,regb,h,value,highlow,flag1,flag2,flag3,instro[6:0],regc,addrchange,naddr);
+    ALU alu1(clock,rega,regb,h,value,highlow,flag1,flag2,flag3,instro[5:0],regc,addrchange,naddr);
 
         // Assign rega based on tempinstr
     assign rega = (tempinstr == 0) ? ao :
