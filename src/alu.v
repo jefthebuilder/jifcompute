@@ -62,22 +62,24 @@ module full_adder(x,y,c_in,s,c_out);
     assign c_out = (y&c_in)| (x&y) | (x&c_in);
 endmodule
 
-module ADDER32(input1,input2,answer);
-    parameter N=32;
-    input [N-1:0] input1,input2;
-    output [N-1:0] answer;
-    wire  carry_out;
-    wire [N:0] carry;
-    assign carry[0] = 0;
-    genvar i;
+module ADDER32
+    (
+    input [N-1:0] input1, input2,
+    output [N-1:0] answer
+); 
+    parameter N = 32;
+    wire [N-1:0] carry;// intermediate carry outputs
+    wire carry_out;// for the end carry output
+    genvar i;// general variable
+ 
     generate
-        for(i=0;i<N;i=i+1)
-            begin : generateadder
-                
-                    
-                    
-                full_adder gen_full(input1[i],input2[i],carry[i],answer[i],carry[i+1]);
-            end
+      for (i = 0; i < N; i = i + 1) begin: generate_N-bit_adder
+        if (i == 0) // LSB bit adder
+          half_adder b(input1[0], input2[0], answer[0], carry[0]);
+        else // rest all adders
+          full_adder b(input1[i], input2[i], carry[i-1], answer[i], carry[i]);
+      end  
+ 
         assign carry_out = carry[N-1];
     endgenerate
 endmodule
