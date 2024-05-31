@@ -21,7 +21,7 @@ async def writenumber(dut,value):
 async def read(dut):
     data = 0
     addr = 0
-    for i in range(4):
+    for i in reversed( range(0,4)):
         await ClockCycles(dut.clk, 1)
         dut._log.info("reading...")
         addr += int(dut.uo_out.value) << (i*8)
