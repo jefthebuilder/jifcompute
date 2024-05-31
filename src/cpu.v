@@ -225,13 +225,13 @@ wire taddr = naddr == 0 & state == 1;
      assign wstate = clock;
     // state 1 removed temp change
      
-     assign temp2 = ~addrchange & (clock);
+     assign temp2 = ~addrchange & stato == 3;
     assign addr = ((({32{temp2}} & temp_address) | {32{~temp2}} & naddr));
     assign waddr = {1{stato == 2}} & {1{ clock}};
 
     
     
-     assign datao = rega & {32{clock}} & {32{stato == 1}};
+     assign datao = rega & {32{stato == 1}};
     
     
     

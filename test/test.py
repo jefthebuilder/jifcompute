@@ -6,10 +6,10 @@ from cocotb.clock import Clock
 from cocotb.triggers import ClockCycles
 
 program_add = [
-    int("00010100000000000000000010011110"[::-1],2),
-    int("00010100100000000000000010011110"[::-1],2),
-    int("00000000100000000000000000000000"[::-1],2),
-    int("00100000100000000000000000000000"[::-1],2),
+    int("000101_000_000_000_0_0000000010011110"[::-1],2),
+    int("000101_001_000_000_0_0000000010011110"[::-1],2),
+    int("000000_001_000_000_0_0000000000000000"[::-1],2),
+    int("001000_001_000_000_0_0000000000000000"[::-1],2),
 
 ]
 async def writenumber(dut,value):
@@ -24,8 +24,8 @@ async def read(dut):
     for i in reversed( range(0,4)):
         await ClockCycles(dut.clk, 1)
         dut._log.info("reading...")
-        addr += int(dut.uo_out.value) << (i*8)
-        data += int(dut.uo_out.value) << (i*8)
+        addr += int(dut.uo_out.value) >> (i*8)
+        data += int(dut.uo_out.value) >> (i*8)
     return data,addr
 async def testprogram(dut,program,result=158+158):
     done = False
