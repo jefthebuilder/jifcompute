@@ -25,7 +25,7 @@ async def read(dut):
         await ClockCycles(dut.clk, 1)
         dut._log.info("reading...")
         addr += int(dut.uo_out.value) << (i*8)
-        data += int(dut.uo_out.value) << (i*8)
+        data += int(dut.uio_out.value) << (i*8)
     return data,addr
 async def testprogram(dut,program,result=158+158):
     done = False
@@ -61,11 +61,11 @@ async def test_project(dut):
     dut.uio_in.value = 0
     dut.rst_n.value = 0
     for i in range(9):
-        dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_in))
+        dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_out))
         await ClockCycles(dut.clk, 1)
     dut.rst_n.value = 1
     for i in range(27):
-        dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_in))
+        dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_out))
         await ClockCycles(dut.clk, 1)
     print()
 
