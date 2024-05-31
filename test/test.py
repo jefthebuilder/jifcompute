@@ -13,7 +13,7 @@ program_add = [
 
 ]
 async def writenumber(dut,value):
-    data = value.to_bytes(4, 'big',signed=False)
+    data = value.to_bytes(4, 'little',signed=False)
     for byte in reversed(data):
         dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_out))
         dut.uio_in.value = int(byte)
