@@ -51,7 +51,7 @@ async def testprogram(dut,program,result=158+158,maxi=100):
     global cycles
     done = False
     dut._log.info("Test project behavior")
-    await ClockCycles(dut.clk,1)
+    await ClockCycles(dut.clk,3)
     i = 0
     while not done and i < maxi:
 
