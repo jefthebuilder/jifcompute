@@ -45,7 +45,7 @@ async def testprogram(dut,program,result=158+158,maxi=100):
 
     i = 0
     while not done and i < maxi:
-        await ClockCycles(dut.clk, 1)
+
         dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_out))
         data,addr = await read(dut)
         await ClockCycles(dut.clk, 1)
@@ -60,7 +60,7 @@ async def testprogram(dut,program,result=158+158,maxi=100):
             assert True
             done = True
             return
-        await ClockCycles(dut.clk, 1)
+
         i+=1
     assert False
 
