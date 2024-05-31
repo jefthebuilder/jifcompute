@@ -43,7 +43,7 @@ module tt_um_jefloverockets_cpuhandler (
                case( count)
 
                   4'sb0001: begin
-                      uo_out <= addr;
+                      uo_out <= addr[7:0];
                       uio_out <= dataout[7:0];
                      
                   end
