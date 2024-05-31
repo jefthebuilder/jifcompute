@@ -14,7 +14,7 @@ program_add = [
 ]
 async def writenumber(dut,value):
     value = value.replace("_","")
-    for byte in range(0,32,8):
+    for byte in reversed(range(0,32,8)):
         dut._log.info("writing")
 
         dut.uio_in.value = int(value[byte:byte+8],2)
@@ -59,7 +59,7 @@ async def testprogram(dut,program,result=158+158,maxi=100):
             assert True
             done = True
             return
-        await ClockCycles(dut.clk, 1)
+        #await ClockCycles(dut.clk, 1)
         i+=1
     assert False
 
