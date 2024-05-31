@@ -35,7 +35,7 @@ module tt_um_jefloverockets_cpuhandler (
   counter regcount(clk,1'sb1,rst,tcount,count);
   always@(negedge clk)
   begin
-  tcount <= (({5{count == 0 }}& 1) | ({5{count== 1 }}& 2))| (({5{count == 2 }}& 3 )| ({5{count == 3}} & 4)) | (({5{count== 4 }}& 6) | ({5{count== 6}} & 7) |({5{count == 7 }}& 8)) | ({5{count == 8 }}& 0);
+  tcount <= ~{5{(count + 1 < 9)}} & count + 1;
   end
   always@(posedge clk)
           begin
@@ -60,23 +60,28 @@ module tt_um_jefloverockets_cpuhandler (
                   4'sb0100: begin
                    uo_out <= addr[31:24];
                    uio_out<= dataout[31:24];
-                  
-                  end
+
+                   end
                   4'sb0101: begin
+                   uo_out[0] = ~rw;
+
+
+                  end
+                  4'sb0110: begin
                   data[7:0] <= uio_in;
                   
                   end
-                  4'sb0110: begin
+                  4'sb0111: begin
                   data[15:8] <= uio_in;
 
                   
                   end
-                  4'sb0111: begin
+                  4'sb1000: begin
                   data[23:16] <= uio_in;
 
                   
                   end
-                  4'sb1000: begin
+                  4'sb1001: begin
                   data[31:24] <= uio_in;
                   
                   end

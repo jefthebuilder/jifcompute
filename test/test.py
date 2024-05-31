@@ -64,7 +64,7 @@ async def test_project(dut):
         dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_out))
         await ClockCycles(dut.clk, 1)
     dut.rst_n.value = 1
-    for i in range(27):
+    for i in range(27*2):
         dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_out))
         await ClockCycles(dut.clk, 1)
     print()
