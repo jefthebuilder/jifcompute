@@ -34,7 +34,7 @@ module tt_um_jefloverockets_cpuhandler (
 
   counter regcount(clk,1'sb1,rst,tcount,count);
   
-  tcount = {5{(count < 8)}} & count + 1;
+  assign tcount = {5{(count < 8)}} & count + 1;
   
   always@(posedge clk)
           begin
