@@ -33,6 +33,7 @@ async def read(dut):
         dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_out))
         addr += int(dut.uo_out.value) << (i*8)
         data += int(dut.uio_out.value) << (i*8)
+        print(i)
         if i > 0:
             await ClockCycles(dut.clk, 1)
     return data,addr
