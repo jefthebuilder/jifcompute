@@ -41,45 +41,42 @@ module tt_um_jefloverockets_cpuhandler (
           begin
 
                case( count)
-                  0: begin
 
-                  
-                  end
-                  1: begin
+                  4'sb0001: begin
                       uo_out <= 8'sb11111111;
                       uio_out <= dataout[7:0];
                      
                   end
-                  2: begin
+                  4'sb0010: begin
                       uo_out <= addr[15:8];
                       uio_out <= dataout[15:8];
                      
                   end
-                  3: begin
+                  4'sb0011: begin
                    uo_out <= addr[23:16];
                    uio_out <= dataout[23:16];
                   
                   end
-                  4: begin
+                  4'sb0100: begin
                    uo_out <= addr[31:24];
                    uio_out<= dataout[31:24];
                   
                   end
-                  5: begin
+                  4'sb0101: begin
                   data[7:0] <= uio_in;
                   
                   end
-                  6: begin
+                  4'sb0110: begin
                   data[15:8] <= uio_in;
 
                   
                   end
-                  7: begin
+                  4'sb0111: begin
                   data[23:16] <= uio_in;
 
                   
                   end
-                  8: begin
+                  4'sb1000: begin
                   data[31:24] <= uio_in;
                   
                   end
