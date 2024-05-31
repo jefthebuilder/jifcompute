@@ -76,7 +76,7 @@ module tt_um_jefloverockets_cpuhandler (
                   end
                   8: begin
                   data[31:24] <= uio_in;
-                  count <= 0;
+                  
                   end
                   
                endcase
