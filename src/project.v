@@ -35,7 +35,7 @@ module tt_um_jefloverockets_cpuhandler (
   counter regcount(clk,1'sb1,rst,tcount,count);
   always@(negedge clk)
   begin
-  tcount <= (condition & count + 1) | (~condition & 1);
+  tcount <= (condition & count + 1);
   end
   always@(posedge clk)
           begin
