@@ -33,47 +33,47 @@ module tt_um_jefloverockets_cpuhandler (
                case( count)
                   0: begin
 
-                  count = 1;
+                  count <= 1;
                   end
                   1: begin
-                      uo_out = addr[7:0];
-                      uio_out = dataout[7:0];
-                     count = 2;
+                      uo_out <= addr[7:0];
+                      uio_out <= dataout[7:0];
+                     count <= 2;
                   end
                   2: begin
-                      uo_out = addr[15:7];
-                      uio_out = dataout[15:7];
-                     count = 3;
+                      uo_out <= addr[15:7];
+                      uio_out <= dataout[15:7];
+                     count <= 3;
                   end
                   3: begin
-                   uo_out = addr[23:15];
-                   uio_out = dataout[23:15];
-                  count = 4;
+                   uo_out <= addr[23:15];
+                   uio_out <= dataout[23:15];
+                  count <= 4;
                   end
                   4: begin
-                   uo_out = addr[31:23];
-                   uio_out = dataout[31:23];
-                  count = 5;
+                   uo_out <= addr[31:23];
+                   uio_out <= dataout[31:23];
+                  count <= 5;
                   end
                   5: begin
-                  data[7:0] = uio_in;
-                  count = 6;
+                  data[7:0] <= uio_in;
+                  count <= 6;
                   end
                   6: begin
-                  data[15:7] = uio_in;
+                  data[15:7] <= uio_in;
 
-                  count = 7;
+                  count <= 7;
                   end
                   7: begin
-                  data[23:15] = uio_in;
+                  data[23:15] <= uio_in;
 
-                  count = 8;
+                  count <= 8;
                   end
                   8: begin
-                  data[31:23] = uio_in;
-                  count = 0;
+                  data[31:23] <= uio_in;
+                  count <= 0;
                   end
-                  default: count = 0;
+                  default: count <= 0;
                endcase
 
 
