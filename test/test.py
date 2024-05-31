@@ -35,13 +35,14 @@ async def testprogram(dut,program,result=158+158):
         await ClockCycles(dut.clk, 1)
         dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_out))
         data,addr = await read(dut)
-
+        await ClockCycles(dut.clk, 1)
+        readwrite = dut.uo_out[0]
         dut._log.info(str(data) + " addr: " +str(addr))
         if addr >= len(program):
             assert False
             done = True
 
-        if (result == data and dut.uio_oe.value == 1):
+        if (result == data and readwrite == 1):
             print("right",data)
             assert True
             done = True
