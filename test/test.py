@@ -53,6 +53,7 @@ async def testprogram(dut,program,result=158+158,maxi=100):
         dut._log.info(str(data) + " addr: " + str(addr))
         if addr >= len(program):
             assert False
+        await ClockCycles(dut.clk,1)
         dut._log.info("writing")
         await writenumber(dut,program[addr])
         if (result == data and readwrite == 1):
