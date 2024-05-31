@@ -8,7 +8,7 @@ output reg [31:0] data_out;
 
 always @(posedge clock)
 begin
-    if(r_enable && data_in != 0)
+    if(r_enable)
         data_out <= data_in;
     if (clear)
         data_out <= 0;
@@ -26,7 +26,7 @@ output reg [4:0] data_out;
 
 always @(negedge clock)
 begin
-    if(r_enable && data_in != 0)
+    if(r_enable)
         data_out <= data_in;
     if (clear)
         data_out <= 0;
