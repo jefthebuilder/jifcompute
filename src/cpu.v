@@ -72,7 +72,7 @@ module cpu(
     register reg_d(clock,wd,reset,d,do1);
     register reg_e(clock,we,reset,e,eo);
     register reg_f(clock,wf,reset,f,fo);
-    register reg_g(clock,wh,reset,g,go);
+    register reg_g(clock,wg,reset,g,go);
     register reg_h(clock,wh,reset,h,ho);
     flag flag_a(clock,fwa,reset,fa,fao);
     flag flag_b(clock,fwb,reset,fb,fbo);
@@ -113,11 +113,11 @@ module cpu(
     wire [3:0] tempinstr2 = instro[8:5];
     wire [3:0] tempinstr3 = instro[11:8];
     wire [3:0] tempinstr4 = instro[14:11];
-    assign highlow = instro[15:14];
+    assign highlow = instro[15:15];
     assign value = instro[31:16];
 
     assign instr = data;
-    assign winstr = {32{state == 0}};
+    assign winstr = {{state == 0}};
     assign writinginstr = (instr[6:0] == 7);
     
     ADDER32 adder1(addr,1,temp_address);
@@ -202,7 +202,7 @@ module cpu(
 wire taddr = naddr == 0 & state == 1;
  assign address = ({32{taddr}} & addr) & {32{~taddr}} & naddr;
 // assign address= 0;
-   assign rw = (state == 0) | ((state != 0) & writinginstr != 7);
+   assign rw = (state == 0) | ((state != 0) & writinginstr);
     assign state = ((({3{stato == 0}} & 1) | ({3{stato == 1}} & 2) ) | ({3{stato == 2}} & 0));
      assign wstate = clock;
     // state 1 removed temp change
