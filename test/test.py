@@ -6,18 +6,19 @@ from cocotb.clock import Clock
 from cocotb.triggers import ClockCycles
 
 program_add = [
-    int("000101_000_000_000_0_0000000010011110"[::-1],2),
-    int("000101_001_000_000_0_0000000010011110"[::-1],2),
-    int("000000_001_000_000_0_0000000000000000"[::-1],2),
-    int("001000_001_000_000_0_0000000000000000"[::-1],2),
+    "000101_000_000_000_0_0000000010011110"[::-1],
+    "000101_001_000_000_0_0000000010011110"[::-1],
+    "000000_001_000_000_0_0000000000000000"[::-1],
+    "001000_001_000_000_0_0000000000000000"[::-1],
 
 ]
 async def writenumber(dut,value):
-    data = value.to_bytes(4, 'little',signed=False)
-    for byte in reversed(data):
+
+    for byte in range(0,32,-8):
         print("writing")
+
+        dut.uio_in.value = int(value[byte:byte+8],2)
         dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_out))
-        dut.uio_in.value = int(byte)
         await ClockCycles(dut.clk, 1)
 
 async def read(dut):
@@ -31,10 +32,16 @@ async def read(dut):
         addr += int(dut.uo_out.value) << (i*8)
         data += int(dut.uio_out.value) << (i*8)
     return data,addr
+def prepareprogram(program):
+    pr2 = []
+    for programline in program:
+        pr2.append(programline.replace("_",""))
+    return pr2
 async def testprogram(dut,program,result=158+158,maxi=100):
+    program = prepareprogram(program)
     done = False
     dut._log.info("Test project behavior")
-    dut._log.info("Test project behavior")
+
     i = 0
     while not done and i < maxi:
         await ClockCycles(dut.clk, 1)
