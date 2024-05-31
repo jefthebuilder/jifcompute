@@ -73,9 +73,9 @@ module ADDER32(input1,input2,answer);
         for(i=0;i<N;i=i+1)
             begin: generate_N_bit_Adder
                 if(i==0)
-                    half_adder gen_f(input1[0],input2[0],answer[0],carry[0]);
+                    half_adder gen_half(input1[0],input2[0],answer[0],carry[0]);
                     else
-                    full_adder gen_f(input1[i],input2[i],carry[i-1],answer[i],carry[i]);
+                    full_adder gen_full(input1[i],input2[i],carry[i-1],answer[i],carry[i]);
             end
         assign carry_out = carry[N-1];
     endgenerate
@@ -98,10 +98,10 @@ module LOAD(
     wire [15:0] temp3;
     wire [15:0] temp4;
     wire [15:0] temp5;
-    assign temp2[15:0] = temp[31:15]&{32{highlow}};
-    assign temp3[15:0]  = A[15:0]&{32{highlow}};
-    assign temp4[15:0]=A[31:15]&{32{invhigh}};
-    assign temp5[15:0]=temp[15:0]&{32{invhigh}};
+    assign temp2[15:0] = temp[31:16]&{16{highlow}};
+    assign temp3[15:0]  = A[15:0]&{16{highlow}};
+    assign temp4[15:0]=A[31:16]&{16{invhigh}};
+    assign temp5[15:0]=temp[15:0]&{16{invhigh}};
 
     assign C = {temp2,temp3} | {temp4,temp5};
 
@@ -152,7 +152,7 @@ module ALU (
     wire [31:0] oc6;
     wire g5 = (instr == 6 | instr == 5) & clock;
     gate gate6(C5,0,g5,oc6);
-    wire tempc = ((oc1 | oc2) | (oc3 | oc4)) | (oc5 | oc6);
+    wire [31:0] tempc = ((oc1 | oc2) | (oc3 | oc4)) | (oc5 | oc6);
     assign C = (tempc);
     wire F8 = (A == B) & (instr == 8) & clock;
     wire F9 = (A < B) & (instr == 9) & clock;
