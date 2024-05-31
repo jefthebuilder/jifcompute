@@ -100,7 +100,7 @@ async def test_project(dut):
     dut.rst_n.value = 1
     for i in range(11):
 
-         await ClockCycles(dut.clk, 1)
+        await ClockCycles(dut.clk, 1)
         dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_out))
 
     print()
