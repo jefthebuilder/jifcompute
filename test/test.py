@@ -15,7 +15,7 @@ program_add = [
 async def writenumber(dut,value : str):
     value = value.replace("_","")
     for byte in range(0,32,-8):
-        print("writing")
+        dut._log.info("writing")
 
         dut.uio_in.value = int(value[byte:byte+8],2)
         dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_out))
@@ -49,7 +49,7 @@ async def testprogram(dut,program,result=158+158,maxi=100):
         data,addr = await read(dut)
         await ClockCycles(dut.clk, 1)
         readwrite = dut.uo_out[0]
-        dut._log.info(str(data) + " addr: " +str(addr))
+        dut._log.info(str(data) + " addr: " + str(addr))
         if addr >= len(program):
             assert False
             done = True
