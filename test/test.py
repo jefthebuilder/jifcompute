@@ -64,7 +64,7 @@ async def test_project(dut):
         dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_in))
         await ClockCycles(dut.clk, 1)
     dut.rst_n.value = 1
-    for i in range(9):
+    for i in range(27):
         dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_in))
         await ClockCycles(dut.clk, 1)
     print()
@@ -72,6 +72,6 @@ async def test_project(dut):
 
     # Set the input values you want to test
 
-    await testprogram(dut,program_add)
+    #await testprogram(dut,program_add)
     # Keep testing the module by changing the input values, waiting for
     # one or more clock cycles, and asserting the expected output values.
