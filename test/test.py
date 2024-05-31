@@ -49,6 +49,7 @@ async def testprogram(dut,program,result=158+158):
             done = True
             return
         await writenumber(dut,program[addr])
+        await ClockCycles(dut.clk, 1)
 @cocotb.test()
 async def test_project(dut):
     dut._log.info("Start")
