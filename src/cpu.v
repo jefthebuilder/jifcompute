@@ -108,11 +108,11 @@ module cpu(
     reg [31:0] naddr;
     wire temp2;
     wire [6:0] writinginstr;
-    wire tempinstr = instro[8:5];
-    wire tempinstr1 = instro[11:8];
-    wire tempinstr2 = instro[8:5];
-    wire tempinstr3 = instro[11:8];
-    wire tempinstr4 = instro[14:11];
+    wire [3:0] tempinstr = instro[8:5];
+    wire [3:0] tempinstr1 = instro[11:8];
+    wire [3:0] tempinstr2 = instro[8:5];
+    wire [3:0] tempinstr3 = instro[11:8];
+    wire [3:0] tempinstr4 = instro[14:11];
     assign highlow = instro[15:14];
     assign value = instro[31:15];
 
@@ -203,7 +203,7 @@ wire taddr = naddr == 0 & state == 1;
  assign address = ({32{taddr}} & addr) & {32{~taddr}} & naddr;
 // assign address= 0;
    assign rw = (state == 0) | ((state != 0) & writinginstr != 7);
-     assign state = ((({2{stato == 0}} & 1) | ({2{stato == 1}} & 2) ) | ({2{stato == 2}} & 0));
+    assign state = ((({3{stato == 0}} & 1) | ({3{stato == 1}} & 2) ) | ({3{stato == 2}} & 0));
      assign wstate = clock;
     // state 1 removed temp change
      
