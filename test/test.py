@@ -66,14 +66,14 @@ async def testprogram(dut,program,result=158+158,maxi=100):
         dut._log.info("writing")
         await write(dut, program[addr])
         if (result == data and readwrite == 1):
-            print("right",data)
+            dut._log.info("right",data)
             assert True
             done = True
             return
         # await ClockCycles(dut.clk, 3)
         i+=1
         cycles = 0
-        print("cycl"+str(cycles))
+        dut._log.info("cycl"+str(cycles))
     assert False
 
 @cocotb.test()
