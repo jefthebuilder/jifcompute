@@ -50,6 +50,7 @@ begin
         data_out <= 0;
 end
 
+
 endmodule
 
 module flag(clock, r_enable, clear, data_in, data_out);
