@@ -120,7 +120,7 @@ module ALU (
     input F1,
     input F2,
     inout F3,
-    input [6:0] instr,
+    input [5:0] instr,
     inout [31:0] C,
     output addrch,
     output [31:0] naddr
