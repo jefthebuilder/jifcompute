@@ -30,7 +30,7 @@ module tt_um_jefloverockets_cpuhandler (
   assign uio_oe = {8{~rw}};
   assign cpuclock = count == 0;
   cpu cpf(data,dataout,addr,rw,cpuclock,rst);
-  wire [4:0] tcount = (({5{count == 0 }}& 1) | ({5{count== 1 }}& 2))| (({5{count == 3 }}& 4 )| ({5{count == 4}} & 5)) | (({5{count== 6 }}& 7) | ({5{count== 7}} & 8) |({5{count == 8 }}& 0));
+  wire [4:0] tcount;
 
   counter regcount(clk,1'sb1,rst,tcount,count);
   always@(posedge clk)
@@ -81,7 +81,7 @@ module tt_um_jefloverockets_cpuhandler (
                   end
                   
                endcase
-
+               tcount <= (({5{count == 0 }}& 1) | ({5{count== 1 }}& 2))| (({5{count == 3 }}& 4 )| ({5{count == 4}} & 5)) | (({5{count== 6 }}& 7) | ({5{count== 7}} & 8) |({5{count == 8 }}& 0));
 
           end
 
