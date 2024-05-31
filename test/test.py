@@ -12,7 +12,8 @@ program_add = [
     "001000_001_000_000_0_0000000000000000",
 
 ]
-async def writenumber(dut,value):
+async def write(dut, value):
+    global cyles
     value = value.replace("_","")
     for byte in reversed(range(0,32,8)):
         dut._log.info("writing")
@@ -21,11 +22,13 @@ async def writenumber(dut,value):
 
         await ClockCycles(dut.clk, 1)
         dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_out))
-
+cyles = 0
 async def read(dut):
+    global cyles
     data = 0
     addr = 0
     await ClockCycles(dut.clk, 1)
+    cyles+=1
     for i in reversed(range(0,4)):
 
 
@@ -36,6 +39,7 @@ async def read(dut):
         print(i)
         if i > 0:
             await ClockCycles(dut.clk, 1)
+            cyles+=1
     return data,addr
 def prepareprogram(program):
     pr2 = []
@@ -43,7 +47,7 @@ def prepareprogram(program):
         pr2.append(programline.replace("_",""))
     return pr2
 async def testprogram(dut,program,result=158+158,maxi=100):
-
+    global cycles
     done = False
     dut._log.info("Test project behavior")
     await ClockCycles(dut.clk,1)
@@ -53,13 +57,14 @@ async def testprogram(dut,program,result=158+158,maxi=100):
         dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_out))
         data,addr = await read(dut)
         await ClockCycles(dut.clk,1)
+        cyles+=1
         readwrite = dut.uo_out[0]
         dut._log.info(str(data) + " addr: " + str(addr))
         if addr >= len(program):
             assert False
 
         dut._log.info("writing")
-        await writenumber(dut,program[addr])
+        await write(dut, program[addr])
         if (result == data and readwrite == 1):
             print("right",data)
             assert True
@@ -67,6 +72,7 @@ async def testprogram(dut,program,result=158+158,maxi=100):
             return
         # await ClockCycles(dut.clk, 3)
         i+=1
+        print(cycles)
     assert False
 
 @cocotb.test()
