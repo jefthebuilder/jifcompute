@@ -60,7 +60,7 @@ async def testprogram(dut,program,result=158+158,maxi=100):
             assert True
             done = True
             return
-
+        await ClockCycles(dut.clk, 1)
         i+=1
     assert False
 
