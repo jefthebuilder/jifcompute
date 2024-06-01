@@ -58,31 +58,31 @@ module tt_um_jefloverockets_cpuhandler (
                   end
                   4'sb0100: begin
                    uo_out <= addr[31:24];
-                   uio_out<= dataout[31:24];
+                   uio_out <= dataout[31:24];
 
                    end
                   4'sb0101: begin
                    uo_out[0] <= ~rw;
-
+                   uio_out <= 0;
 
                   end
                   4'sb0110: begin
                   data[7:0] <= uio_in;
-                  
+                  uio_out <= 0;
                   end
                   4'sb0111: begin
                   data[15:8] <= uio_in;
-
+                    uio_out <= 0;
                   
                   end
                   4'sb1000: begin
                   data[23:16] <= uio_in;
-
+                    uio_out <= 0;
                   
                   end
                   4'sb1001: begin
                   data[31:24] <= uio_in;
-                  
+                  uio_out <= 0;
                   end
 
                endcase
