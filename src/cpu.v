@@ -231,7 +231,7 @@ wire taddr = naddr != 0 & stato == 1;
 
     
     
-     assign datao = rega & {32{stato == 1}};
+     assign datao = regc & {32{stato == 1}};
     
     
     
