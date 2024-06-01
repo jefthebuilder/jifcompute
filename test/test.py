@@ -77,7 +77,7 @@ async def testprogram(dut,program,result=158+158,maxi=100):
 
         
         i+=1
-
+        await ClockCycles(dut.clk,1)
         dut._log.info("cycl"+str(cycles))
         cycles = 0
     assert False
@@ -101,7 +101,7 @@ async def test_project(dut):
         await ClockCycles(dut.clk, 1)
         dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_out))
     dut.rst_n.value = 1
-    for i in range(27):
+    for i in range(28):
 
         await ClockCycles(dut.clk, 1)
         dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_out))
