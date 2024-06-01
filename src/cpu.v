@@ -117,7 +117,7 @@ module cpu(
     wire [31:0] instr;
     wire [31:0] instro;
     wire winstr;
-    register reg_instr(~clock,winstr,reset,instr,instro);
+    register reg_instr(clock,winstr,reset,instr,instro);
     wire [31:0] rega;
     wire [31:0] regb;
     wire [31:0] regc;
