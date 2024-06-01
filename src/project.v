@@ -28,13 +28,13 @@ module tt_um_jefloverockets_cpuhandler (
   reg [31:0] dataout;
   reg [31:0] addr;
   assign uio_oe = {8{~rw}};
-  assign cpuclock = count == 10;
+  assign cpuclock = count < 8;
   cpu cpf(data,dataout,addr,rw,cpuclock,rst);
   reg [4:0] tcount;
 
   counter regcount(clk,1'sb1,rst,tcount,count);
   
-  assign tcount = {5{(count < 9)}} & count + 1;
+  assign tcount = {5{(count < 8)}} & count + 1;
   
   always@(posedge clk)
           begin
