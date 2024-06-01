@@ -35,10 +35,10 @@ module tt_um_jefloverockets_cpuhandler (
    wire [7:0] wdata2;
    wire [7:0] wdata3;
    wire [7:0] wdata4;
-   register8 reg_data1(clk,wdata1,dataio,data1o);
-   register8 reg_data2(clk,wdata2,dataio,data2o);
-   register8 reg_data3(clk,wdata3,dataio,data3o);
-   register8 reg_data4(clk,wdata4,dataio,data4o);
+   register8 reg_data1(clk,wdata1,rst,dataio,data1o);
+   register8 reg_data2(clk,wdata2,rst,dataio,data2o);
+   register8 reg_data3(clk,wdata3,rst,dataio,data3o);
+   register8 reg_data4(clk,wdata4,rst,dataio,data4o);
   assign data = {data4o,data3o,data2o,data1o};
   assign dataio = uio_out;
   assign wdata1 = tcount == 6;
