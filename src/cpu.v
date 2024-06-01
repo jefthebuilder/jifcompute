@@ -15,6 +15,23 @@ begin
 end
 
 endmodule
+module registeraddr(clock, r_enable, clear, data_in, data_out);
+
+input             clock;
+input             r_enable;
+input             clear;
+input      [31:0] data_in;
+output reg [31:0] data_out;
+
+always @(posedge clock)
+begin
+    if(r_enable)
+        data_out <= data_in;
+    if (clear)
+        data_out <= 0;
+end
+
+endmodule
 
 
 module counter(clock, r_enable, clear, data_in, data_out);
@@ -111,7 +128,7 @@ module cpu(
     wire [31:0] addr;
     wire [31:0] addro;
     wire waddr;
-    register reg_addr(clock,waddr,reset,addr,addro);
+    registeraddr reg_addr(clock,waddr,reset,addr,addro);
     wire [31:0] instr;
     wire [31:0] instro;
     wire winstr;
