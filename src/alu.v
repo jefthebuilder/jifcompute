@@ -4,10 +4,10 @@ module gate(
     input gateA,
     output [31:0] out);
     wire [31:0] A1;
-    wire [31:0] B1;
+    wire [31:0] B2;
     assign A1 = A & {32{gateA}};
-    assign B1 = B & {32{~gateA}};
-    assign out = A1 | B1;
+    assign B2 = B & {32{~gateA}};
+    assign out = A1 | B2;
 endmodule
 module SHIFTERRIGHT(
     input [31:0] A,
@@ -47,12 +47,7 @@ module SUBTRACT32(
     endgenerate
     ADDER32 f(A,B,C);
 endmodule
-module half_adder(x,y,s,c);
-    input x,y;
-    output s,c;
-    assign s=x^y;
-    assign c=x&y;
-endmodule // half adder
+
 
 
 module full_adder(x,y,c_in,s,c_out);
@@ -65,7 +60,7 @@ endmodule
 module ADDER32 (
     input  [31:0] a,     // First 32-bit input
     input  [31:0] b,     // Second 32-bit input
-    output [31:0] sum   // 32-bit sum output
+    output [31:0] sum    // 32-bit sum output
       // Carry-out bit
 );
     wire carry;
@@ -83,17 +78,17 @@ module LOAD(
     wire invhigh;
     not(invhigh,highlow);
 
-    assign HIGH = {16{invhigh}} ^ value;
+    assign HIGH = {{12{0}},highlow,{3{0}}};
     wire [31:0] temp;
-    SHIFTERLEFT shifty({value,{32-16{1'b0}}},{HIGH,{32-16{1'b0}}},temp);
+    SHIFTERLEFT shifty({{32-16{1'b0}},value},{{32-16{1'b0}},HIGH},temp);
     wire [15:0] temp2;
     wire [15:0] temp3;
     wire [15:0] temp4;
     wire [15:0] temp5;
-    assign temp2[15:0] = temp[31:16]&{16{highlow}};
-    assign temp3[15:0]  = A[15:0]&{16{highlow}};
-    assign temp4[15:0]=A[31:16]&{16{invhigh}};
-    assign temp5[15:0]=temp[15:0]&{16{invhigh}};
+    assign temp2[15:0] =  temp[31:16]&{16{highlow}};
+    assign temp3[15:0] =  A[15:0]&{16{highlow}};
+    assign temp4[15:0]=   A[31:16]&{16{invhigh}};
+    assign temp5[15:0]=   temp[15:0]&{16{invhigh}};
 
     assign C = {temp2,temp3} | {temp4,temp5};
 
