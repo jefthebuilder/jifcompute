@@ -15,24 +15,7 @@ begin
 end
 
 endmodule
-module register8(clock, r_enable, clear, data_in, data_out);
 
-input             clock;
-input             r_enable;
-input             clear;
-input      [7:0] data_in;
-output reg [7:0] data_out;
-
-always @(negedge clock)
-begin
-    if(r_enable)
-        data_out <= data_in;
-end
-always @(posedge clear)
-begin
-    data_out <= 0;
-end
-endmodule
 
 module counter(clock, r_enable, clear, data_in, data_out);
 
@@ -67,10 +50,7 @@ begin
     if (clear)
         data_out <= 0;
 end
-always @(posedge clear)
-begin
-    data_out <= 0;
-end
+
 
 endmodule
 

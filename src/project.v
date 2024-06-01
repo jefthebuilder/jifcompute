@@ -25,16 +25,13 @@ module tt_um_jefloverockets_cpuhandler (
 
   
   wire [31:0] data;
-  wire [31:0] dataio;
+  wire [7:0] dataio;
 
    reg [7:0] data1;
    reg [7:0] data2;
    reg [7:0] data3;
    reg [7:0] data4;
-   wire wdata1;
-   wire  wdata2;
-   wire  wdata3;
-   wire  wdata4;
+
 
   assign data = {data4,data3,data2,data1};
   assign dataio = uio_in;
