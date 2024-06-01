@@ -3,7 +3,7 @@ sub <reg a> <reg b> <reg c>
 << <reg a > <reg b> <reg c>
 >> <reg a > <reg b> <reg c>
 mov <reg a> <reg b>
-ld <high(1)/low(0)> <rega> <value>
+ld <high(1)/low(0)> <regc> <value>
 lda <rega> <reg b> (loads at address stored in reg b)
 sta <rega> <reg b> (loads at address stored in reg b)
 equal <reg a> <reg b> <flag>
