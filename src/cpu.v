@@ -236,7 +236,7 @@ wire taddr = naddr != 0 & stato == 1;
 
     
 
-     assign datao = instro;
+     assign datao = {{29{0}},stato};
     
     
     
