@@ -88,21 +88,21 @@ module tt_um_jefloverockets_cpuhandler (
                   end
                   4'sb0110: begin
 
-                  uio_out <= data1o;
+                  uio_out <= data2o;
                   end
                   4'sb0111: begin
-
-                    uio_out <= data2o;
-                  
-                  end
-                  4'sb1000: begin
 
                     uio_out <= data3o;
                   
                   end
-                  4'sb1001: begin
+                  4'sb1000: begin
 
-                  uio_out <= data4o;
+                    uio_out <= data4o;
+                  
+                  end
+                  4'sb0000: begin
+                    uio_out <= data1o;
+
                   end
 
                endcase
