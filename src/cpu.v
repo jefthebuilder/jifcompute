@@ -251,7 +251,7 @@ wire taddr = naddr != 0 & stato == 1;
 
     
 
-     assign datao = stato;
+     assign datao = instro;
     
     
     
