@@ -27,24 +27,18 @@ module tt_um_jefloverockets_cpuhandler (
   wire [31:0] data;
   wire [31:0] dataio;
 
-   wire [7:0] data1o;
-   wire [7:0] data2o;
-   wire [7:0] data3o;
-   wire [7:0] data4o;
+   reg [7:0] data1;
+   reg [7:0] data2;
+   reg [7:0] data3;
+   reg [7:0] data4;
    wire wdata1;
    wire  wdata2;
    wire  wdata3;
    wire  wdata4;
-   register8 reg_data1(clk,wdata1,rst,dataio,data1o);
-   register8 reg_data2(clk,wdata2,rst,dataio,data2o);
-   register8 reg_data3(clk,wdata3,rst,dataio,data3o);
-   register8 reg_data4(clk,wdata4,rst,dataio,data4o);
-  assign data = {data4o,data3o,data2o,data1o};
+
+  assign data = {data4,data3,data2,data1};
   assign dataio = uio_in;
-  assign wdata1 = tcount == 6;
-  assign wdata2 = tcount == 7;
-  assign wdata3 = tcount == 8;
-  assign wdata4 = tcount == 9;
+
   wire [31:0] dataout;
   reg [31:0] addr;
   assign uio_oe = {8{~rw}};
@@ -87,21 +81,24 @@ module tt_um_jefloverockets_cpuhandler (
 
                   end
                   4'sb0110: begin
+                    data1 <= uio_in;
 
-                  uio_out <= data2o;
                   end
                   4'sb0111: begin
+                    data2 <= uio_in;
 
-                    uio_out <= data3o;
+                    uio_out <= data1;
                   
                   end
                   4'sb1000: begin
+                    data3 <= uio_in;
 
-                    uio_out <= data4o;
+                     uio_out <= data3;
                   
                   end
                   4'sb1001: begin
-                    uio_out <= data1o;
+                    data4 <= uio_in;
+                    uio_out <= data4;
 
                   end
 
