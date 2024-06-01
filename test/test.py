@@ -38,9 +38,9 @@ async def read(dut):
         addr += int(dut.uo_out.value) << (i*8)
         data += int(dut.uio_out.value) << (i*8)
         print(i)
-        if i > 0:
-            await ClockCycles(dut.clk, 1)
-            cycles+=1
+        
+        await ClockCycles(dut.clk, 1)
+        cycles+=1
     return data,addr
 def prepareprogram(program):
     pr2 = []
@@ -99,7 +99,7 @@ async def test_project(dut):
         await ClockCycles(dut.clk, 1)
         dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_out))
     dut.rst_n.value = 1
-    for i in range(2):
+    for i in range(27):
 
         await ClockCycles(dut.clk, 1)
         dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_out))
