@@ -62,7 +62,7 @@ module tt_um_jefloverockets_cpuhandler (
 
                    end
                   4'sb0101: begin
-                   uo_out[0] <= ~rw;
+                   uo_out[0] <= rw;
 
 
                   end
