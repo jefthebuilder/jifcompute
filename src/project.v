@@ -82,12 +82,12 @@ module tt_um_jefloverockets_cpuhandler (
                   end
                   4'sb0110: begin
                     data1 <= uio_in;
-
+                    uio_out <= data1;
                   end
                   4'sb0111: begin
                     data2 <= uio_in;
 
-                    uio_out <= data1;
+                    uio_out <= data2;
                   
                   end
                   4'sb1000: begin
