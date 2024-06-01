@@ -2,9 +2,9 @@ add <reg a> <reg b> <reg c>
 sub <reg a> <reg b> <reg c>
 << <reg a > <reg b> <reg c>
 >> <reg a > <reg b> <reg c>
-mov <reg a> <reg b>
+mov <reg a> <reg b> <reg c>
 ld <high(1)/low(0)> <regc> <value>
-lda <rega> <reg b> (loads at address stored in reg b)
+lda <none> <reg b> <reg c> (loads at address stored in reg b)
 sta <rega> <reg b> (loads at address stored in reg b)
 equal <reg a> <reg b> <flag>
 smaller <reg a> <reg b> <flag>
