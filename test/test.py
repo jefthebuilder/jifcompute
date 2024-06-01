@@ -30,7 +30,7 @@ async def read(dut):
     addr = 0
     # await ClockCycles(dut.clk, 1)
     cycles+=1
-    for i in reversed(range(0,4)):
+    for i in range(0,4):
 
 
         dut._log.info("reading...")
@@ -99,7 +99,7 @@ async def test_project(dut):
         await ClockCycles(dut.clk, 1)
         dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_out))
     dut.rst_n.value = 1
-    for i in range(27):
+    for i in range(2):
 
         await ClockCycles(dut.clk, 1)
         dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_out))
