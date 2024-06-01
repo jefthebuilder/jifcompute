@@ -76,7 +76,7 @@ async def testprogram(dut,program,result=158+158,maxi=100):
 
         
         i+=1
-        await ClockCycles(dut.clk,1)
+        #await ClockCycles(dut.clk,1)
         cycles += 1
         dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_out))
         dut._log.info("cycl"+str(cycles))
