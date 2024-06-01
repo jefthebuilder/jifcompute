@@ -47,7 +47,7 @@ module tt_um_jefloverockets_cpuhandler (
   
   assign tcount = {5{(count <= 8)}} & count + 1;
 
-  always@(posedge clk)
+  always@(clk)
           begin
 
                case( count)
