@@ -24,7 +24,12 @@ module tt_um_jefloverockets_cpuhandler (
   wire [4:0] count;
 
   
-  reg [31:0] data;
+  wire [31:0] data;
+  reg [7:0] data1;
+  reg [7:0] data2;
+  reg [7:0] data3;
+  reg [7:0] data4;
+  assign data = {data4,data3,data2,data1};
   reg [31:0] dataout;
   reg [31:0] addr;
   assign uio_oe = {8{~rw}};
@@ -67,21 +72,21 @@ module tt_um_jefloverockets_cpuhandler (
 
                   end
                   4'sb0110: begin
-                  data[7:0] <= uio_in;
+                  data1 <= uio_in;
                   uio_out <= dataout[7:0];
                   end
                   4'sb0111: begin
-                  data[15:8] <= uio_in;
+                  data2 <= uio_in;
                     uio_out <= dataout[15:8];
                   
                   end
                   4'sb1000: begin
-                  data[23:16] <= uio_in;
+                  data3 <= uio_in;
                     uio_out <= dataout[23:16];
                   
                   end
                   4'sb1001: begin
-                  data[31:24] <= uio_in;
+                  data4 <= uio_in;
                   uio_out <= dataout[31:24];
                   end
 
