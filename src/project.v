@@ -39,7 +39,7 @@ module tt_um_jefloverockets_cpuhandler (
   wire [31:0] dataout;
   wire [31:0] addr;
   assign uio_oe = {8{~rw}};
-  assign cpuclock = count == 0;
+  assign cpuclock = count > 0;
   cpu cpf(data,dataout,addr,rw,cpuclock,cpuclock,rst);
   reg [4:0] tcount;
 
@@ -79,23 +79,23 @@ module tt_um_jefloverockets_cpuhandler (
                   end
                   6: begin
                     data1 <= uio_in;
-                    uio_out <= data1;
+                    uio_out <= dataout[7:0];
                   end
                   7: begin
                     data2 <= uio_in;
 
-                    uio_out <= data2;
+                    uio_out <= dataout[15:8];
                   
                   end
                   8: begin
                     data3 <= uio_in;
 
-                     uio_out <= data3;
+                     uio_out <= dataout[23:16];
                   
                   end
                   9: begin
                     data4 <= uio_in;
-                    uio_out <= data4;
+                    uio_out <= dataout[31:24];
 
                   end
 
