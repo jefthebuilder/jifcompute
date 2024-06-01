@@ -10,10 +10,11 @@ always @(posedge clock)
 begin
     if(r_enable)
         data_out <= data_in;
-    if (clear)
-        data_out <= 0;
 end
-
+always @(posedge clear)
+begin
+    data_out <= 0;
+end
 endmodule
 
 module counter(clock, r_enable, clear, data_in, data_out);
@@ -48,6 +49,10 @@ begin
         data_out <= data_in;
     if (clear)
         data_out <= 0;
+end
+always @(posedge clear)
+begin
+    data_out <= 0;
 end
 
 endmodule
