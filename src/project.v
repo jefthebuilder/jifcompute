@@ -98,7 +98,7 @@ module tt_um_jefloverockets_cpuhandler (
                     //uio_out <= dataout[23:16];
 
                   end
-                  //0: uio_out <= dataout[31:24];
+                  0: data4 <= uio_in;
                endcase
 
           end
