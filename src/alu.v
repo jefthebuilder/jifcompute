@@ -78,7 +78,7 @@ module LOAD(
     wire invhigh;
     not(invhigh,highlow);
 
-    assign HIGH = {{{12{0}},highlow},{3{0}}};
+    assign HIGH = {12'sb000000000000,highlow},3'sb000};
     wire [31:0] temp;
     SHIFTERLEFT shifty({{32-16{1'b0}},value},{{32-16{1'b0}},HIGH},temp);
     wire [15:0] temp2;
