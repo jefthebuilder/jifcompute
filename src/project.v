@@ -31,10 +31,10 @@ module tt_um_jefloverockets_cpuhandler (
    wire [7:0] data2o;
    wire [7:0] data3o;
    wire [7:0] data4o;
-   wire [7:0] wdata1;
-   wire [7:0] wdata2;
-   wire [7:0] wdata3;
-   wire [7:0] wdata4;
+   wire wdata1;
+   wire  wdata2;
+   wire  wdata3;
+   wire  wdata4;
    register8 reg_data1(clk,wdata1,rst,dataio,data1o);
    register8 reg_data2(clk,wdata2,rst,dataio,data2o);
    register8 reg_data3(clk,wdata3,rst,dataio,data3o);
