@@ -80,7 +80,7 @@ module LOAD(
 
     assign HIGH = {32{highlow}};
     wire [31:0] temp;
-    SHIFTERLEFT shifty({{32-16{1'b0}},value},{{32-16{1'b0}},HIGH},temp);
+    //SHIFTERLEFT shifty({{32-16{1'b0}},value},{{32-16{1'b0}},HIGH},temp);
     wire [15:0] temp2;
     wire [15:0] temp3;
     wire [15:0] temp4;
