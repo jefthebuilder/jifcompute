@@ -50,53 +50,53 @@ module tt_um_jefloverockets_cpuhandler (
   
   assign tcount = {5{(count <= 9)}} & count + 1;
   
-  always@(negedge clk)
+  always@(posedge clk)
           begin
 
                case( count)
 
-                  4'sb0001: begin
+                  1: begin
                       uo_out <= addr[7:0];
                       uio_out <= dataout[7:0];
                      
                   end
-                  4'sb0010: begin
+                  2: begin
                       uo_out <= addr[15:8];
                       uio_out <= dataout[15:8];
                      
                   end
-                  4'sb0011: begin
+                  3: begin
                    uo_out <= addr[23:16];
                    uio_out <= dataout[23:16];
                   
                   end
-                  4'sb0100: begin
+                  4: begin
                    uo_out <= addr[31:24];
                    uio_out <= dataout[23:16];
 
                    end
-                  4'sb0101: begin
+                  5: begin
                    uo_out[0] <= ~rw;
                    uio_out <= 0;
 
                   end
-                  4'sb0110: begin
+                  6: begin
                     data1 <= uio_in;
                     uio_out <= data1;
                   end
-                  4'sb0111: begin
+                  7: begin
                     data2 <= uio_in;
 
                     uio_out <= data2;
                   
                   end
-                  4'sb1000: begin
+                  8: begin
                     data3 <= uio_in;
 
                      uio_out <= data3;
                   
                   end
-                  4'sb1001: begin
+                  9: begin
                     data4 <= uio_in;
                     uio_out <= data4;
 
