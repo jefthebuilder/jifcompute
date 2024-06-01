@@ -6,7 +6,7 @@ input             clear;
 input      [31:0] data_in;
 output reg [31:0] data_out;
 
-always @(clock)
+always @(negedge clock)
 begin
     if(r_enable)
         data_out <= data_in;
@@ -60,7 +60,7 @@ input             clear;
 input    [2:0]         data_in;
 output reg   [2:0]     data_out;
 
-always @(clock)
+always @(negedge clock)
 begin
     if(r_enable)
         data_out <= data_in;
