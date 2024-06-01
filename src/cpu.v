@@ -107,7 +107,7 @@ module cpu(
     wire [2:0] state;
     wire [2:0] stato;
     wire wstate;
-    State stat(clock,wstate,reset,state,stato);
+    State stat(clk,wstate,reset,state,stato);
     wire [31:0] addr;
     wire [31:0] addro;
     wire waddr;
