@@ -6,15 +6,14 @@ input             clear;
 input      [31:0] data_in;
 output reg [31:0] data_out;
 
-always @(clock)
+always @(posedge clock)
 begin
     if(r_enable)
         data_out <= data_in;
+    if (clear)
+        data_out <= 0;
 end
-always @(posedge clear)
-begin
-    data_out <= 0;
-end
+
 endmodule
 module register8(clock, r_enable, clear, data_in, data_out);
 
@@ -98,7 +97,8 @@ module cpu(
     output [31:0] datao,
     output [31:0] address,
     output rw,
-    input clock,
+    input clk,
+    input clock, // register clock for resetting
     input reset
 );
     wire [31:0] a,b,c,d,e,f,g,h;
@@ -162,7 +162,7 @@ module cpu(
     assign writinginstr = (instro[6:0] == 7);
 
     ADDER32 adder1(addro,1,temp_address);
-    ALU alu1(clock,rega,regb,regb,value,highlow,flag1,flag2,flag3,instro[5:0],regc,addrchange,naddr);
+    ALU alu1(clk,rega,regb,regb,value,highlow,flag1,flag2,flag3,instro[5:0],regc,addrchange,naddr);
 
         // Assign rega based on tempinstr
     assign rega = (tempinstr == 0) ? ao :
