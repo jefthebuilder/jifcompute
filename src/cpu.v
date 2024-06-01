@@ -48,7 +48,7 @@ begin
     if(r_enable)
         data_out <= data_in;
     if (clear)
-        data_out <= 10;
+        data_out <= 0;
 end
 
 endmodule
