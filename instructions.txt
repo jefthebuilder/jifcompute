@@ -4,8 +4,8 @@ sub <reg a> <reg b> <reg c>
 >> <reg a > <reg b> <reg c>
 mov <reg a> <reg b>
 ld <high(1)/low(0)> <rega> <value>
-lda <rega> (loads at address stored in reg 8)
-sta <rega> (loads at address stored in reg 8)
+lda <rega> <reg b> (loads at address stored in reg b)
+sta <rega> <reg b> (loads at address stored in reg b)
 equal <reg a> <reg b> <flag>
 smaller <reg a> <reg b> <flag>
 bigger <reg a> <reg b> <flag>
