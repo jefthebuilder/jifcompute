@@ -7,10 +7,10 @@ from cocotb.triggers import ClockCycles
 
 program_add = [
     "000000_000_000_000_0_0000000000000000",
-    "000101_000_000_000_1_0000000010011110",
-    "000101_001_000_001_1_0000000010011110",
-    "000000_001_000_010_0_0000000000000000",
-    "000111_010_111_010_0_0000000000000000",
+    "0000000010011110_1_000_000_000_000101",
+    "0000000010011110_1_001_000_000_000101",
+    "0000000000000000_0_010_000_001_000000",
+    "0000000000000000_0_010_111_010_000111",
 
 ]
 async def write(dut, value):
@@ -19,7 +19,7 @@ async def write(dut, value):
     for byte in range(0,4):
         dut._log.info("writing")
 
-        dut.uio_in.value = int(value[byte*8:byte*8+8][::-1],2)
+        dut.uio_in.value = int(value[byte*8:byte*8+8],2)
 
         await ClockCycles(dut.clk, 1)
         cycles+=1
