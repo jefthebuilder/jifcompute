@@ -5,8 +5,8 @@ input             r_enable;
 input             clear;
 input      [31:0] data_in;
 output reg [31:0] data_out;
-
-always @(posedge clock)
+wire clk = clock | clear;
+always @(posedge clk)
 begin
     if(r_enable)
         data_out <= data_in;
@@ -22,8 +22,8 @@ input             r_enable;
 input             clear;
 input      [31:0] data_in;
 output reg [31:0] data_out;
-
-always @(posedge clock or posedge clear)
+wire clk = clock | clear;
+always @(posedge clk)
 begin
     if(r_enable)
         data_out <= data_in;
@@ -41,8 +41,8 @@ input             r_enable;
 input             clear;
 input      [4:0] data_in;
 output reg [4:0] data_out;
-
-always @(posedge clock or posedge clear)
+wire clk = clock | clear;
+always @(posedge clk)
 begin
     if(r_enable)
         data_out <= data_in;
@@ -59,8 +59,8 @@ input             r_enable;
 input             clear;
 input    [2:0]         data_in;
 output reg   [2:0]     data_out;
-
-always @(posedge clock or posedge clear)
+wire clk = clock | clear;
+always @(posedge clk)
 begin
     if(r_enable)
         data_out <= data_in;
@@ -78,8 +78,8 @@ input             r_enable;
 input             clear;
 input             data_in;
 output reg        data_out;
-
-always @(posedge clock or posedge clear)
+wire clk = clock | clear;
+always @(posedge clk)
 begin
     if(r_enable)
         data_out <= data_in;
