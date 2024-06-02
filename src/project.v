@@ -79,26 +79,36 @@ module tt_um_jefloverockets_cpuhandler (
                   end
                   6: begin
                     data1 <= uio_in;
+                    uo_out <= 0;
+                    uio_out <= 0;
                     //uio_out <= dataout[7:0];
                   end
                   7: begin
                     data2 <= uio_in;
-
+uo_out <= 0;
+                    uio_out <= 0;
                     //uio_out <= dataout[15:8];
                   
                   end
                   8: begin
                     data3 <= uio_in;
-
+uo_out <= 0;
+                    uio_out <= 0;
                      //uio_out <= dataout[15:8];
                   
                   end
                   9: begin
                     data4 <= uio_in;
+                    uo_out <= 0;
+                                        uio_out <= 0;
                     //uio_out <= dataout[23:16];
 
                   end
-                  
+                  default: begin
+                  uo_out <= 0;
+                  uio_out <= 0;
+                  end
+
                endcase
 
           end
