@@ -16,7 +16,7 @@ program_add = [
 async def write(dut, value):
     global cycles
     value = value.replace("_","")
-    for byte in reversed(range(0,4)):
+    for byte in range(0,4):
         dut._log.info("writing")
 
         dut.uio_in.value = int(value[byte*8:byte*8+8],2)
