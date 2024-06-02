@@ -73,7 +73,7 @@ async def testprogram(dut,program,result=158+158,maxi=100):
 
         dut._log.info("writing")
         await write(dut, program[addr])
-
+        
 
         
         i+=1
