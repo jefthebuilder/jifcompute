@@ -64,7 +64,7 @@ async def testprogram(dut,program,result=158+158,maxi=100):
         readwrite = int( dut.uo_out.value )== 1
         dut._log.info(str(data) + " addr: " + str(addr) + "rw:" + str(readwrite))
         if (result == data and readwrite == 1):
-            dut._log.info("right",data)
+            dut._log.info("right" + str( data))
             assert True
             done = True
             return
