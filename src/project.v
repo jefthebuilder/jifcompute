@@ -33,7 +33,7 @@ module tt_um_jefloverockets_cpuhandler (
    reg [7:0] data4;
 
 
-  assign data = {data1,data2,data3,data4};
+  assign data = {data4,data3,data2,data1};
   assign dataio = uio_in;
 
   reg [31:0] dataout;
