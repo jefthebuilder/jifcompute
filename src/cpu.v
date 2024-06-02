@@ -200,39 +200,39 @@ module cpu(
                    (tempinstr3 == 5) ? ffo :
                    (tempinstr3 == 6) ? fgo :
                    fho;
-       
+    wire exe = stato == 1;
     assign a = regc;
-    assign wa =  {1{tempinstr4 == 0}};
+    assign wa =  {1{tempinstr4 == 0}} & exe;
     assign b = ( regc ) ;
-    assign wb =  {1{tempinstr4 == 1}};
+    assign wb =  {1{tempinstr4 == 1}} & exe;
     assign c = ( regc ) ;
-    assign wc =  {1{tempinstr4 == 2}};
+    assign wc =  {1{tempinstr4 == 2}} & exe;
     assign d = ( regc );
-    assign wd =  {1{tempinstr4 == 3}};
+    assign wd =  {1{tempinstr4 == 3}} & exe;
     assign e = ( regc );
-    assign we =  {1{tempinstr4 == 4}};
+    assign we =  {1{tempinstr4 == 4}} & exe;
     assign f = ( regc);
-    assign wf =  {1{tempinstr4 == 5}};
+    assign wf =  {1{tempinstr4 == 5}} & exe;
     assign g = ( regc) ;
-    assign wg =  {1{tempinstr4 == 6}};
+    assign wg =  {1{tempinstr4 == 6}} & exe;
     assign h = ( regc );
-    assign wh =  {1{tempinstr4 == 7}};
+    assign wh =  {1{tempinstr4 == 7}} & exe;
     assign fa = ( flag3);
-    assign fwa =  {1{tempinstr4 == 0}};
+    assign fwa =  {1{tempinstr4 == 0}} & exe;
     assign fb = ( flag3);
-    assign fwb =  {1{tempinstr4 == 1}};
+    assign fwb =  {1{tempinstr4 == 1}} & exe ;
     assign fc = ( flag3);
-    assign fwc =  {1{tempinstr4 == 2}};
+    assign fwc =  {1{tempinstr4 == 2}} & exe;
     assign fd = ( flag3 );
-    assign fwd =  {1{tempinstr4 == 3}};
+    assign fwd =  {1{tempinstr4 == 3}} & exe;
     assign fe = ( flag3);
-    assign fwe =  {1{tempinstr4 == 4}};
+    assign fwe =  {1{tempinstr4 == 4}} & exe ;
     assign ff = ( flag3);
-    assign fwf =  {1{tempinstr4 == 5}};
+    assign fwf =  {1{tempinstr4 == 5}} & exe;
     assign fg = ( flag3);
-    assign fwg =  {1{tempinstr4 == 6}};
+    assign fwg =  {1{tempinstr4 == 6}} & exe;
     assign fh = ( flag3);
-    assign fwh =  {1{tempinstr4 == 7}};
+    assign fwh =  {1{tempinstr4 == 7}} & exe;
     // state 0
   wire [31:0] state1 = {32{stato == 1}};
    wire [31:0] tempaddr = ((addro & {32{stato == 0}}) | ( & naddr));
