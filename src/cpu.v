@@ -120,7 +120,7 @@ module cpu(
     flag flag_f(~clock,fwf,reset,ff,ffo);
     flag flag_g(~clock,fwg,reset,fg,fgo);
     flag flag_h(~clock,fwh,reset,fh,fho);
-    reg addrchange;
+    wire addrchange;
     wire [2:0] state;
     wire [2:0] stato;
     wire wstate;
@@ -143,7 +143,7 @@ module cpu(
     wire highlow;
     wire [31:0] temp_address;
     
-    reg [31:0] naddr;
+    wire [31:0] naddr;
     wire temp2;
     wire writinginstr;
     wire [2:0] tempinstr = instro[8:6];
