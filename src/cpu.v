@@ -27,10 +27,13 @@ always @(posedge clock)
 begin
     if(r_enable)
         data_out <= data_in;
-    if (clear)
-        data_out <= 0;
-end
 
+
+end
+always @(posedge clear)
+begin
+data_out <= 0;
+end
 endmodule
 
 
@@ -49,7 +52,10 @@ begin
     if (clear)
         data_out <= 0;
 end
-
+always @(posedge clear)
+begin
+data_out <= 0;
+end
 endmodule
 
 module State(clock, r_enable, clear, data_in, data_out);
@@ -67,7 +73,10 @@ begin
     if (clear)
         data_out <= 0;
 end
-
+always @(posedge clear)
+begin
+data_out <= 0;
+end
 
 endmodule
 
@@ -86,7 +95,10 @@ begin
     if (clear)
         data_out <= 0;
 end
-
+always @(posedge clear)
+begin
+data_out <= 0;
+end
 endmodule
 
 module cpu(
