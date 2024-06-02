@@ -19,7 +19,7 @@ async def write(dut, value):
     for byte in range(0,4):
         dut._log.info("writing")
 
-        dut.uio_in.value = int(reversed(value[byte*8:byte*8+8]),2)
+        dut.uio_in.value = int(value[byte*8:byte*8+8][::-1],2)
 
         await ClockCycles(dut.clk, 1)
         cycles+=1
