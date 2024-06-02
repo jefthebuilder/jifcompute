@@ -104,7 +104,7 @@ module ALU (
     input F2,
     inout F3,
     input [5:0] instr,
-    inout [31:0] C,
+    output [31:0] C,
     output addrch,
     output [31:0] naddr
 );
