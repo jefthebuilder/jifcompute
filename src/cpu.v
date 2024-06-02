@@ -120,7 +120,7 @@ module cpu(
     flag flag_f(~clock,fwf,reset,ff,ffo);
     flag flag_g(~clock,fwg,reset,fg,fgo);
     flag flag_h(~clock,fwh,reset,fh,fho);
-    wire addrchange;
+    reg addrchange;
     wire [2:0] state;
     wire [2:0] stato;
     wire wstate;
@@ -143,7 +143,7 @@ module cpu(
     wire highlow;
     wire [31:0] temp_address;
     
-    wire [31:0] naddr;
+    reg [31:0] naddr;
     wire temp2;
     wire writinginstr;
     wire [2:0] tempinstr = instro[8:6];
@@ -234,8 +234,8 @@ module cpu(
     assign fh = ( flag3);
     assign fwh =  {1{tempinstr4 == 7}} & exe;
     // state 0
- // wire [31:0] state1 = {32{stato == 1}};
- //  wire [31:0] tempaddr = ((addro & {32{stato == 0}}) | ( naddr));
+  wire [31:0] state1 = {32{stato == 1}};
+   wire [31:0] tempaddr = ((addro & {32{stato == 0}}) | ( & naddr));
   // assign address = ((tempaddr == 0) & addro) | ((tempaddr != 0) & tempaddr);
 wire taddr = naddr != 0 & stato == 1;
  assign address = ({32{taddr}} & naddr) | ({32{~taddr}} & addro);

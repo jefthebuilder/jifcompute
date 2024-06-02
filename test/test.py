@@ -63,17 +63,16 @@ async def testprogram(dut,program,result=158+158,maxi=100):
         dut._log.info("state:" + str(dut.uo_out) +" " + str(dut.uio_in) + " "+  str(dut.uio_out))
         readwrite = int( dut.uo_out.value )== 1
         dut._log.info(str(data) + " addr: " + str(addr) + "rw:" + str(readwrite))
-        if (result == data and readwrite == 1):
-            dut._log.info("right",data)
-            assert True
-            done = True
-            return
         if addr >= len(program):
             assert False
 
         dut._log.info("writing")
         await write(dut, program[addr])
-        
+        if (result == data and readwrite == 1):
+            dut._log.info("right",data)
+            assert True
+            done = True
+            return
 
         
         i+=1
