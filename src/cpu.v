@@ -155,7 +155,7 @@ module cpu(
     assign value = instro[31:16];
 
     assign instr = data;
-    assign winstr = stato == 0 & clk;
+    assign winstr = stato == 0 ;
     assign writinginstr = (instro[5:0] == 7);
 
     ADDER32 adder1(addro,1,temp_address);
@@ -200,7 +200,7 @@ module cpu(
                    (tempinstr3 == 5) ? ffo :
                    (tempinstr3 == 6) ? fgo :
                    fho;
-    wire exe = stato == 1 & clk;
+    wire exe = stato == 1 ;
     assign a = regc;
     assign wa =  {1{tempinstr4 == 0}} & exe;
     assign b = ( regc ) ;
@@ -247,7 +247,7 @@ wire taddr = naddr != 0 & stato == 1;
      
      assign temp2 = ~addrchange;
     assign addr = ((({32{temp2}} & temp_address) | {32{~temp2}} & naddr));
-    assign waddr = {1{stato == 2}} & clk;
+    assign waddr = {1{stato == 2}};
 
     
 
