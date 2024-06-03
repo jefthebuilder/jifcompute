@@ -132,7 +132,7 @@ module cpu(
     wire [31:0] instr;
     wire [31:0] instro;
     wire winstr;
-    register reg_instr(clock,winstr,reset,instr,instro);
+    register reg_instr(~clock,winstr,reset,instr,instro);
     wire [31:0] rega;
     wire [31:0] regb;
     wire [31:0] regc;
@@ -200,7 +200,7 @@ module cpu(
                    (tempinstr3 == 5) ? ffo :
                    (tempinstr3 == 6) ? fgo :
                    fho;
-    wire exe = stato == 1;
+    wire exe = stato == 1 ;
     assign a = regc;
     assign wa =  {1{tempinstr4 == 0}} & exe;
     assign b = ( regc ) ;
