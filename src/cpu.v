@@ -155,7 +155,7 @@ module cpu(
     assign value = instro[31:16];
 
     assign instr = data;
-    assign winstr = stato == 0;
+    assign winstr = stato == 0 & clk;
     assign writinginstr = (instro[5:0] == 7);
 
     ADDER32 adder1(addro,1,temp_address);
