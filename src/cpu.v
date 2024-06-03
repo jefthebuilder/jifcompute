@@ -200,7 +200,7 @@ module cpu(
                    (tempinstr3 == 5) ? ffo :
                    (tempinstr3 == 6) ? fgo :
                    fho;
-    wire exe = stato == 1;
+    wire exe = stato == 1 & clk;
     assign a = regc;
     assign wa =  {1{tempinstr4 == 0}} & exe;
     assign b = ( regc ) ;
