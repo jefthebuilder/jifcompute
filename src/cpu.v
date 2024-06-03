@@ -124,7 +124,7 @@ module cpu(
     wire [2:0] state;
     wire [2:0] stato;
     wire wstate;
-    State stat(clock,wstate,reset,state,stato);
+    State stat(~clock,wstate,reset,state,stato);
     wire [31:0] addr;
     wire [31:0] addro;
     wire waddr;
@@ -200,7 +200,7 @@ module cpu(
                    (tempinstr3 == 5) ? ffo :
                    (tempinstr3 == 6) ? fgo :
                    fho;
-    wire exe = stato == 1 ;
+    wire exe = stato == 1;
     assign a = regc;
     assign wa =  {1{tempinstr4 == 0}} & exe;
     assign b = ( regc ) ;
@@ -242,7 +242,7 @@ wire taddr = naddr != 0 & stato == 1;
    //assign address= addro;
    assign rw = (stato == 0) | ((stato != 0) & writinginstr);
     assign state = ((({3{stato == 0}} & 1) | ({3{stato == 1}} & 2) ) | ({3{stato == 2}} & 0));
-     assign wstate = clk;
+     assign wstate = ~clk;
     // state 1 removed temp change
      
      assign temp2 = ~addrchange;
