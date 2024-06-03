@@ -11,7 +11,7 @@ begin
     if(r_enable)
         data_out <= data_in;
     if (clear)
-        data_out <= 0;
+        data_out <= 15;
 end
 
 endmodule
