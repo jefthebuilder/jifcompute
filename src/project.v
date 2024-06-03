@@ -36,11 +36,11 @@ module tt_um_jefloverockets_cpuhandler (
   assign data = {data1,data2,data3,data4};
   assign dataio = uio_in;
 
-  wire [31:0] dataout;
-  wire [31:0] addr;
+  reg [31:0] dataout;
+  reg [31:0] addr;
   assign uio_oe = {8{~rw}};
   assign cpuclock = count != 0;
-    cpu cpf(data,dataout,addr,rw,cpuclock,cpuclock,ui_in[0]);
+  cpu cpf(data,dataout,addr,rw,cpuclock,cpuclock,rst);
   reg [4:0] tcount;
 
   counter regcount(clk,1'sb1,rst,tcount,count);
