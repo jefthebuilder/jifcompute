@@ -12,18 +12,19 @@ module tt_um_jefloverockets_cpuhandler (
     output reg [7:0] uio_out,  // IOs: Output path
     output reg [7:0] uio_oe,   // IOs: Enable path (active high: 0=input, 1=output)
     input  wire       ena,      // always 1 when the design is powered, so you can ignore it
-    input  wire       clk,      // clock
+    input  wire   #1  clk,      // clock
     input  wire       rst_n     // reset_n - low to reset
 );
 
   // All output pins must be assigned. If not used, assign to 0.
   wire cpuclock;
+
   wire rw;
   wire rst;
   not(rst,rst_n);
   wire [4:0] count;
 
-  
+
   wire [31:0] data;
   wire [7:0] dataio;
 

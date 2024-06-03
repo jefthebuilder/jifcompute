@@ -42,7 +42,7 @@ input             clear;
 input      [4:0] data_in;
 output reg [4:0] data_out;
 wire clk = clock | clear;
-always @(posedge clock)
+always @(posedge)
 begin
     if(r_enable)
         data_out <= data_in;
