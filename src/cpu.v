@@ -251,7 +251,7 @@ wire taddr = naddr != 0 & stato == 1;
 
     
 
-     assign datao = regc & {32{state1 & clock}};
+     assign datao = regc;
     
     
     
