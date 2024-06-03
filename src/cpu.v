@@ -247,7 +247,7 @@ wire taddr = naddr != 0 & stato == 1;
      
      assign temp2 = ~addrchange;
     assign addr = ((({32{temp2}} & temp_address) | {32{~temp2}} & naddr));
-    assign waddr = {1{stato == 2}};
+    assign waddr = {1{stato == 2}} & clk;
 
     
 
