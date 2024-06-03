@@ -60,7 +60,7 @@ input             clear;
 input    [2:0]         data_in;
 output reg   [2:0]     data_out;
 wire clk = clock | clear;
-always @(posedge clock)
+always @(negedge clock)
 begin
     if(r_enable)
         data_out <= data_in;
@@ -124,7 +124,7 @@ module cpu(
     wire [2:0] state;
     wire [2:0] stato;
     wire wstate;
-    State stat(~clock,wstate,reset,state,stato);
+    State stat(clock,wstate,reset,state,stato);
     wire [31:0] addr;
     wire [31:0] addro;
     wire waddr;
