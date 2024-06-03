@@ -132,7 +132,7 @@ module cpu(
     wire [31:0] instr;
     wire [31:0] instro;
     wire winstr;
-    register reg_instr(~clock,winstr,reset,instr,instro);
+    register reg_instr(clock,winstr,reset,instr,instro);
     wire [31:0] rega;
     wire [31:0] regb;
     wire [31:0] regc;
@@ -242,7 +242,7 @@ wire taddr = naddr != 0 & stato == 1;
    //assign address= addro;
    assign rw = (stato == 0) | ((stato != 0) & writinginstr);
     assign state = ((({3{stato == 0}} & 1) | ({3{stato == 1}} & 2) ) | ({3{stato == 2}} & 0));
-     assign wstate = ~clk;
+     assign wstate = 1;
     // state 1 removed temp change
      
      assign temp2 = ~addrchange;
