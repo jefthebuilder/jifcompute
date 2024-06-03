@@ -12,13 +12,23 @@ module tt_um_jefloverockets_cpuhandler (
     output reg [7:0] uio_out,  // IOs: Output path
     output reg [7:0] uio_oe,   // IOs: Enable path (active high: 0=input, 1=output)
     input  wire       ena,      // always 1 when the design is powered, so you can ignore it
-    input  wire   #1  clk,      // clock
+    input wire     clk,      // clock
     input  wire       rst_n     // reset_n - low to reset
 );
 
   // All output pins must be assigned. If not used, assign to 0.
   wire cpuclock;
+  reg clock1;
+  initial begin
+       clock1 = 0;
 
+       forever begin
+          if (clk != clock1) begin
+            #1 clock1 = ~clock1;
+          end
+       end
+         // 10 time units clock period
+   end
   wire rw;
   wire rst;
   not(rst,rst_n);
@@ -44,11 +54,11 @@ module tt_um_jefloverockets_cpuhandler (
   cpu cpf(data,dataout,addr,rw,cpuclock,cpuclock,rst);
   reg [4:0] tcount;
 
-  counter regcount(clk,1'sb1,rst,tcount,count);
+  counter regcount(clock1,1'sb1,rst,tcount,count);
   
   assign tcount = {5{(count <= 8)}} & count + 1;
 
-  always@(negedge clk)
+  always@(negedge clock1)
           begin
 
                case( count)
