@@ -137,8 +137,8 @@ module ALU (
     wire [63:0] oc6;
     wire g5 = (instr == 5);
     gate gate6(C5,co,g5,oc6);
-    wire [63:0] oc7 = (A/B) & {64{instr == 17}}; 
-    wire [63:0] oc8 = (A*B) & {64{instr == 16}}; 
+    wire [63:0] oc7 = (A) & {64{instr == 17}};   // maal
+    wire [63:0] oc8 = (b) & {64{instr == 16}};  // delen
     wire [63:0] tempc = (((oc1 | oc2) | (oc3 | oc4)) | (oc5 | oc6)) | (oc7 | oc8);
     assign C = (tempc);
     wire F8 = (A == B) & (instr == 8);
