@@ -136,7 +136,7 @@ module cpu(
     wire [63:0] rega;
     wire [63:0] regb;
     wire [63:0] regc;
-    wire [15:0] value;
+    wire [31:0] value;
     wire flag1;
     wire flag2;
     wire flag3;
