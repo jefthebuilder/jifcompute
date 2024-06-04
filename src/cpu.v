@@ -158,7 +158,7 @@ module cpu(
     assign winstr = stato == 0 ;
     assign writinginstr = (instro[5:0] == 7);
 
-    ADDER32 adder1(addro,{{63{1'sd0}},1},temp_address);
+    ADDER32 adder1(addro,{{63{1'sb0}},1'sb1},temp_address);
     ALU alu1(clk,rega,regb,regb,value,highlow,flag1,flag2,flag3,instro[5:0],regc,addrchange,naddr);
 
         // Assign rega based on tempinstr
