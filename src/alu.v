@@ -57,7 +57,7 @@ module full_adder(x,y,c_in,s,c_out);
     assign c_out = (y&c_in)| (x&y) | (x&c_in);
 endmodule
 
-module ADDER64 (
+module ADDER32 (
     input  [63:0] a,     // First 64-bit input
     input  [63:0] b,     // Second 64-bit input
     output [63:0] sum    // 64-bit sum output
