@@ -39,8 +39,8 @@ module counter(clock, r_enable, clear, data_in, data_out);
 input             clock;
 input             r_enable;
 input             clear;
-input      [4:0] data_in;
-output reg [4:0] data_out;
+    input      [5:0] data_in;
+    output reg [5:0] data_out;
 wire clk = clock | clear;
 always @(posedge clock)
 begin
