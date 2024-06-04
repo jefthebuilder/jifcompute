@@ -9,7 +9,7 @@ wire clk = clock | clear;
 always @(posedge clock)
 begin
     if(r_enable)
-        data_out <= data_in;
+        #2 data_out <= data_in;
     if (clear)
         data_out <= 0;
 end
@@ -26,7 +26,7 @@ wire clk = clock | clear;
 always @(posedge clock)
 begin
     if(r_enable)
-        data_out <= data_in;
+       #2 data_out <= data_in;
     if (clear)
         data_out <= 0;
 end
@@ -45,7 +45,7 @@ wire clk = clock | clear;
 always @(posedge clock)
 begin
     if(r_enable)
-        data_out <= data_in;
+        #2 data_out <= data_in;
     if (clear)
         data_out <= 0;
 end
@@ -63,7 +63,7 @@ wire clk = clock | clear;
 always @(posedge clock)
 begin
     if(r_enable)
-        data_out <= data_in;
+        #2 data_out <= data_in;
     if (clear)
         data_out <= 0;
 end
@@ -82,7 +82,7 @@ wire clk = clock | clear;
 always @(posedge clock)
 begin
     if(r_enable)
-        data_out <= data_in;
+        #2 data_out <= data_in;
     if (clear)
         data_out <= 0;
 end
