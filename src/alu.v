@@ -31,22 +31,7 @@ module SHIFTERLEFT(
 
     assign C = ~A2;
 endmodule
-module SUBTRACT32(
-    input [63:0] A,
-    input [63:0] B,
-    output [63:0] C
-);
-    parameter N=64;
-    wire [63:0] b2;
-    genvar i;
-    generate
-        for(i=0;i<N;i=i+1)
-        begin: generate_subtract
-            not(b2[i],B[i]);
-        end
-    endgenerate
-    ADDER32 f(A,B,C);
-endmodule
+
 
 
 
@@ -138,7 +123,7 @@ module ALU (
     wire g5 = (instr == 5);
     gate gate6(C5,co,g5,oc6);
     wire [63:0] oc7 = (A) & {64{instr == 17}};   // maal
-    wire [63:0] oc8 = (b) & {64{instr == 16}};  // delen
+    wire [63:0] oc8 = (B) & {64{instr == 16}};  // delen
     wire [63:0] tempc = (((oc1 | oc2) | (oc3 | oc4)) | (oc5 | oc6)) | (oc7 | oc8);
     assign C = (tempc);
     wire F8 = (A == B) & (instr == 8);
