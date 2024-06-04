@@ -3,8 +3,8 @@ module register(clock, r_enable, clear, data_in, data_out);
 input             clock;
 input             r_enable;
 input             clear;
-input      [31:0] data_in;
-output reg [31:0] data_out;
+input      [63:0] data_in;
+output reg [63:0] data_out;
 wire clk = clock | clear;
 always @(posedge clock)
 begin
@@ -20,8 +20,8 @@ module registeraddr(clock, r_enable, clear, data_in, data_out);
 input             clock;
 input             r_enable;
 input             clear;
-input      [31:0] data_in;
-output reg [31:0] data_out;
+input      [63:0] data_in;
+output reg [63:0] data_out;
 wire clk = clock | clear;
 always @(posedge clock)
 begin
@@ -90,16 +90,16 @@ end
 endmodule
 
 module cpu(
-    input [31:0] data,
-    output [31:0] datao,
-    output [31:0] address,
+    input [63:0] data,
+    output [63:0] datao,
+    output [63:0] address,
     output rw,
     input clk,
     input clock, // register clock for resetting
     input reset
 );
-    wire [31:0] a,b,c,d,e,f,g,h;
-    wire [31:0] ao,bo,co,do1,eo,fo,go,ho;
+    wire [63:0] a,b,c,d,e,f,g,h;
+    wire [63:0] ao,bo,co,do1,eo,fo,go,ho;
     wire wa,wb,wc,wd,we,wf,wg,wh;
     wire fa,fb,fc,fd,fe,ff,fg,fh;
     wire fao,fbo,fco,fdo,feo,ffo,fgo,fho;
@@ -125,34 +125,34 @@ module cpu(
     wire [2:0] stato;
     wire wstate;
     State stat(clock,wstate,reset,state,stato);
-    wire [31:0] addr;
-    wire [31:0] addro;
+    wire [63:0] addr;
+    wire [63:0] addro;
     wire waddr;
     registeraddr reg_addr(clock,waddr,reset,addr,addro);
-    wire [31:0] instr;
-    wire [31:0] instro;
+    wire [63:0] instr;
+    wire [63:0] instro;
     wire winstr;
     register reg_instr(~clock,winstr,reset,instr,instro);
-    wire [31:0] rega;
-    wire [31:0] regb;
-    wire [31:0] regc;
+    wire [63:0] rega;
+    wire [63:0] regb;
+    wire [63:0] regc;
     wire [15:0] value;
     wire flag1;
     wire flag2;
     wire flag3;
     wire highlow;
-    wire [31:0] temp_address;
+    wire [63:0] temp_address;
     
-    reg [31:0] naddr;
+    reg [63:0] naddr;
     wire temp2;
     wire writinginstr;
     wire [2:0] tempinstr = instro[8:6];
     wire [2:0] tempinstr1 = instro[11:9];
-    wire [2:0] tempinstr2 = instro[8:6];
+    wire [2:0] tempinstr2 = tempinstr;
     wire [2:0] tempinstr3 = instro[11:9];
     wire [2:0] tempinstr4 = instro[14:12];
     assign highlow = instro[15:15];
-    assign value = instro[31:16];
+    assign value = instro[63:32];
 
     assign instr = data;
     assign winstr = stato == 0 ;
@@ -235,8 +235,8 @@ module cpu(
     assign fh = ( flag3);
     assign fwh =  {1{tempinstr4 == 7}} & exe & ~exereg;
     // state 0
-  wire [31:0] state1 = {32{stato == 1}};
-   wire [31:0] tempaddr = ((addro & {32{stato == 0}}) | (naddr));
+  wire [63:0] state1 = {32{stato == 1}};
+   wire [63:0] tempaddr = ((addro & {32{stato == 0}}) | (naddr));
   // assign address = ((tempaddr == 0) & addro) | ((tempaddr != 0) & tempaddr);
 wire taddr = naddr != 0 & stato == 1 & writinginstr;
  assign address = ({32{taddr}} & naddr) | ({32{~taddr}} & addro);
