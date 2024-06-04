@@ -68,7 +68,7 @@ module ADDER32 (
     
     
     wire carry;
-    assign {carry, sum} = a + ( b xor {64{sub}}); // Perform the addition and assign the result to sum and carry
+    assign {carry, sum} = a + ( b ^ {64{sub}}); // Perform the addition and assign the result to sum and carry
     assign sum2 = sum;
 endmodule
 
