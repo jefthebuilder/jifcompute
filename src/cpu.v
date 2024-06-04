@@ -6,7 +6,7 @@ input             clear;
 input      [63:0] data_in;
 output reg [63:0] data_out;
 wire clk = clock | clear;
-always @(clock)
+always @(negedge clock)
 begin
     if(r_enable)
         data_out <= data_in;
@@ -23,7 +23,7 @@ input             clear;
 input      [63:0] data_in;
 output reg [63:0] data_out;
 wire clk = clock | clear;
-always @(clock)
+always @(negedge clock)
 begin
     if(r_enable)
         data_out <= data_in;
@@ -42,7 +42,7 @@ input             clear;
     input      [5:0] data_in;
     output reg [5:0] data_out;
 wire clk = clock | clear;
-always @(clock)
+always @(posedge clock)
 begin
     if(r_enable)
         data_out <= data_in;
@@ -60,7 +60,7 @@ input             clear;
 input    [2:0]         data_in;
 output reg   [2:0]     data_out;
 wire clk = clock | clear;
-always @(clock)
+always @(posedge clock)
 begin
     if(r_enable)
         data_out <= data_in;
@@ -79,7 +79,7 @@ input             clear;
 input             data_in;
 output reg        data_out;
 wire clk = clock | clear;
-always @(clock)
+always @(negedge clock)
 begin
     if(r_enable)
         data_out <= data_in;
@@ -252,7 +252,7 @@ wire taddr = naddr != 0 & stato == 1 & writinginstr;
 
     
 
-     assign datao = 0;
+     assign datao = regc & {64{writinginstr}};
     
     
     
