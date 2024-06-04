@@ -156,7 +156,7 @@ module cpu(
 
     assign instr = data;
     assign winstr = stato == 0 ;
-    assign writinginstr = (instro[5:0] == 7);
+    assign writinginstr = (instro[5:0] != 7);
 
     ADDER32 adder1(addro,1,temp_address);
     ALU alu1(clk,rega,regb,regb,value,highlow,flag1,flag2,flag3,instro[5:0],regc,addrchange,naddr);
