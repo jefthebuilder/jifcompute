@@ -31,7 +31,7 @@ module SHIFTERLEFT(
 
     assign C = ~A2;
 endmodule
-module SUBTRACT64(
+module SUBTRACT32(
     input [63:0] A,
     input [63:0] B,
     output [63:0] C
@@ -45,7 +45,7 @@ module SUBTRACT64(
             not(b2[i],B[i]);
         end
     endgenerate
-    ADDER64 f(A,B,C);
+    ADDER32 f(A,B,C);
 endmodule
 
 
@@ -104,9 +104,9 @@ module ALU (
     output [63:0] naddr
 );
     wire [63:0] C1;
-    ADDER64 addermaster(A,B,C1);
+    ADDER32 addermaster(A,B,C1);
     wire [63:0] C2;
-    SUBTRACT64 aftrekker4(A,B,C2);
+    SUBTRACT32 aftrekker4(A,B,C2);
     wire [63:0] C3;
     SHIFTERLEFT shifterlinks(A,B,C3);
     wire [63:0] C4;
