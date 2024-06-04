@@ -103,6 +103,7 @@ module ALU (
     output addrch,
     output [63:0] naddr
 );
+    wire [63:0] co = {64{0}}
     wire [63:0] C1;
     ADDER32 addermaster(A,B,C1);
     wire [63:0] C2;
@@ -115,22 +116,22 @@ module ALU (
     LOAD truck(A,value,highlow,C5);
     wire g = instr == 0;
     wire [63:0] oc1;
-    gate gate1(C1,0,g,oc1);
+    gate gate1(C1,co,g,oc1);
     wire g1 = instr == 1;
     wire [63:0] oc2;
-    gate gate2(C2,0,g1,oc2);
+    gate gate2(C2,co,g1,oc2);
     wire g2 = instr == 2;
     wire [63:0] oc3;
-    gate gate3(C3,0,g2,oc3);
+    gate gate3(C3,co,g2,oc3);
     wire g3 = instr == 3;
     wire [63:0] oc4;
-    gate gate4(C4,0,g3,oc4);
+    gate gate4(C4,co,g3,oc4);
     wire [63:0] oc5;
     wire g4 = (instr == 7 | instr == 4 | instr == 6);
-    gate gate5(A,0,g4,oc5);
+    gate gate5(A,co,g4,oc5);
     wire [63:0] oc6;
     wire g5 = (instr == 5);
-    gate gate6(C5,0,g5,oc6);
+    gate gate6(C5,co,g5,oc6);
     wire [63:0] oc7 = (A/B) & {64{instr == 17}}; 
     wire [63:0] oc8 = (A*B) & {64{instr == 16}}; 
     wire [63:0] tempc = (((oc1 | oc2) | (oc3 | oc4)) | (oc5 | oc6)) | (oc7 | oc8);
