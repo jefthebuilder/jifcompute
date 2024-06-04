@@ -32,9 +32,14 @@ module tt_um_jefloverockets_cpuhandler (
    reg [7:0] data2;
    reg [7:0] data3;
    reg [7:0] data4;
+    
+    reg [7:0] data5;
+    reg [7:0] data6;
+    reg [7:0] data7;
+    reg [7:0] data8;
 
 
-  assign data = {data1,data2,data3,data4};
+    assign data = {data1,data2,data3,data4,data5,data6,data7,data8};
   assign dataio = uio_in;
 
   reg [31:0] dataout;
@@ -42,11 +47,11 @@ module tt_um_jefloverockets_cpuhandler (
   assign uio_oe = {8{~rw}};
   assign cpuclock = count != 0;
   cpu cpf(data,dataout,addr,rw,cpuclock,cpuclock,rst);
-  reg [4:0] tcount;
+    reg [5:0] tcount;
 
   counter regcount(clk,1'sb1,rst,tcount,count);
   
-  assign tcount = {5{(count <= 8)}} & count + 1;
+    assign tcount = {6{(count <= 16)}} & count + 1;
 
   always@(negedge clk)
           begin
@@ -73,33 +78,82 @@ module tt_um_jefloverockets_cpuhandler (
                    uio_out <= dataout[31:24];
 
                    end
+                   
                   5: begin
+                      uo_out <= addr[39:32];
+                      uio_out <= dataout[39:32];
+                     
+                  end
+                  6: begin
+                      uo_out <= addr[47:40];
+                      uio_out <= dataout[47:40];
+                     
+                  end
+                  7: begin
+                      uo_out <= addr[55:48];
+                      uio_out <= dataout[55:48];
+                  
+                  end
+                  8: begin
+                      uo_out <= addr[63:55];
+                      uio_out <= dataout[63:55];
+
+                   end
+                  9: begin
                    uo_out[0] <= ~rw;
                    uio_out <= 0;
 
                   end
-                  6: begin
+                  10: begin
                     data1 <= uio_in;
                     uo_out <= 0;
                     uio_out <= 0;
                     //uio_out <= dataout[7:0];
                   end
-                  7: begin
+                  11: begin
                     data2 <= uio_in;
 uo_out <= 0;
                     uio_out <= 0;
                     //uio_out <= dataout[15:8];
                   
                   end
-                  8: begin
+                  12: begin
                     data3 <= uio_in;
 uo_out <= 0;
                     uio_out <= 0;
                      //uio_out <= dataout[15:8];
                   
                   end
-                  9: begin
+                  13: begin
                     data4 <= uio_in;
+                    uo_out <= 0;
+                                        uio_out <= 0;
+                    //uio_out <= dataout[23:16];
+
+                  end
+                   
+                  14: begin
+                    data5 <= uio_in;
+                    uo_out <= 0;
+                    uio_out <= 0;
+                    //uio_out <= dataout[7:0];
+                  end
+                  15: begin
+                    data6 <= uio_in;
+uo_out <= 0;
+                    uio_out <= 0;
+                    //uio_out <= dataout[15:8];
+                  
+                  end
+                  16: begin
+                    data7 <= uio_in;
+uo_out <= 0;
+                    uio_out <= 0;
+                     //uio_out <= dataout[15:8];
+                  
+                  end
+                  17: begin
+                    data8 <= uio_in;
                     uo_out <= 0;
                                         uio_out <= 0;
                     //uio_out <= dataout[23:16];
