@@ -156,7 +156,7 @@ module cpu(
 
     assign instr = data;
     assign winstr = stato == 0 ;
-    assign writinginstr = (instro[5:0] != 7);
+    assign writinginstr = (instro[5:0] == 7);
 
     ADDER32 adder1(addro,1,temp_address);
     ALU alu1(clk,rega,regb,regb,value,highlow,flag1,flag2,flag3,instro[5:0],regc,addrchange,naddr);
@@ -241,7 +241,7 @@ module cpu(
 wire taddr = naddr != 0 & stato == 1 & writinginstr;
  assign address = ({32{taddr}} & naddr) | ({32{~taddr}} & addro);
    //assign address= addro;
-   assign rw = (stato == 0) | ((stato != 0) & writinginstr);
+   assign rw = (stato == 0) | ~((stato != 0) & writinginstr);
     assign state = ((({3{stato == 0}} & 1) | ({3{stato == 1}} & 2) ) | ({3{stato == 2}} & 0));
      assign wstate = clk;
     // state 1 removed temp change
@@ -252,7 +252,7 @@ wire taddr = naddr != 0 & stato == 1 & writinginstr;
 
     
 
-     assign datao = regc & writinginstr;
+     assign datao = regc & {32{writinginstr}};
     
     
     
