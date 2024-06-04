@@ -155,7 +155,7 @@ module cpu(
     assign value = instro[63:32];
 
     assign instr = data;
-    assign winstr = stato == 0 ;
+    assign winstr = stato == 0;
     assign writinginstr = (instro[5:0] == 7);
     wire [63:0] nothing;
     ADDER32 adder1(addro,{{63{1'sb0}},1'sb1},1'sb0,temp_address,nothing);
