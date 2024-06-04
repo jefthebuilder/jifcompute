@@ -4,7 +4,7 @@ from cocotb.triggers import ClockCycles
 
 program_add = [
     "000000_000_000_000_0_0000000000000000",
-    "0000000010011110_0_000_000_000_000101",
+    "0000000110011110_0_000_000_000_000101",
     "0000000010011110_0_001_011_000_000101",
     "0000000000000000_0_010_000_001_000000",
     "0000000000000000_0_010_111_010_000111",
@@ -45,7 +45,7 @@ def prepareprogram(program):
     for programline in program:
         pr2.append(programline.replace("_",""))
     return pr2
-async def testprogram(dut,program,result=158+158,maxi=100):
+async def testprogram(dut,program,result=158+158+256,maxi=100):
     global cycles
     done = False
     dut._log.info("Test project behavior")
