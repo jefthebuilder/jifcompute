@@ -252,7 +252,7 @@ wire taddr = naddr != 0 & stato == 1;
 
     
 
-     assign datao = regc;
+     assign datao = regc & writinginstr;
     
     
     
