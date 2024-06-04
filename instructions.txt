@@ -15,5 +15,5 @@
 001110: jmp (jumps at address stored in reg 8)
 001111: jmc <flag> (jumps at address stored in reg 8)
 structure:
-<value><h/l><regc/flag3><regb/flag2><rega/flag1><instruction>
-16bit   1bit  3bit           3bit     3bit       6bit
+<value><nothing><h/l><regc/flag3><regb/flag2><rega/flag1><instruction>
+32bit    16bit      1bit  3bit           3bit     3bit       6bit
