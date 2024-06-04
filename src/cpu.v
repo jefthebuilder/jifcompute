@@ -158,7 +158,7 @@ module cpu(
     assign winstr = stato == 0 ;
     assign writinginstr = (instro[5:0] == 7);
 
-    ADDER32 adder1(addro,{{63{0}},1},temp_address);
+    ADDER32 adder1(addro,{{63{1'sd0}},1},temp_address);
     ALU alu1(clk,rega,regb,regb,value,highlow,flag1,flag2,flag3,instro[5:0],regc,addrchange,naddr);
 
         // Assign rega based on tempinstr
@@ -235,11 +235,11 @@ module cpu(
     assign fh = ( flag3);
     assign fwh =  {1{tempinstr4 == 7}} & exe & ~exereg;
     // state 0
-  wire [63:0] state1 = {32{stato == 1}};
+  wire [63:0] state1 = {64{stato == 1}};
    wire [63:0] tempaddr = ((addro & {32{stato == 0}}) | (naddr));
   // assign address = ((tempaddr == 0) & addro) | ((tempaddr != 0) & tempaddr);
 wire taddr = naddr != 0 & stato == 1 & writinginstr;
- assign address = ({32{taddr}} & naddr) | ({32{~taddr}} & addro);
+ assign address = ({64{taddr}} & naddr) | ({32{~taddr}} & addro);
    //assign address= addro;
    assign rw = (stato == 0) | ~((stato != 0) & writinginstr);
     assign state = ((({3{stato == 0}} & 1) | ({3{stato == 1}} & 2) ) | ({3{stato == 2}} & 0));
@@ -247,12 +247,12 @@ wire taddr = naddr != 0 & stato == 1 & writinginstr;
     // state 1 removed temp change
      
      assign temp2 = ~addrchange;
-    assign addr = ((({32{temp2}} & temp_address) | {32{~temp2}} & naddr));
+    assign addr = ((({64{temp2}} & temp_address) | {32{~temp2}} & naddr));
     assign waddr = {1{stato == 2}};
 
     
 
-     assign datao = regc & {32{writinginstr}};
+     assign datao = regc & {64{writinginstr}};
     
     
     
