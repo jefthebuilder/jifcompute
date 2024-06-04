@@ -42,8 +42,8 @@ module tt_um_jefloverockets_cpuhandler (
     assign data = {data1,data2,data3,data4,data5,data6,data7,data8};
   assign dataio = uio_in;
 
-  reg [63:0] dataout;
-  reg [63:0] addr;
+  wire [63:0] dataout;
+  wire [63:0] addr;
   assign uio_oe = {8{~rw}};
   assign cpuclock = count != 0;
   cpu cpf(data,dataout,addr,rw,cpuclock,cpuclock,rst);
