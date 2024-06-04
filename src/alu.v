@@ -110,7 +110,8 @@ module ALU (
     wire [63:0] co = {64{1'sd0}};
     wire [63:0] C1;
     wire [63:0] C2
-    ADDER32 addermaster(A,B,(instr == 1),C1,C2);
+    wire subtract =(instr == 1);
+    ADDER32 addermaster(A,B,subtract,C1,C2);
    
     wire [63:0] C3;
     SHIFTERLEFT shifterlinks(A,B,C3);
