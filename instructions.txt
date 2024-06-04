@@ -1,20 +1,19 @@
-add <reg a> <reg b> <reg c>
-sub <reg a> <reg b> <reg c>
-<< <reg a > <reg b> <reg c>
->> <reg a > <reg b> <reg c>
-mov <reg a> <reg b> <reg c>
-ld <high(1)/low(0)> <regc> <value>
-lda <none> <reg b> <reg c> (loads at address stored in reg b)
-sta <rega> <reg b> (stores at address stored in reg b)
-equal <reg a> <reg b> <flag>
-smaller <reg a> <reg b> <flag>
-bigger <reg a> <reg b> <flag>
-not <flag1> <None> <flag3>
-and <flag1> <flag2> <flag3>
-movf <flag1> <None> <flag3>
-jmp (jumps at address stored in reg 8)
-jmc <flag> (jumps at address stored in reg 8)
+000000: add <reg a> <reg b> <reg c>
+000001: sub <reg a> <reg b> <reg c>
+000010: << <reg a > <reg b> <reg c>
+000011: >> <reg a > <reg b> <reg c>
+000100: mov <reg a> <reg b> <reg c>
+000101: ld <high(1)/low(0)> <regc> <value>
+000110: lda <none> <reg b> <reg c> (loads at address stored in reg b)
+000111: sta <rega> <reg b> (stores at address stored in reg b)
+001000: equal <reg a> <reg b> <flag>
+001001: smaller <reg a> <reg b> <flag>
+001010: bigger <reg a> <reg b> <flag>
+001011: not <flag1> <None> <flag3>
+001100: and <flag1> <flag2> <flag3>
+001101: movf <flag1> <None> <flag3>
+001110: jmp (jumps at address stored in reg 8)
+001111: jmc <flag> (jumps at address stored in reg 8)
 structure:
 <value><h/l><regc/flag3><regb/flag2><rega/flag1><instruction>
 16bit   1bit  3bit           3bit     3bit       6bit
-the final instruction needs to be reversed
