@@ -59,13 +59,17 @@ endmodule
 
 module ADDER32 (
     input  [63:0] a,     // First 64-bit input
-    input  [63:0] b,     // Second 64-bit input
-    output [63:0] sum    // 64-bit sum output
+    input  [63:0] b, 
+    input sub,    // Second 64-bit input
+    output [63:0] sum  ,
+    output [63:0] sum2  // 64-bit sum output
       // Carry-out bit
 );
+    
+    
     wire carry;
-    assign {carry, sum} = a + b; // Perform the addition and assign the result to sum and carry
-
+    assign {carry, sum} = a + ( b xor {64{sub}}); // Perform the addition and assign the result to sum and carry
+    assign sum2 = sum;
 endmodule
 
 module LOAD(
@@ -105,9 +109,9 @@ module ALU (
 );
     wire [63:0] co = {64{1'sd0}};
     wire [63:0] C1;
-    ADDER32 addermaster(A,B,C1);
-    wire [63:0] C2;
-    SUBTRACT32 aftrekker4(A,B,C2);
+    wire [63:0] C2
+    ADDER32 addermaster(A,B,instr == 1,C1,C2);
+   
     wire [63:0] C3;
     SHIFTERLEFT shifterlinks(A,B,C3);
     wire [63:0] C4;
