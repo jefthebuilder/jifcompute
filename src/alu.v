@@ -103,7 +103,7 @@ module ALU (
     output addrch,
     output [63:0] naddr
 );
-    wire [63:0] co = {64{0}}
+    wire [63:0] co = {64{0}};
     wire [63:0] C1;
     ADDER32 addermaster(A,B,C1);
     wire [63:0] C2;
