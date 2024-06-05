@@ -9,7 +9,7 @@ module transceiver(
 );
     reg [3:0] index;
     reg [7:0] data2;
-    always@(posedge clock)
+    always@(negedge clock)
         begin
 
                 case (index)
