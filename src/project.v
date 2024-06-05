@@ -95,8 +95,8 @@ module tt_um_jefloverockets_cpuhandler (
                   
                   end
                   8: begin
-                      uo_out <= addr[63:55];
-                      uio_out <= dataout[63:55];
+                      uo_out <= addr[63:56];
+                      uio_out <= dataout[63:56];
 
                    end
                   9: begin
