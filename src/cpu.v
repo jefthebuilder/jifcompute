@@ -92,7 +92,7 @@ endmodule
 module cpu(
     input [63:0] data,
     output [63:0] datao,
-    output [63:0] address,
+    output reg [63:0] address,
     output rw,
     input clk,
     input clock, // register clock for resetting
@@ -238,7 +238,7 @@ module cpu(
   wire [63:0] state1 = {64{stato == 1}};
    wire [63:0] tempaddr = ((addro & {64{stato == 0}}) | (naddr));
   // assign address = ((tempaddr == 0) & addro) | ((tempaddr != 0) & tempaddr);
-wire taddr = naddr != 0 & stato == 1 & writinginstr;
+wire taddr = naddr != 0 & (stato == 1 & writinginstr);
  assign address = ({64{taddr}} & naddr) | ({64{~taddr}} & addro);
    //assign address= addro;
    assign rw = (stato == 0) | ~((stato != 0) & writinginstr);
